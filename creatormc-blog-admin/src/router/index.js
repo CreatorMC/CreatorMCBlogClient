@@ -1,18 +1,26 @@
 import nProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
 import DashboardIndex from "../views/dashboard/index.vue";
+import Index from "../views/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      redirect: "/index"
+      redirect: "/index/dashboard"
     },
     {
       path: "/index",
-      name: "DashboardIndex",
-      component: DashboardIndex,
+      name: "Index",
+      component: Index,
+      children: [
+        {
+          path: "dashboard",
+          name: "DashboardIndex",
+          component: DashboardIndex
+        }
+      ]
     },
   ],
 });

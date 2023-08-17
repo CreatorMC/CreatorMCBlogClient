@@ -18,5 +18,8 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style>
+body {
+  margin: 0px;
+}
 </style>
