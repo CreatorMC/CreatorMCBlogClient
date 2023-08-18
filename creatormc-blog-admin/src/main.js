@@ -6,10 +6,11 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'  //引入 Element
 import router from "./router";                                  //引入 VueRouter
 import NProgress from 'nprogress'                               //引入 NProgress
 import 'nprogress/nprogress.css'
+import '@/styles/index.scss'                                    //全局css
 
 import App from './App.vue'
 
-NProgress.configure()
+NProgress.configure({ showSpinner: false })                     //配置没有加载时的小圈圈
 
 const app = createApp(App)
 

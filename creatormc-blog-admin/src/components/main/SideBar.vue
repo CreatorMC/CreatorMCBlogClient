@@ -1,13 +1,3 @@
-<script>
-export default {
-  data() {
-    return {
-
-    }
-  }
-}
-</script>
-
 <template>
   <div id="container">
     <el-scrollbar>
@@ -37,8 +27,18 @@ export default {
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+
+    }
+  }
+}
+</script>
+
 <style scoped>
 #container {
-  height: 100%;
+  height: 100vh;
 }
 </style>

@@ -18,7 +18,10 @@ const router = createRouter({
         {
           path: "dashboard",
           name: "DashboardIndex",
-          component: DashboardIndex
+          component: DashboardIndex,
+          meta: {
+            menuName: "主页"
+          }
         }
       ]
     },

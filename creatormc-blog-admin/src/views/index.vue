@@ -1,26 +1,13 @@
-<script>
-import SideBar from "../components/main/SideBar.vue"
-
-export default {
-  data() {
-    return {
-      
-    }
-  },
-  components: {
-    SideBar
-  }
-}
-</script>
-
 <template>
   <div>
     <el-container>
       <el-aside class="side-style">
-        <SideBar/>
+        <SideBar />
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <TopBar />
+        </el-header>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -28,6 +15,23 @@ export default {
     </el-container>
   </div>
 </template>
+
+<script>
+import SideBar from "../components/main/SideBar.vue"
+import TopBar from "../components/main/TopBar.vue";
+
+export default {
+  data() {
+    return {
+
+    }
+  },
+  components: {
+    SideBar,
+    TopBar
+  }
+}
+</script>
 
 <style scoped>
 .side-style {
