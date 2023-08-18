@@ -5,7 +5,7 @@
         <SideBar />
       </el-aside>
       <el-container>
-        <el-header>
+        <el-header class="head-style">
           <TopBar />
         </el-header>
         <el-main>
@@ -33,8 +33,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .side-style {
-  width: 210px;
+  width: $sideWidth;
+}
+.head-style {
+  height: $headHeight;
 }
 </style>

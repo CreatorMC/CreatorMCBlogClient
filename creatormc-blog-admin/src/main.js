@@ -6,7 +6,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'  //引入 Element
 import router from "./router";                                  //引入 VueRouter
 import NProgress from 'nprogress'                               //引入 NProgress
 import 'nprogress/nprogress.css'
-import '@/styles/index.scss'                                    //全局css
 
 import App from './App.vue'
 
