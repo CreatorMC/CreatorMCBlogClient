@@ -3,3 +3,15 @@
 .el-header {
   padding: 0px !important;
 }
+
+.el-aside {
+  width: auto;
+  //菜单没有边界线
+  .el-menu {
+    border-right: none;
+  }
+  //重置菜单折叠的过渡
+  .horizontal-collapse-transition {
+    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+  }
+}

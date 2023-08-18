@@ -3,8 +3,11 @@
     <el-row>
       <el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18">
         <div class="left-container">
-          <el-button class="fold-button" plain size="default" @click="">
-            <el-icon :size="20"><Expand /></el-icon>
+          <el-button class="fold-button" plain size="default" @click="foldMenu">
+            <el-icon :size="20">
+              <Fold v-show="!isCollapse" />
+              <Expand v-show="isCollapse" />
+            </el-icon>
           </el-button>
           <el-breadcrumb :separator-icon="arrowRightIcon">
             <el-breadcrumb-item v-for="(item, index) in $route.matched" v-show="index != 0" :to="{ path: item.path }">{{ item.meta.menuName }}</el-breadcrumb-item>
@@ -25,7 +28,17 @@ import { markRaw } from 'vue';
 export default {
   data() {
     return {
-      arrowRightIcon: markRaw(ArrowRight)
+      arrowRightIcon: markRaw(ArrowRight),
+      isCollapse: false                      //控制页面左侧菜单栏是否折叠
+    }
+  },
+  methods: {
+    /**
+     * 改变菜单折叠状态
+     */
+    foldMenu() {
+      this.isCollapse = !this.isCollapse;
+      this.$emit('updateCollapse', this.isCollapse);
     }
   }
 }

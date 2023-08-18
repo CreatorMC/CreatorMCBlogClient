@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-container>
-      <el-aside class="side-style">
-        <SideBar />
+      <el-aside>
+        <SideBar :is-collapse="isCollapse" />
       </el-aside>
       <el-container>
         <el-header class="head-style">
-          <TopBar />
+          <TopBar @updateCollapse="updateCollapse" />
         </el-header>
         <el-main>
           <router-view></router-view>
@@ -23,20 +23,25 @@ import TopBar from "../components/main/TopBar.vue";
 export default {
   data() {
     return {
-
+      isCollapse: false
     }
   },
   components: {
     SideBar,
     TopBar
+  },
+  methods: {
+    /**
+     * 改变菜单折叠状态
+     */
+    updateCollapse(arg) {
+      this.isCollapse = arg;
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.side-style {
-  width: $sideWidth;
-}
 .head-style {
   height: $headHeight;
 }
