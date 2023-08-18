@@ -55,7 +55,7 @@ export default {
   background-color: rgb(38, 52, 69);
 }
 .theme {
-  --el-menu-hover-bg-color: #1f2d3d;
+  --el-menu-hover-bg-color: #001528;
   --el-menu-text-color: #fff;
 }
 </style>
