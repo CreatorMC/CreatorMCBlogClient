@@ -2,13 +2,19 @@ import nProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
 import DashboardIndex from "../views/dashboard/index.vue";
 import Index from "../views/index.vue";
+import Login from "../views/login/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      redirect: "/index/dashboard"
+      redirect: "/login"
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: Login
     },
     {
       path: "/index",
