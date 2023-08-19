@@ -15,21 +15,32 @@
         </div>
       </el-col>
       <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
-        头像
+        <div class="right-container">
+          <el-dropdown>
+            <el-avatar shape="square" :src="avatar" fit="cover"></el-avatar>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>首页</el-dropdown-item>
+                <el-dropdown-item divided>退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import { ArrowRight } from '@element-plus/icons-vue'
+import { ArrowRight, UserFilled } from '@element-plus/icons-vue'
 import { markRaw } from 'vue';
 
 export default {
   data() {
     return {
       arrowRightIcon: markRaw(ArrowRight),
-      isCollapse: false                      //控制页面左侧菜单栏是否折叠
+      isCollapse: false,                      //控制页面左侧菜单栏是否折叠
+      avatar: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
     }
   },
   methods: {
@@ -50,6 +61,7 @@ export default {
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   .el-row {
     height: 100%;
+    align-items: center;
     align-content: center;
   }
 }
@@ -62,5 +74,14 @@ export default {
   width: 30px;
   height: 30px;
   margin-right: 5px;
+}
+.right-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5px;
+  .el-avatar {
+    outline: none;
+  }
 }
 </style>
