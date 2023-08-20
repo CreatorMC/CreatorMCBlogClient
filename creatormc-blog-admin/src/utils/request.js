@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ElMessage } from "element-plus";
 import { globalProperties } from "../main";
 const env = import.meta.env;
 
@@ -21,20 +22,23 @@ service.interceptors.request.use(function (config) {
   return config;
 }, function (error) {
   // 对请求错误做些什么
-  return Promise.reject(error);
+  return ElMessage.error(error);
 });
 
 // 添加响应拦截器
 service.interceptors.response.use(function (response) {
   // 2xx 范围内的状态码都会触发该函数。
-  // 对响应数据做点什么
+  //完成进度条
   globalProperties.$nprogress.done();
+  if(response.data.code != 200) {
+    //请求有异常，显示错误提示，错误提示是从服务端返回回来的
+    ElMessage.error(response.data.msg);
+  }
   return response.data;
 }, function (error) {
   // 超出 2xx 范围的状态码都会触发该函数。
-  // 对响应错误做点什么
   globalProperties.$nprogress.done();
-  return Promise.reject(error);
+  return ElMessage.error(error);
 });
 
 export default service
