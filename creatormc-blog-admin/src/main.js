@@ -24,3 +24,6 @@ app.use(router)
 app.config.globalProperties.$nprogress = NProgress  //页面顶部加载进度条
 
 app.mount('#app')
+
+//导出全局属性
+export const globalProperties = app.config.globalProperties;

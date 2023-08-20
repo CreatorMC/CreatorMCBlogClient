@@ -25,18 +25,21 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-image class="bg-img" src="https://t.mwm.moe/moez" fit="cover" draggable="false" @contextmenu="rightClick"></el-image>
+    <el-image class="bg-img" :src="backgroundImg" fit="cover" draggable="false" @contextmenu="rightClick"></el-image>
   </div>
 </template>
 
 <script>
+import { getRandomImg } from '../../api/login';
+
 export default {
   data() {
     return {
       form: {
         userName: "",
         password: ""
-      }
+      },
+      backgroundImg: ""
     }
   },
   methods: {
@@ -47,6 +50,11 @@ export default {
       //禁止右键保存图片
       e.preventDefault();
     }
+  },
+  mounted() {
+    getRandomImg().then((response) => {
+      this.backgroundImg = response.data;
+    });
   }
 }
 </script>
