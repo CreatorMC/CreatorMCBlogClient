@@ -7,6 +7,8 @@ import router from "./router";                                  //引入 VueRout
 import NProgress from 'nprogress'                               //引入 NProgress
 import 'nprogress/nprogress.css'
 import { createPinia } from 'pinia'                             //引入 Pinia
+import mavonEditor from 'mavon-editor'                          //引入 MavonEditor
+import 'mavon-editor/dist/css/index.css'
 
 import App from './App.vue'
 
@@ -23,6 +25,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(ElementPlus)
 app.use(router)
 app.use(pinia)
+app.use(mavonEditor)
 
 //定义全局属性
 app.config.globalProperties.$nprogress = NProgress  //页面顶部加载进度条
