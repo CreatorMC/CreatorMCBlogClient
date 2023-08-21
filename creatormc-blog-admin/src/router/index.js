@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import DashboardIndex from "../views/dashboard/index.vue";
 import Index from "../views/index.vue";
 import Login from "../views/login/index.vue";
+import WriteIndex from "../views/write/index.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,8 +26,17 @@ const router = createRouter({
           path: "dashboard",
           name: "DashboardIndex",
           component: DashboardIndex,
+          //menuName 应该从后端接收
           meta: {
             menuName: "主页"
+          }
+        },
+        {
+          path: "write",
+          name: "WriteIndex",
+          component: WriteIndex,
+          meta: {
+            menuName: "写文章"
           }
         }
       ]

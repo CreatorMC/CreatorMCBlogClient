@@ -33,17 +33,24 @@
 
 <script>
 import { ArrowRight, UserFilled } from '@element-plus/icons-vue'
-import { markRaw } from 'vue';
+import { markRaw, ref } from 'vue';
 import { logout } from '../../api/login';
 import router from '../../router';
 import { userStore } from '../../store/user';
 
 export default {
-  data() {
+  setup() {
+    const store = userStore();
+    //创建响应式的头像变量
+    var avatar = ref("");
+    //订阅pinia的userStore产生的变化，发生变化时重新给响应式对象赋值
+    store.$subscribe((mutation, state) => {
+      avatar.value = state.user.avatar;
+    });
     return {
       arrowRightIcon: markRaw(ArrowRight),
       isCollapse: false,                      //控制页面左侧菜单栏是否折叠
-      avatar: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+      avatar                                  //头像链接
     }
   },
   methods: {

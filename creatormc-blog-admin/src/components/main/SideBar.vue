@@ -1,14 +1,14 @@
 <template>
   <div id="container">
     <el-scrollbar :class="isCollapse ? '' : 'side-width'" class="transition bg">
-      <el-menu default-active="1" popper-effect="dark" :collapse="isCollapse" class="bg theme">
-        <el-menu-item index="1">
+      <el-menu router default-active="/index/dashboard" popper-effect="dark" :collapse="isCollapse" class="bg theme">
+        <el-menu-item index="/index/dashboard">
           <el-icon><Menu /></el-icon>
           <template #title>
             <span>主页</span>
           </template>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="/index/write">
           <el-icon><Menu /></el-icon>
           <template #title>
             <span>写文章</span>
