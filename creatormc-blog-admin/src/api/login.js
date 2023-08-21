@@ -13,6 +13,18 @@ export function login(data) {
 }
 
 /**
+ * 退出登录
+ * @returns 
+ */
+export function logout() {
+  return service.post("/user/logout", null, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
  * 获取随机图片
  * @returns 
  */

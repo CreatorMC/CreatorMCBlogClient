@@ -5,13 +5,13 @@
         <el-menu-item index="1">
           <el-icon><Menu /></el-icon>
           <template #title>
-            <span>Navigator One</span>
+            <span>主页</span>
           </template>
         </el-menu-item>
         <el-menu-item index="2">
           <el-icon><Menu /></el-icon>
           <template #title>
-            <span>Navigator Two</span>
+            <span>写文章</span>
           </template>
         </el-menu-item>
         <el-menu-item index="3">

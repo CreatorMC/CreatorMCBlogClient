@@ -21,7 +21,7 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>首页</el-dropdown-item>
-                <el-dropdown-item divided>退出登录</el-dropdown-item>
+                <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -34,6 +34,9 @@
 <script>
 import { ArrowRight, UserFilled } from '@element-plus/icons-vue'
 import { markRaw } from 'vue';
+import { logout } from '../../api/login';
+import router from '../../router';
+import { userStore } from '../../store/user';
 
 export default {
   data() {
@@ -50,6 +53,19 @@ export default {
     foldMenu() {
       this.isCollapse = !this.isCollapse;
       this.$emit('updateCollapse', this.isCollapse);
+    },
+
+    /**
+     * 退出登录
+     */
+    logout() {
+      logout().then((response) => {
+        localStorage.removeItem("token");
+        router.push("/login");
+        const store = userStore();
+        //恢复store状态到初始值
+        store.$reset();
+      });
     }
   }
 }
