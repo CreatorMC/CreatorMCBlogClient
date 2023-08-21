@@ -22,7 +22,8 @@ service.interceptors.request.use(function (config) {
   return config;
 }, function (error) {
   // 对请求错误做些什么
-  return ElMessage.error(error);
+  ElMessage.error(error)
+  return error;
 });
 
 // 添加响应拦截器
@@ -33,12 +34,14 @@ service.interceptors.response.use(function (response) {
   if(response.data.code != 200) {
     //请求有异常，显示错误提示，错误提示是从服务端返回回来的
     ElMessage.error(response.data.msg);
+    return null;
   }
   return response.data;
 }, function (error) {
   // 超出 2xx 范围的状态码都会触发该函数。
   globalProperties.$nprogress.done();
-  return ElMessage.error(error);
+  ElMessage.error(error);
+  return error;
 });
 
 export default service
