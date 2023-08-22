@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import DashboardIndex from "../views/dashboard/index.vue";
 import Index from "../views/index.vue";
 import Login from "../views/login/index.vue";
-import WriteIndex from "../views/write/index.vue"
+import WriteIndex from "../views/content/article/write/index.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -75,9 +75,9 @@
 
 <script>
 import { ElMessage, ElMessageBox } from "element-plus";
-import { deleteArticleCover, uploadArticleCover } from "../../api/upload"
-import { getAllCategory } from "../../api/category"
-import { getAllTag } from "../../api/tag"
+import { deleteArticleCover, uploadArticleCover } from "@/api/upload"
+import { getAllCategory } from "@/api/category"
+import { getAllTag } from "@/api/tag"
 
 export default {
   data() {
