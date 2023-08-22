@@ -16,11 +16,13 @@
   }
 }
 
+//交换了确认框里"确认"按钮和"取消"按钮的位置
 .el-message-box .el-message-box__btns {
   justify-content: unset !important;
   flex-direction: row-reverse !important;
 }
 
+//交换了确认框里"确认"按钮和"取消"按钮的位置
 .el-message-box .el-message-box__btns button:nth-child(2) {
   margin-left: 0px !important;
   margin-right: 10px !important;

@@ -10,19 +10,15 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="分类">
-            <el-select v-model="form.categoryId" class="select-style" placeholder="请选择">
-              <el-option label="选项1" :value="1"></el-option>
-              <el-option label="选项2" :value="2"></el-option>
-              <el-option label="选项3" :value="3"></el-option>
+            <el-select v-model="form.categoryId" class="select-style" placeholder="请选择" :loading="isLoadingCategory">
+              <el-option v-for="item in categoryList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="标签">
-            <el-select v-model="form.tags" class="select-style" placeholder="请选择" multiple>
-              <el-option label="选项1" :value="1"></el-option>
-              <el-option label="选项2" :value="2"></el-option>
-              <el-option label="选项3" :value="3"></el-option>
+            <el-select v-model="form.tags" class="select-style" placeholder="请选择" multiple :loading="isLoadingTag">
+              <el-option v-for="item in tagList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -80,6 +76,8 @@
 <script>
 import { ElMessage, ElMessageBox } from "element-plus";
 import { deleteArticleCover, uploadArticleCover } from "../../api/upload"
+import { getAllCategory } from "../../api/category"
+import { getAllTag } from "../../api/tag"
 
 export default {
   data() {
@@ -105,7 +103,24 @@ export default {
         isComment: "1",
         //标签id列表
         tags: []
-      }
+      },
+      //分类对象列表
+      categoryList: [
+        {
+          "description": "",
+          "id": "",
+          "name": ""
+        }
+      ],
+      //标签对象列表
+      tagList: [
+        {
+          "id": "",
+          "name": ""
+        }
+      ],
+      isLoadingCategory: true,
+      isLoadingTag: true
     }
   },
   methods: {
@@ -177,6 +192,18 @@ export default {
       });
       return false;
     }
+  },
+  mounted() {
+    //查询所有分类，显示到选择文章分类下拉框中
+    getAllCategory().then((response) => {
+      this.categoryList = response.data;
+      this.isLoadingCategory = false;
+    });
+    //查询所有标签，显示到选择标签的下拉框中
+    getAllTag().then((response) => {
+      this.tagList = response.data;
+      this.isLoadingTag = false;
+    });
   }
 }
 </script>
