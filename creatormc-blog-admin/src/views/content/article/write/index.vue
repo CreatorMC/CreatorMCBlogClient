@@ -1,22 +1,22 @@
 <template>
   <div>
-    <el-form size="large" label-width="80px">
-      <el-form-item label="文章标题">
+    <el-form ref="form" :model="form" size="large" label-width="80px" :rules="rules">
+      <el-form-item prop="title" label="文章标题">
         <el-input v-model="form.title" placeholder="请输入文章标题"></el-input>
       </el-form-item>
-      <el-form-item label="文章摘要">
+      <el-form-item prop="summary" label="文章摘要">
         <el-input v-model="form.summary" type="textarea" placeholder="请输入文章摘要" :autosize="{ minRows: 2, maxRows: 4 }"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="分类">
+          <el-form-item prop="categoryId" label="分类">
             <el-select v-model="form.categoryId" class="select-style" placeholder="请选择" :loading="isLoadingCategory">
               <el-option v-for="item in categoryList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="标签">
+          <el-form-item prop="tags" label="标签">
             <el-select v-model="form.tags" class="select-style" placeholder="请选择" multiple :loading="isLoadingTag">
               <el-option v-for="item in tagList" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -25,7 +25,7 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="允许评论">
+          <el-form-item prop="isComment" label="允许评论">
             <el-radio-group v-model="form.isComment">
               <el-radio label="1">正常</el-radio>
               <el-radio label="0">停用</el-radio>
@@ -33,7 +33,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="是否置顶">
+          <el-form-item prop="isTop" label="是否置顶">
             <el-radio-group v-model="form.isTop">
               <el-radio label="1">是</el-radio>
               <el-radio label="0">否</el-radio>
@@ -41,7 +41,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="缩略图">
+      <el-form-item prop="thumbnail" label="缩略图">
         <el-upload
           ref="upload"
           class="width-style"
@@ -62,7 +62,7 @@
           </template>
         </el-upload>
       </el-form-item>
-      <el-form-item label="文章内容" class="width-style">
+      <el-form-item prop="content" label="文章内容" class="width-style">
         <mavon-editor class="width-style" v-model="form.content"/>
       </el-form-item>
       <el-form-item>
@@ -78,6 +78,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { deleteArticleCover, uploadArticleCover } from "@/api/upload"
 import { getAllCategory } from "@/api/category"
 import { getAllTag } from "@/api/tag"
+import { addArticle } from "@/api/article";
 
 export default {
   data() {
@@ -120,7 +121,38 @@ export default {
         }
       ],
       isLoadingCategory: true,
-      isLoadingTag: true
+      isLoadingTag: true,
+      //表单验证规则
+      rules: {
+        title: [
+          {
+            required: true,
+            message: '请输入文章标题',
+            trigger: 'blur'
+          }
+        ],
+        categoryId: [
+          {
+            required: true,
+            message: '请选择文章分类',
+            trigger: 'blur'
+          }
+        ],
+        tags: [
+          {
+            required: true,
+            message: '请选择文章标签',
+            trigger: 'blur'
+          }
+        ],
+        content: [
+          {
+            required: true,
+            message: '请输入文章内容',
+            trigger: 'blur'
+          }
+        ]
+      }
     }
   },
   methods: {
@@ -129,7 +161,20 @@ export default {
      */
     submitForm(status) {
       this.form.status = status;
-      console.log(this.form);
+      const that = this;
+      //表单校验
+      this.$refs['form'].validate((valid, fields) => {
+        if(valid) {
+          //校验成功
+          addArticle(that.form).then((response) => {
+            //添加文章成功
+            ElMessage.success("添加成功");
+            //重置表单
+            that.$refs['form'].resetFields();
+            //进行路由跳转
+          });
+        }
+      });
     },
     /**
      * 上传文章封面图
