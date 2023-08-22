@@ -35,6 +35,7 @@
 import { ArrowRight, UserFilled } from '@element-plus/icons-vue'
 import { markRaw, ref } from 'vue';
 import { logout } from '../../api/login';
+import { getAdminUserInfo } from '../../api/user';
 import router from '../../router';
 import { userStore } from '../../store/user';
 
@@ -43,6 +44,7 @@ export default {
     const store = userStore();
     //创建响应式的头像变量
     var avatar = ref("");
+    avatar.value = store.user.avatar;
     //订阅pinia的userStore产生的变化，发生变化时重新给响应式对象赋值
     store.$subscribe((mutation, state) => {
       avatar.value = state.user.avatar;
@@ -72,6 +74,25 @@ export default {
         const store = userStore();
         //恢复store状态到初始值
         store.$reset();
+        sessionStorage.clear();
+      });
+    }
+  },
+  mounted() {
+    if(localStorage.getItem("token") == null) {
+      //用户没有登录过，进入登录页进行登录
+      router.push("/login");
+      return;
+    }
+    //用户登录过了，获取用户信息
+    const store = userStore();
+    if(store.user.id == null || store.user.id == "") {
+      //用户信息没有获取过
+      getAdminUserInfo().then((response) => {
+        //将返回数据保存到pinia中
+        store.permissions = response.data.permissions;
+        store.roles = response.data.roles;
+        store.user = response.data.user;
       });
     }
   }

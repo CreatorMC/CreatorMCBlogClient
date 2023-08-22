@@ -20,5 +20,8 @@ export const userStore = defineStore("user",{
         sex: ""
       }
     }
+  },
+  persist: {
+    enabled: true   //开启存储，默认存储到sessionStorage
   }
 });
