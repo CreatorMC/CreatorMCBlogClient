@@ -68,10 +68,12 @@ export default {
           //把按钮状态设置为加载中
           this.isLogin = true;
           login(this.form).then((response) => {
-            //登录成功，保存token到localStorage中
-            localStorage.setItem("token", response.data.token);
-            //跳转到首页
-            router.push("/index/dashboard");
+            if(response != null) {
+              //登录成功，保存token到localStorage中
+              localStorage.setItem("token", response.data.token);
+              //跳转到首页
+              router.push("/index/dashboard");
+            }
           }).finally(() => {
             //恢复按钮状态
             this.isLogin = false;

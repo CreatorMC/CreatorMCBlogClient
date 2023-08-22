@@ -228,9 +228,11 @@ export default {
         //发送删除请求
         ElMessage.info("删除中");
         deleteArticleCover(that.form.thumbnail).then((response) => {
-          ElMessage.success("删除成功");
-          //删除请求成功后清空文件列表
-          that.$refs['upload'].clearFiles();
+          if(response != null) {
+            ElMessage.success("删除成功");
+            //删除请求成功后清空文件列表
+            that.$refs['upload'].clearFiles();
+          }
         });
       }).catch(() => {
         //取消删除(外层的返回false本身就是取消删除，所以此处不用做任何事)
@@ -241,13 +243,17 @@ export default {
   mounted() {
     //查询所有分类，显示到选择文章分类下拉框中
     getAllCategory().then((response) => {
-      this.categoryList = response.data;
-      this.isLoadingCategory = false;
+      if(response != null) {
+        this.categoryList = response.data;
+        this.isLoadingCategory = false;
+      }
     });
     //查询所有标签，显示到选择标签的下拉框中
     getAllTag().then((response) => {
-      this.tagList = response.data;
-      this.isLoadingTag = false;
+      if(response != null) {
+        this.tagList = response.data;
+        this.isLoadingTag = false;
+      }
     });
   }
 }

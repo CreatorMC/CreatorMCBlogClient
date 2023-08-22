@@ -1,6 +1,7 @@
 import axios from "axios";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { globalProperties } from "../main";
+import router from "../router";
 const env = import.meta.env;
 
 // 创建axios实例
@@ -33,6 +34,24 @@ service.interceptors.response.use(function (response) {
   globalProperties.$nprogress.done();
   if(response.data.code != 200) {
     //请求有异常，显示错误提示，错误提示是从服务端返回回来的
+    if(response.data.code == 401) {
+      //未登录
+      ElMessageBox.alert('您的登录状态已过期，请重新登录。', '提示', {
+        confirmButtonText: '确认',
+        callback: (action) => {
+          //删除token
+          localStorage.removeItem("token");
+          //跳转到登录页
+          router.push("/login");
+          const store = userStore();
+          //恢复store状态到初始值
+          store.$reset();
+          //清空sessionStorage
+          sessionStorage.clear();
+        }
+      })
+      return null;
+    }
     ElMessage.error(response.data.msg);
     return null;
   }
