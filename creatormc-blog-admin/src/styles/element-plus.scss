@@ -15,3 +15,13 @@
     transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
   }
 }
+
+.el-message-box .el-message-box__btns {
+  justify-content: unset !important;
+  flex-direction: row-reverse !important;
+}
+
+.el-message-box .el-message-box__btns button:nth-child(2) {
+  margin-left: 0px !important;
+  margin-right: 10px !important;
+}

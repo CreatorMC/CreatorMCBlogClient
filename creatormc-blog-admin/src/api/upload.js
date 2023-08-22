@@ -13,3 +13,17 @@ export function uploadArticleCover(data) {
     }
   });
 }
+
+/**
+ * 删除文章封面
+ * @param {*} data 图片链接
+ * @returns 
+ */
+export function deleteArticleCover(data) {
+  return service.delete("/deleteArticleCover", {
+    headers: {
+      'token': localStorage.getItem("token")
+    },
+    data: data
+  })
+}

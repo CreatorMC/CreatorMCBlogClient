@@ -79,7 +79,7 @@
 
 <script>
 import { ElMessage, ElMessageBox } from "element-plus";
-import { uploadArticleCover } from "../../api/upload"
+import { deleteArticleCover, uploadArticleCover } from "../../api/upload"
 
 export default {
   data() {
@@ -166,9 +166,12 @@ export default {
       ).then(() => {
         //确认删除
         //发送删除请求
-        console.log("删除");
-        //删除请求成功后清空文件列表
-        that.$refs['upload'].clearFiles();
+        ElMessage.info("删除中");
+        deleteArticleCover(that.form.thumbnail).then((response) => {
+          ElMessage.success("删除成功");
+          //删除请求成功后清空文件列表
+          that.$refs['upload'].clearFiles();
+        });
       }).catch(() => {
         //取消删除(外层的返回false本身就是取消删除，所以此处不用做任何事)
       });
