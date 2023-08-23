@@ -63,7 +63,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item prop="content" label="文章内容" class="width-style">
-        <mavon-editor class="width-style" v-model="form.content"/>
+        <mavon-editor class="width-style" ref="md" placeholder="请输入文章内容" v-model="form.content" @imgAdd="uploadArticleContentImg" @imgDel="deleteArticleContentImg" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('0')">发布</el-button>
@@ -238,6 +238,34 @@ export default {
         //取消删除(外层的返回false本身就是取消删除，所以此处不用做任何事)
       });
       return false;
+    },
+    /**
+     * 上传文章内容中的图片
+     */
+    uploadArticleContentImg(pos, imgfile) {
+      const that = this;
+      //构造请求所需的参数
+      let data = new FormData()
+      data.append("img", imgfile)
+      //发送请求
+      uploadArticleCover(data).then((response) => {
+        if(response != null) {
+          that.$refs['md'].$img2Url(pos, response.data);
+          //自己添加的属性，为了实现删除图片
+          imgfile.url = response.data;
+          ElMessage.success("上传成功");
+        }
+      })
+    },
+    /**
+     * 文章内容中删除图片
+     */
+    deleteArticleContentImg(args) {
+      deleteArticleCover(args[1].url).then((response) => {
+        if(response != null) {
+          ElMessage.success("删除成功");
+        }
+      });
     }
   },
   mounted() {
