@@ -2,7 +2,7 @@
   <div>
     <div id="container">
       <el-scrollbar :class="isCollapse ? '' : 'side-width'" class="transition bg">
-        <el-menu router default-active="/index/dashboard" popper-effect="dark" :collapse="isCollapse" class="bg theme">
+        <el-menu router :default-active="$route.path" popper-effect="dark" :collapse="isCollapse" class="bg theme">
           <el-menu-item index="/index/dashboard">
             <el-icon><Menu /></el-icon>
             <template #title>
@@ -15,12 +15,12 @@
               <span>写文章</span>
             </template>
           </el-menu-item>
-          <el-sub-menu index="3">
+          <el-sub-menu index="/index/system">
             <template #title>
               <el-icon><location /></el-icon>
               <span>系统管理</span>
             </template>
-            <el-menu-item index="">
+            <el-menu-item index="/index/system/user">
               <el-icon><Menu /></el-icon>
               <template #title>
                 <span>用户管理</span>
@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import router from '../../router';
+
 export default {
   props: {
     isCollapse: Boolean   //是否折叠菜单

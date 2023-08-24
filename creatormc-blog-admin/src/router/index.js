@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import DashboardIndex from "../views/dashboard/index.vue";
 import Index from "../views/index.vue";
 import Login from "../views/login/index.vue";
-import WriteIndex from "../views/content/article/write/index.vue"
+import WriteIndex from "../views/content/article/write/index.vue";
+import UserIndex from "../views/system/user/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,23 @@ const router = createRouter({
           meta: {
             menuName: "写文章"
           }
+        },
+        {
+          path: "system",
+          redirect: "/index/system/user",
+          meta: {
+            menuName: "系统管理"
+          },
+          children: [
+            {
+              path: "user",
+              name: "UserIndex",
+              component: UserIndex,
+              meta: {
+                menuName: "用户管理"
+              }
+            }
+          ]
         }
       ]
     },
