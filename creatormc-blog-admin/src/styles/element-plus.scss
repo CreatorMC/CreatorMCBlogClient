@@ -1,4 +1,5 @@
 //覆盖 ElementPlus 的样式
+@import './variables.scss';
 
 .el-header {
   padding: 0px !important;
@@ -10,10 +11,20 @@
   .el-menu {
     border-right: none;
   }
+  .el-sub-menu>.el-menu {
+    background-color: $sideSubMenuBgColor !important;
+  }
   //重置菜单折叠的过渡
   .horizontal-collapse-transition {
     transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
   }
+}
+
+//左侧菜单折叠后，鼠标放上去弹出的子菜单的样式
+.el-popper .el-menu--popup-container .el-menu--popup-right-start {
+  background-color: $sideSubMenuBgColor !important;
+  --el-menu-hover-bg-color: #{$sideMenuHoverBgColor};
+  --el-menu-text-color: #{$sideMenuTextColor};
 }
 
 //交换了确认框里"确认"按钮和"取消"按钮的位置

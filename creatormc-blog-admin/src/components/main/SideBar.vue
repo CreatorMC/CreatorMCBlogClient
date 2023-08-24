@@ -15,18 +15,60 @@
               <span>写文章</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="3">
-            <el-icon><document /></el-icon>
+          <el-sub-menu index="3">
             <template #title>
-              <span>Navigator Three</span>
+              <el-icon><location /></el-icon>
+              <span>系统管理</span>
             </template>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <el-icon><setting /></el-icon>
+            <el-menu-item index="">
+              <el-icon><Menu /></el-icon>
+              <template #title>
+                <span>用户管理</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item index="">
+              <el-icon><Menu /></el-icon>
+              <template #title>
+                <span>角色管理</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item index="">
+              <el-icon><Menu /></el-icon>
+              <template #title>
+                <span>菜单管理</span>
+              </template>
+            </el-menu-item>
+          </el-sub-menu>
+          <el-sub-menu index="4">
             <template #title>
-              <span>Navigator Four</span>
+              <el-icon><location /></el-icon>
+              <span>内容管理</span>
             </template>
-          </el-menu-item>
+            <el-menu-item>
+              <el-icon><Menu /></el-icon>
+              <template #title>
+                <span>文章管理</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item>
+              <el-icon><Menu /></el-icon>
+              <template #title>
+                <span>分类管理</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item>
+              <el-icon><Menu /></el-icon>
+              <template #title>
+                <span>友链管理</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item>
+              <el-icon><Menu /></el-icon>
+              <template #title>
+                <span>标签管理</span>
+              </template>
+            </el-menu-item>
+          </el-sub-menu>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -60,10 +102,10 @@ export default {
   transition: width var(--el-transition-duration);
 }
 .bg {
-  background-color: rgb(38, 52, 69);
+  background-color: rgb(38, 52, 69) !important;
 }
 .theme {
-  --el-menu-hover-bg-color: #001528;
-  --el-menu-text-color: #fff;
+  --el-menu-hover-bg-color: #{$sideMenuHoverBgColor};
+  --el-menu-text-color: #{$sideMenuTextColor};
 }
 </style>
