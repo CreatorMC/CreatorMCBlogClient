@@ -50,9 +50,13 @@ export default {
       avatar.value = state.user.avatar;
     });
     return {
+      avatar                                  //头像链接
+    }
+  },
+  data() {
+    return {
       arrowRightIcon: markRaw(ArrowRight),
       isCollapse: false,                      //控制页面左侧菜单栏是否折叠
-      avatar                                  //头像链接
     }
   },
   methods: {
