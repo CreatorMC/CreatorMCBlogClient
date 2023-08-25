@@ -2,6 +2,7 @@ import axios from "axios";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { globalProperties } from "../main";
 import router from "../router";
+import { userStore } from '../store/user';
 const env = import.meta.env;
 
 // 创建axios实例

@@ -77,8 +77,6 @@
 </template>
 
 <script>
-import router from '../../router';
-
 export default {
   props: {
     isCollapse: Boolean   //是否折叠菜单
