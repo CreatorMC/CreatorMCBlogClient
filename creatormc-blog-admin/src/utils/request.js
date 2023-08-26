@@ -61,7 +61,7 @@ service.interceptors.response.use(function (response) {
   // 超出 2xx 范围的状态码都会触发该函数。
   globalProperties.$nprogress.done();
   ElMessage.error(error);
-  return error;
+  return null;
 });
 
 export default service

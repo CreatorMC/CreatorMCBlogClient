@@ -20,6 +20,11 @@
   }
 }
 
+//对话框最小宽度
+.el-dialog {
+  min-width: 350px !important;
+}
+
 //左侧菜单折叠后，鼠标放上去弹出的子菜单的样式
 .el-popper .el-menu--popup-container .el-menu--popup-right-start {
   background-color: $sideSubMenuBgColor !important;

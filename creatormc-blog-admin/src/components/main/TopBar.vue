@@ -73,12 +73,14 @@ export default {
      */
     logout() {
       logout().then((response) => {
-        localStorage.removeItem("token");
-        router.push("/login");
-        const store = userStore();
-        //恢复store状态到初始值
-        store.$reset();
-        sessionStorage.clear();
+        if(response != null) {
+          localStorage.removeItem("token");
+          router.push("/login");
+          const store = userStore();
+          //恢复store状态到初始值
+          store.$reset();
+          sessionStorage.clear();
+        }
       });
     }
   },

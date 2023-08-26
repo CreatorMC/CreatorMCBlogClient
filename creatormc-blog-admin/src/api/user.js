@@ -33,3 +33,55 @@ export function getPageUserList(pageNum, pageSize, dto) {
     }
   });
 }
+
+/**
+ * 查询单个用户
+ * @param {*} id 用户id
+ * @returns 
+ */
+export function getUser(id) {
+  return service.get("/system/user/" + id, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 更新用户
+ * @param {*} data 
+ * @returns 
+ */
+export function updateUser(data) {
+  return service.put("/system/user", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 更新用户状态
+ * @param {*} data 
+ * @returns 
+ */
+export function changeUserStatus(data) {
+  return service.put("/system/user/changeStatus", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 添加用户
+ * @param {*} data 
+ * @returns 
+ */
+export function addUser(data) {
+  return service.post("/system/user", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

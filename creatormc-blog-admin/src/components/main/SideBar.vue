@@ -93,6 +93,7 @@ export default {
 #container {
   position: fixed;
   height: 100vh;
+  z-index: 500;
 }
 .side-width {
   width: $sideWidth !important;

@@ -29,6 +29,8 @@ export default {
 
 <style>
 body {
-  margin: 0px;
+  margin: 0 calc((100vw - 100%) * -1) 0 0;
+  padding-right: calc(100vw - 100%);
+  overflow-x: hidden;
 }
 </style>
