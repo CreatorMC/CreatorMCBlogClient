@@ -85,3 +85,26 @@ export function addUser(data) {
     }
   });
 }
+
+/**
+ * 删除用户
+ * @param {*} ids 用户id列表
+ * @returns 
+ */
+export function deleteUser(ids) {
+  let idStr = "";
+  let isFirst = true;
+  for (let i = 0; i < ids.length; i++) {
+    if(isFirst) {
+      idStr += ids[i];
+      isFirst = false;
+    } else {
+      idStr += ("," + ids[i]);
+    }
+  }
+  return service.delete("/system/user/" + idStr, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

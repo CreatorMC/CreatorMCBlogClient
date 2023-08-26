@@ -14,7 +14,7 @@
 import UserDialog from "@/components/system/user/UserDialog.vue"
 import { addUser } from "@/api/user";
 import { ElMessage } from "element-plus";
-import { getRoleList } from "../../../api/role";
+import { getRoleList } from "@/api/role";
 
 export default {
   name: "AddUserComponent",

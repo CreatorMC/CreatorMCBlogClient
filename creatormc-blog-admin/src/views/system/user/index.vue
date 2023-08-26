@@ -26,12 +26,12 @@
         <el-icon><Plus /></el-icon>
         <span>新增</span>
       </el-button>
-      <el-button type="danger" plain>
+      <el-button type="danger" plain @click="deleteSelectedUser">
         <el-icon><Delete /></el-icon>
         <span>删除</span>
       </el-button>
     </div>
-    <el-table v-loading="tableLoading" :data="tableData">
+    <el-table ref="table" v-loading="tableLoading" :data="tableData">
       <el-table-column type="selection" />
       <el-table-column prop="id" label="用户编号" />
       <el-table-column prop="userName" label="用户名称" />
@@ -62,7 +62,7 @@
               <el-icon><Edit /></el-icon>
               <span>编辑</span>
             </el-button>
-            <el-button type="danger" text>
+            <el-button type="danger" text @click="deleteUser([scope.row.id])">
               <el-icon><Delete /></el-icon>
               <span>删除</span>
             </el-button>
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { getPageUserList, changeUserStatus } from "@/api/user"
+import { getPageUserList, changeUserStatus, deleteUser } from "@/api/user"
 import { ElMessage, ElMessageBox } from "element-plus"
 import EditUserComponent from "@/components/system/user/EditUserComponent.vue"
 import AddUserComponent from "@/components/system/user/AddUserComponent.vue"
@@ -222,6 +222,42 @@ export default {
     openAddUserDialog() {
       this.$refs['addDialog'].openAddUserDialog();
     },
+    /**
+     * 删除用户
+     */
+    deleteUser(ids) {
+      ElMessageBox.confirm(
+        '确定要删除选中的用户吗？',
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }
+      ).then(() => {
+        //确认
+        deleteUser(ids).then((response) => {
+          if(response != null) {
+            ElMessage.success("删除成功");
+            //刷新数据
+            this.getTableData();
+          }
+        });
+      }).catch(() => {
+        //取消
+      });
+    },
+    /**
+     * 删除选中的用户
+     */
+    deleteSelectedUser() {
+      let selectedList = this.$refs['table'].getSelectionRows();
+      let ids = [];
+      selectedList.forEach(user => {
+        ids.push(user.id);
+      });
+      this.deleteUser(ids);
+    }
   },
   mounted() {
     this.getTableData();
