@@ -69,32 +69,13 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="foot-container">
-      <div>共&nbsp;{{ total }}&nbsp;条</div>
-      <div>
-        <el-select style="width: 100px;" v-model="pageSize" @change="changeToPage(nowPage)">
-          <el-option label="10条/页" :value="10"></el-option>
-          <el-option label="20条/页" :value="20"></el-option>
-          <el-option label="30条/页" :value="30"></el-option>
-          <el-option label="40条/页" :value="40"></el-option>
-        </el-select>
-      </div>
-      <div>
-        <el-pagination
-          v-model:current-page="nowPage"
-          v-model:page-size="pageSize"
-          :pager-count="5"
-          layout="prev, pager, next"
-          :total="total"
-          @current-change="changeToPage"
-        />
-      </div>
-      <div class="to-page-style">
-        <span>前往&nbsp;</span>
-        <el-input style="width: 60px;" v-model="toPage" type="number" @change="changeToPage"></el-input>
-        <span>&nbsp;页</span>
-      </div>
-    </div>
+    <!-- 分页组件 -->
+    <PaginationComponent
+      v-model:nowPage="nowPage"
+      v-model:pageSize="pageSize"
+      :total="total"
+      @get-table-data="getTableData"
+    />
     <!-- 编辑用户组件 -->
     <EditUserComponent ref="editDialog" @get-table-data="getTableData" />
     <!-- 新增用户组件 -->
@@ -107,6 +88,7 @@ import { getPageUserList, changeUserStatus, deleteUser } from "@/api/user"
 import { ElMessage, ElMessageBox } from "element-plus"
 import EditUserComponent from "@/components/system/user/EditUserComponent.vue"
 import AddUserComponent from "@/components/system/user/AddUserComponent.vue"
+import PaginationComponent from "@/components/utils/PaginationComponent.vue"
 
 export default {
   data() {
@@ -115,8 +97,6 @@ export default {
       nowPage: 1,
       //一页显示多少条数据
       pageSize: 10,
-      //跳转到某页
-      toPage: 1,
       form: {
         userName: "",
         phonenumber: "",
@@ -152,22 +132,10 @@ export default {
   },
   components: {
     EditUserComponent,
-    AddUserComponent
+    AddUserComponent,
+    PaginationComponent
   },
   methods: {
-    /**
-     * 改变前往第几页的输入框中的值时触发。
-     * 仅当 modelValue 改变时，当输入框失去焦点或用户按Enter时触发。
-     */
-    changeToPage(value) {
-      if(value >= 1 && value <= (Math.ceil(this.total / this.pageSize))) {
-        //正常范围，跳转到指定页
-        this.nowPage = parseInt(value);
-        this.getTableData();
-      } else {
-        this.toPage = this.nowPage;
-      }
-    },
     /**
      * 获取表格中的数据
      */
@@ -289,17 +257,5 @@ export default {
     margin-left: 5px;
     margin-right: 5px;
   }
-}
-.foot-container {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-}
-.foot-container>div {
-  margin-right: 10px;
-}
-.to-page-style {
-  display: flex;
-  align-items: center;
 }
 </style>
