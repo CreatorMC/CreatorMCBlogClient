@@ -26,12 +26,12 @@
         <el-icon><Plus /></el-icon>
         <span>新增</span>
       </el-button>
-      <el-button type="danger" plain @click="deleteSelectedUser">
+      <el-button type="danger" plain :disabled="isDisableDelete" @click="deleteSelectedUser">
         <el-icon><Delete /></el-icon>
         <span>删除</span>
       </el-button>
     </div>
-    <el-table ref="table" v-loading="tableLoading" :data="tableData">
+    <el-table ref="table" v-loading="tableLoading" :data="tableData" @selection-change="selectChange">
       <el-table-column type="selection" />
       <el-table-column prop="id" label="用户编号" />
       <el-table-column prop="userName" label="用户名称" />
@@ -146,7 +146,9 @@ export default {
       //表格是否加载中
       tableLoading: true,
       //一共几条数据
-      total: 0
+      total: 0,
+      //是否禁用最上方的删除按钮
+      isDisableDelete: true
     }
   },
   components: {
@@ -257,6 +259,17 @@ export default {
         ids.push(user.id);
       });
       this.deleteUser(ids);
+    },
+    /**
+     * 表格的选择项发生改变时触发
+     */
+    selectChange() {
+      let selectedList = this.$refs['table'].getSelectionRows();
+      if(selectedList.length > 0) {
+        this.isDisableDelete = false;
+      } else {
+        this.isDisableDelete = true;
+      }
     }
   },
   mounted() {
