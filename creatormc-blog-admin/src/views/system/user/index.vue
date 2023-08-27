@@ -8,8 +8,7 @@
         <el-input v-model="form.phonenumber" placeholder="请输入手机号码" clearable></el-input>
       </el-form-item>
       <el-form-item class="input-width" label="状态">
-        <el-select v-model="form.status" placeholder="用户状态">
-          <el-option label="无" value="" />
+        <el-select v-model="form.status" placeholder="用户状态" clearable>
           <el-option label="正常" value="0" />
           <el-option label="停用" value="1" />
         </el-select>

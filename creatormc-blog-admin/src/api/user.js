@@ -92,17 +92,7 @@ export function addUser(data) {
  * @returns 
  */
 export function deleteUser(ids) {
-  let idStr = "";
-  let isFirst = true;
-  for (let i = 0; i < ids.length; i++) {
-    if(isFirst) {
-      idStr += ids[i];
-      isFirst = false;
-    } else {
-      idStr += ("," + ids[i]);
-    }
-  }
-  return service.delete("/system/user/" + idStr, {
+  return service.delete("/system/user/" + ids, {
     headers: {
       "token": localStorage.getItem("token")
     }

@@ -26,7 +26,7 @@
                 <span>用户管理</span>
               </template>
             </el-menu-item>
-            <el-menu-item index="">
+            <el-menu-item index="/index/system/role">
               <el-icon><Menu /></el-icon>
               <template #title>
                 <span>角色管理</span>
