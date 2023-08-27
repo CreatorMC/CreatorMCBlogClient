@@ -55,60 +55,90 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页组件 -->
+    <PaginationComponent
+      v-model:nowPage="nowPage"
+      v-model:pageSize="pageSize"
+      :total="total"
+      @get-table-data="getTableData"
+    />
+    <EditRoleComponent ref="editDialog" />
   </div>
 </template>
 
 <script>
+import { getPageRoleList } from '@/api/role';
+import PaginationComponent from '@/components/utils/PaginationComponent.vue';
+import EditRoleComponent from '@/components/system/role/EditRoleComponent.vue';
+
 export default {
   data() {
     return {
+      //当前页
+      nowPage: 1,
+      //一页几条数据
+      pageSize: 10,
+      //总共多少条数据
+      total: 0,
       form: {
         //角色名称
         roleName: "",
         //角色状态（0正常 1停用）
         status: ""
       },
+      //表格数据（角色的排序在后端做了，前端不需要排序）
       tableData: [],
       tableLoading: true,
       isDisableDelete: true,
-      
-    }
+    };
   },
   methods: {
+    /**
+     * 获取表格数据
+     */
     getTableData() {
-
+      this.tableLoading = true;
+      getPageRoleList(this.nowPage, this.pageSize, this.form).then((response) => {
+        if (response != null) {
+          this.tableData = response.data.rows;
+          this.total = parseInt(response.data.total);
+          this.tableLoading = false;
+        }
+      });
     },
     openAddRoleDialog() {
-
     },
     deleteSelectedRole() {
-
     },
     /**
      * 更新角色状态
      */
     changeStatus(val, data) {
-
     },
     /**
      * 打开编辑角色对话框
      */
-    openEditRoleDialog() {
-
+    openEditRoleDialog(data) {
+      this.$refs['editDialog'].openEditRoleDialog(data);
     },
     /**
      * 删除角色
      */
     deleteRole() {
-
     },
     /**
      * 表格的选择项发生改变时触发
      */
     selectChange() {
-
     }
-  }
+  },
+  mounted() {
+    this.getTableData();
+  },
+  components: {
+    PaginationComponent,
+    EditRoleComponent
+}
 }
 </script>
 
