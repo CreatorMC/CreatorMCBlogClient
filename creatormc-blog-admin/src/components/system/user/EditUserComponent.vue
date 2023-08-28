@@ -5,7 +5,6 @@
     :isLoading="dialogLoading"
     :isDisableForm="disableForm"
     @confirm-user-dialog="saveEditUserDialog"
-    @cancel-user-dialog="showEditUserDialog = false"
   />
 </template>
 

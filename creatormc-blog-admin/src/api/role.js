@@ -32,3 +32,29 @@ export function getPageRoleList(pageNum, pageSize, dto) {
     }
   });
 }
+
+/**
+ * 查询单个角色
+ * @param {*} id 角色id
+ * @returns 
+ */
+export function getRole(id) {
+  return service.get("/system/role/" + id, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 更新角色
+ * @param {*} data 
+ * @returns 
+ */
+export function updateRole(data) {
+  return service.put("/system/role", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

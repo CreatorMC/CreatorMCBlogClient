@@ -6,7 +6,6 @@
     :isDisableForm="isDisableAddUserForm"
     :isAddUser="true"
     @confirm-user-dialog="saveAddUserDialog"
-    @cancel-user-dialog="showAddUserDialog = false"
   />
 </template>
 
