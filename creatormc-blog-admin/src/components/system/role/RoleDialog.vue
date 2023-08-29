@@ -42,7 +42,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item prop="menus" label="菜单列表">
+      <el-form-item label="菜单列表">
         <el-tree
           ref="tree"
           :data="dialogData.menus"

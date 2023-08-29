@@ -12,3 +12,15 @@ export function getRoleMenuTree(id) {
     }
   });
 }
+
+/**
+ * 查询菜单树
+ * @returns 
+ */
+export function getMenuTree() {
+  return service.get("/system/menu/treeselect", {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

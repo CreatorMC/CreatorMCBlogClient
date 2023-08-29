@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="isAdd ? addText : editText" v-model="showDialog" :before-close="beforeClose">
+  <el-dialog :title="isAdd ? addText : editText" v-model="showDialog" :before-close="beforeClose" @close="close">
     <slot></slot>
     <template #footer>
       <span>
@@ -59,6 +59,12 @@ export default {
       }).catch(() => {
         //取消关闭
       });
+    },
+    /**
+     * 关闭的回调
+     */
+    close() {
+      this.$emit('closed');
     }
   },
   computed: {

@@ -58,3 +58,29 @@ export function updateRole(data) {
     }
   });
 }
+
+/**
+ * 更新角色状态
+ * @param {*} data 
+ * @returns 
+ */
+export function changeRoleStatus(data) {
+  return service.put("/system/role/changeStatus", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 添加角色
+ * @param {*} data 
+ * @returns 
+ */
+export function addRole(data) {
+  return service.post("/system/role", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

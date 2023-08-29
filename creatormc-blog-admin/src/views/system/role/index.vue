@@ -62,14 +62,17 @@
       :total="total"
       @get-table-data="getTableData"
     />
-    <EditRoleComponent ref="editDialog" />
+    <EditRoleComponent ref="editDialog" @get-table-data="getTableData" />
+    <AddRoleComponent ref="addDialog" @get-table-data="getTableData" />
   </div>
 </template>
 
 <script>
-import { getPageRoleList } from '@/api/role';
+import { getPageRoleList, changeRoleStatus } from '@/api/role';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
 import EditRoleComponent from '@/components/system/role/EditRoleComponent.vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import AddRoleComponent from '@/components/system/role/AddRoleComponent.vue';
 
 export default {
   data() {
@@ -106,7 +109,11 @@ export default {
         }
       });
     },
+    /**
+     * 打开新增角色对话框
+     */
     openAddRoleDialog() {
+      this.$refs['addDialog'].openAddRoleDialog();
     },
     deleteSelectedRole() {
     },
@@ -114,6 +121,31 @@ export default {
      * 更新角色状态
      */
     changeStatus(val, data) {
+      ElMessageBox.confirm(
+        '确认要&nbsp;<strong>' + (val == "0" ? "启用" : "停用") +'</strong>&nbsp;<strong>' + data.roleName + "</strong>&nbsp;角色吗？",
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+          dangerouslyUseHTMLString: true
+        }
+      ).then(() => {
+        //确认
+        changeRoleStatus({
+          id: data.id,
+          status: val
+        }).then((response) => {
+          if(response != null) {
+            ElMessage.success("更新成功");
+          } else {
+            data.status = data.status == "0" ? "1" : "0";
+          }
+        });
+      }).catch(() => {
+        //取消
+        data.status = data.status == "0" ? "1" : "0";
+      });
     },
     /**
      * 打开编辑角色对话框
@@ -137,7 +169,8 @@ export default {
   },
   components: {
     PaginationComponent,
-    EditRoleComponent
+    EditRoleComponent,
+    AddRoleComponent
 }
 }
 </script>
