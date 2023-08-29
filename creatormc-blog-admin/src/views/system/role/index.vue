@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { getPageRoleList, changeRoleStatus } from '@/api/role';
+import { getPageRoleList, changeRoleStatus, deleteRole } from '@/api/role';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
 import EditRoleComponent from '@/components/system/role/EditRoleComponent.vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
@@ -115,8 +115,6 @@ export default {
     openAddRoleDialog() {
       this.$refs['addDialog'].openAddRoleDialog();
     },
-    deleteSelectedRole() {
-    },
     /**
      * 更新角色状态
      */
@@ -156,12 +154,49 @@ export default {
     /**
      * 删除角色
      */
-    deleteRole() {
+    deleteRole(ids) {
+      ElMessageBox.confirm(
+        '确定要删除选中的角色吗？',
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }
+      ).then(() => {
+        //确认
+        deleteRole(ids).then((response) => {
+          if (response != null) {
+            ElMessage.success("删除成功");
+            //刷新数据
+            this.getTableData();
+          }
+        });
+      }).catch(() => {
+        //取消
+      });
+    },
+    /**
+     * 删除选中的角色
+     */
+    deleteSelectedRole() {
+      let selectedList = this.$refs['table'].getSelectionRows();
+      let ids = [];
+      selectedList.forEach(role => {
+        ids.push(role.id);
+      });
+      this.deleteRole(ids);
     },
     /**
      * 表格的选择项发生改变时触发
      */
     selectChange() {
+      let selectedList = this.$refs['table'].getSelectionRows();
+      if(selectedList.length > 0) {
+        this.isDisableDelete = false;
+      } else {
+        this.isDisableDelete = true;
+      }
     }
   },
   mounted() {

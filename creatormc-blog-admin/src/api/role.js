@@ -84,3 +84,16 @@ export function addRole(data) {
     }
   });
 }
+
+/**
+ * 删除角色
+ * @param {*} ids 角色id列表
+ * @returns 
+ */
+export function deleteRole(ids) {
+  return service.delete("/system/role/" + ids, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
