@@ -29,6 +29,7 @@
         <el-input-number
           v-model="dialogData.roleSort"
           :min="1"
+          :max="2147483647"
           controls-position="right"
         />
       </el-form-item>
