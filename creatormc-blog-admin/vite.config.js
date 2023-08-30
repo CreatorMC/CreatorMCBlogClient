@@ -8,9 +8,9 @@ import { svgSpritemap } from 'vite-plugin-svg-spritemap'
 export default defineConfig({
   plugins: [
     vue(),
-    svgSpritemap({
-      pattern: 'src/assets/svg/*/*.svg',
-    })
+    // svgSpritemap({
+    //   pattern: 'src/assets/svg/*/*.svg',
+    // })
   ],
   resolve: {
     alias: {
