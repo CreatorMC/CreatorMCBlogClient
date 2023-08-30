@@ -24,3 +24,17 @@ export function getMenuTree() {
     }
   });
 }
+
+/**
+ * 查询菜单列表
+ * @param {*} data 包含菜单状态和菜单名称
+ * @returns 
+ */
+export function getMenuList(data) {
+  return service.get("/system/menu/list", {
+    headers: {
+      "token": localStorage.getItem("token")
+    },
+    params: data
+  });
+}

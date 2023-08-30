@@ -120,7 +120,7 @@ export default {
      */
     changeStatus(val, data) {
       ElMessageBox.confirm(
-        '确认要&nbsp;<strong>' + (val == "0" ? "启用" : "停用") +'</strong>&nbsp;<strong>' + data.roleName + "</strong>&nbsp;角色吗？",
+        '确认要&nbsp;<strong>' + (val == "0" ? "启用" : "停用") + '</strong>&nbsp;<strong>' + data.roleName + "</strong>&nbsp;角色吗？",
         '警告',
         {
           confirmButtonText: '确认',
@@ -134,7 +134,7 @@ export default {
           id: data.id,
           status: val
         }).then((response) => {
-          if(response != null) {
+          if (response != null) {
             ElMessage.success("更新成功");
           } else {
             data.status = data.status == "0" ? "1" : "0";
@@ -192,7 +192,7 @@ export default {
      */
     selectChange() {
       let selectedList = this.$refs['table'].getSelectionRows();
-      if(selectedList.length > 0) {
+      if (selectedList.length > 0) {
         this.isDisableDelete = false;
       } else {
         this.isDisableDelete = true;
@@ -206,7 +206,7 @@ export default {
     PaginationComponent,
     EditRoleComponent,
     AddRoleComponent
-}
+  }
 }
 </script>
 

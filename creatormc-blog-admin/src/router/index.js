@@ -6,6 +6,7 @@ import Login from "../views/login/index.vue";
 import WriteIndex from "../views/content/article/write/index.vue";
 import UserIndex from "../views/system/user/index.vue";
 import RoleIndex from "../views/system/role/index.vue";
+import MenuIndex from "../views/system/menu/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,6 +63,14 @@ const router = createRouter({
               component: RoleIndex,
               meta: {
                 menuName: "角色管理"
+              }
+            },
+            {
+              path: "menu",
+              name: "MenuIndex",
+              component: MenuIndex,
+              meta: {
+                menuName: "菜单管理"
               }
             }
           ]
