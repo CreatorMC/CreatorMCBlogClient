@@ -68,7 +68,7 @@
 <script>
 import EditMenuComponent from '@/components/system/menu/EditMenuComponent.vue';
 import { getMenuList, disposeMenuList } from '@/api/menu';
-import AddMenuComponent from '../../../components/system/menu/AddMenuComponent.vue';
+import AddMenuComponent from '@/components/system/menu/AddMenuComponent.vue';
 
 export default {
   data() {
