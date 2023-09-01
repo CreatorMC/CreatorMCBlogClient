@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'IconSvg',
   props: {
@@ -13,15 +12,6 @@ export default {
       type: String,
       required: true
     }
-  },
-  data() {
-    return {
-      symbols: {},
-      ComponentName: 'map'
-    }
-  },
-  mounted() {
-
   }
 }
 </script>

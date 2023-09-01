@@ -34,7 +34,6 @@
       <el-form-item v-if="dialogData.menuType != 'F'" prop="icon" label="菜单图标">
         <el-select style="width: 100%;" v-model="dialogData.icon" placeholder="请选择菜单图标">
           <template #prefix>
-            <!-- 可以发篇文章 -->
             <el-icon color="#606266"><icon-svg :name="dialogData.icon" /></el-icon>
           </template>
           <el-option v-for="item in iconNames" :label="item" :value="item">
@@ -261,6 +260,11 @@ export default {
      */
     beforeClose() {
       this.$refs['dialogData'].resetFields();
+      //因为v-if，导致重置表单不彻底，在这里手动重置，并且在打开新增对话框时，让AddMenuComponent组件手动重置
+      this.dialogData = {
+        parentId: "0",
+        icon: ""
+      };
     }
   },
   components: {

@@ -13,7 +13,7 @@
 <script>
 import MenuDialog from "@/components/system/menu/MenuDialog.vue"
 import { ElMessage } from "element-plus";
-import { getMenu, getMenuList, disposeMenuList, updateMenu } from "@/api/menu";
+import { getMenu, getMenuList, disposeMenuList, updateMenu, MCFFilter } from "@/api/menu";
 
 export default {
   name: "EditMenuComponent",
@@ -86,99 +86,7 @@ export default {
      */
     saveEditMenuDialog() {
       this.isDisableForm = true;
-      let data = {}
-      if(this.dialogData.menuType == 'M') {
-        //目录
-        data = {
-          //菜单id
-          id: this.dialogData.id,
-          //菜单名称
-          menuName: this.dialogData.menuName,
-          //父菜单ID
-          parentId: this.dialogData.parentId,
-          //显示顺序
-          orderNum: this.dialogData.orderNum,
-          //路由地址
-          path: this.dialogData.path,
-          //组件路径
-          component: null,
-          //是否为外链（0是 1否）
-          isFrame: "1",
-          //菜单类型（M目录 C菜单 F按钮）
-          menuType: this.dialogData.menuType,
-          //显示状态（0显示 1隐藏）
-          visible: this.dialogData.visible,
-          //菜单状态（0正常 1停用）
-          status: this.dialogData.status,
-          //权限标识
-          perms: null,
-          //菜单图标
-          icon: this.dialogData.icon,
-          //备注
-          remark: this.dialogData.remark
-        };
-      } else if (this.dialogData.menuType == 'C') {
-        //菜单
-        data = {
-          //菜单id
-          id: this.dialogData.id,
-          //菜单名称
-          menuName: this.dialogData.menuName,
-          //父菜单ID
-          parentId: this.dialogData.parentId,
-          //显示顺序
-          orderNum: this.dialogData.orderNum,
-          //路由地址
-          path: this.dialogData.path,
-          //组件路径
-          component: this.dialogData.component,
-          //是否为外链（0是 1否）
-          isFrame: "1",
-          //菜单类型（M目录 C菜单 F按钮）
-          menuType: this.dialogData.menuType,
-          //显示状态（0显示 1隐藏）
-          visible: this.dialogData.visible,
-          //菜单状态（0正常 1停用）
-          status: this.dialogData.status,
-          //权限标识
-          perms: this.dialogData.perms,
-          //菜单图标
-          icon: this.dialogData.icon,
-          //备注
-          remark: this.dialogData.remark
-        };
-      } else {
-        //按钮
-        data = {
-          //菜单id
-          id: this.dialogData.id,
-          //菜单名称
-          menuName: this.dialogData.menuName,
-          //父菜单ID
-          parentId: this.dialogData.parentId,
-          //显示顺序
-          orderNum: this.dialogData.orderNum,
-          //路由地址
-          path: "",
-          //组件路径
-          component: null,
-          //是否为外链（0是 1否）
-          isFrame: "1",
-          //菜单类型（M目录 C菜单 F按钮）
-          menuType: this.dialogData.menuType,
-          //显示状态（0显示 1隐藏）
-          visible: "0",
-          //菜单状态（0正常 1停用）
-          status: "0",
-          //权限标识
-          perms: this.dialogData.perms,
-          //菜单图标
-          icon: "#",
-          //备注
-          remark: this.dialogData.remark
-        };
-      }
-      updateMenu(data).then((response) => {
+      updateMenu(MCFFilter(this.dialogData)).then((response) => {
         if(response != null) {
           //关闭对话框
           this.isShowDialog = false;

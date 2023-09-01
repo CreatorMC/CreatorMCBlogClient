@@ -18,7 +18,7 @@
       </el-form-item>
     </el-form>
     <div>
-      <el-button type="primary" plain @click="openAddMenuDialog">
+      <el-button type="primary" plain @click="openAddMenuDialog(null)">
         <el-icon><Plus /></el-icon>
         <span>新增</span>
       </el-button>
@@ -48,7 +48,7 @@
               <el-icon><Edit /></el-icon>
               <span>编辑</span>
             </el-button>
-            <el-button type="primary" link>
+            <el-button type="primary" link @click="openAddMenuDialog(scope.row)">
               <el-icon><Plus /></el-icon>
               <span>新增</span>
             </el-button>
@@ -61,12 +61,14 @@
       </el-table-column>
     </el-table>
     <EditMenuComponent ref="editDialog" @get-table-data="getTableData" />
+    <AddMenuComponent ref="addDialog" @get-table-data="getTableData" />
   </div>
 </template>
 
 <script>
 import EditMenuComponent from '@/components/system/menu/EditMenuComponent.vue';
 import { getMenuList, disposeMenuList } from '@/api/menu';
+import AddMenuComponent from '../../../components/system/menu/AddMenuComponent.vue';
 
 export default {
   data() {
@@ -96,7 +98,11 @@ export default {
         }
       });
     },
-    openAddMenuDialog() {
+    /**
+     * 打开新增菜单对话框
+     */
+    openAddMenuDialog(data) {
+      this.$refs['addDialog'].openAddMenuDialog(data);
     },
     /**
      * 打开编辑菜单对话框
@@ -110,7 +116,7 @@ export default {
   mounted() {
     this.getTableData();
   },
-  components: { EditMenuComponent }
+  components: { EditMenuComponent, AddMenuComponent }
 }
 </script>
 
