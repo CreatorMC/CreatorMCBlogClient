@@ -52,7 +52,7 @@
               <el-icon><Plus /></el-icon>
               <span>新增</span>
             </el-button>
-            <el-button type="danger" link @click="deleteMenu([scope.row.id])">
+            <el-button type="danger" link @click="deleteMenu(scope.row)">
               <el-icon><Delete /></el-icon>
               <span>删除</span>
             </el-button>
@@ -67,8 +67,9 @@
 
 <script>
 import EditMenuComponent from '@/components/system/menu/EditMenuComponent.vue';
-import { getMenuList, disposeMenuList } from '@/api/menu';
+import { getMenuList, disposeMenuList, deleteMenu } from '@/api/menu';
 import AddMenuComponent from '@/components/system/menu/AddMenuComponent.vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 export default {
   data() {
@@ -110,7 +111,28 @@ export default {
     openEditMenuDialog(data) {
       this.$refs['editDialog'].openEditMenuDialog(data);
     },
-    deleteMenu() {
+    deleteMenu(data) {
+      ElMessageBox.confirm(
+        `确定要删除&nbsp;<strong>${data.menuName}</strong>&nbsp;菜单项吗？`,
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+          dangerouslyUseHTMLString: true
+        }
+      ).then(() => {
+        //确认
+        deleteMenu(data.id).then((response) => {
+          if (response != null) {
+            ElMessage.success("删除成功");
+            //刷新数据
+            this.getTableData();
+          }
+        });
+      }).catch(() => {
+        //取消
+      });
     }
   },
   mounted() {

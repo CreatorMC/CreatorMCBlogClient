@@ -79,6 +79,19 @@ export function addMenu(data) {
 }
 
 /**
+ * 删除菜单
+ * @param {*} id 菜单id
+ * @returns 
+ */
+export function deleteMenu(id) {
+  return service.delete("/system/menu/" + id, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
  * 查询菜单列表之后，把列表变成树
  * @param {*} data 查询菜单列表得到的数据
  * @returns 
