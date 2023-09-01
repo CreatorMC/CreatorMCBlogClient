@@ -23,7 +23,7 @@
         <span>新增</span>
       </el-button>
     </div>
-    <el-table ref="table" v-loading="tableLoading" :data="tableData" row-key="id">
+    <el-table ref="table" v-loading="tableLoading" :data="tableData" row-key="id" table-layout="auto">
       <el-table-column prop="menuName" label="菜单名称" />
       <el-table-column prop="icon" label="图标">
         <template #default="scope">
@@ -41,7 +41,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" />
-      <el-table-column fixed="right" label="操作" width="220px">
+      <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <div class="operation-cell">
             <el-button type="primary" link @click="openEditMenuDialog(scope.row)">
@@ -60,11 +60,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <EditMenuComponent ref="editDialog" @get-table-data="getTableData" />
   </div>
 </template>
 
 <script>
-import { getMenuList } from '../../../api/menu';
+import EditMenuComponent from '@/components/system/menu/EditMenuComponent.vue';
+import { getMenuList, disposeMenuList } from '@/api/menu';
 
 export default {
   data() {
@@ -78,7 +80,7 @@ export default {
       tableLoading: false,
       //表格数据
       tableData: []
-    }
+    };
   },
   methods: {
     /**
@@ -86,52 +88,33 @@ export default {
      */
     getTableData() {
       this.tableLoading = true;
-
-      //存储访问过的id，为构建树结构使用
-      const idSet = new Set();
-      /**
-       * 递归处理数据，形成树结构
-       */
-      function buildTreeData(list, parentId) {
-        let result = [];
-        for (const menu of list) {
-          if(!idSet.has(menu.id) && (menu.parentId == parentId || parentId == -1)) {
-            menu.children = buildTreeData(list, menu.id);
-            result.push(menu);
-            idSet.add(menu.id);
-          }
-        }
-        return result;
-      }
-
       getMenuList(this.form).then((response) => {
-        if(response != null) {
+        if (response != null) {
           //处理数据
-          this.tableData = buildTreeData(response.data, -1);
+          this.tableData = disposeMenuList(response.data);
           this.tableLoading = false;
         }
       });
     },
     openAddMenuDialog() {
-
     },
-    openEditMenuDialog() {
-
+    /**
+     * 打开编辑菜单对话框
+     */
+    openEditMenuDialog(data) {
+      this.$refs['editDialog'].openEditMenuDialog(data);
     },
     deleteMenu() {
-
     }
   },
   mounted() {
     this.getTableData();
-  }
+  },
+  components: { EditMenuComponent }
 }
 </script>
 
 <style lang="scss" scoped>
-.input-width {
-  width: 320px;
-}
 .operation-cell {
   display: flex;
   flex-wrap: wrap;

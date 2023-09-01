@@ -28,7 +28,7 @@
       <el-form-item prop="roleSort" label="角色顺序">
         <el-input-number
           v-model="dialogData.roleSort"
-          :min="1"
+          :min="0"
           :max="2147483647"
           controls-position="right"
         />
@@ -100,14 +100,21 @@ export default {
         roleName: [
           {
             required: true,
-            message: '角色名称必须填写',
+            message: '角色名称不能为空',
             trigger: 'blur'
           }
         ],
         roleKey: [
           {
             required: true,
-            message: '权限字符必须填写',
+            message: '权限字符不能为空',
+            trigger: 'blur'
+          }
+        ],
+        roleSort: [
+          {
+            required: true,
+            message: '角色顺序不能为空',
             trigger: 'blur'
           }
         ]
