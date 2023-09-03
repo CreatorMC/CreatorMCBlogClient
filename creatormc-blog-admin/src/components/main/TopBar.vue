@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { ArrowRight, UserFilled } from '@element-plus/icons-vue'
+import { ArrowRight } from '@element-plus/icons-vue'
 import { markRaw, ref } from 'vue';
 import { logout } from '../../api/login';
 import { getAdminUserInfo } from '../../api/user';

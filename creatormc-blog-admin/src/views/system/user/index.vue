@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-form inline label-width="80px">
-      <el-form-item class="input-width" label="用户名称">
+      <el-form-item label="用户名称">
         <el-input v-model="form.userName" placeholder="请输入用户名称" clearable></el-input>
       </el-form-item>
-      <el-form-item class="input-width" label="手机号码">
+      <el-form-item label="手机号码">
         <el-input v-model="form.phonenumber" placeholder="请输入手机号码" clearable></el-input>
       </el-form-item>
-      <el-form-item class="input-width" label="状态">
+      <el-form-item label="状态">
         <el-select v-model="form.status" placeholder="用户状态" clearable>
           <el-option label="正常" value="0" />
           <el-option label="停用" value="1" />
@@ -246,9 +246,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-width {
-  width: 320px;
-}
 .operation-cell {
   display: flex;
   flex-wrap: wrap;

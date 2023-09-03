@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-form inline label-width="80px">
-      <el-form-item class="input-width" label="角色名称">
+      <el-form-item label="角色名称">
         <el-input v-model="form.roleName" placeholder="请输入角色名称" clearable></el-input>
       </el-form-item>
-      <el-form-item class="input-width" label="状态">
+      <el-form-item label="状态">
         <el-select v-model="form.status" placeholder="角色状态" clearable>
           <el-option label="正常" value="0" />
           <el-option label="停用" value="1" />
@@ -211,9 +211,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-width {
-  width: 320px;
-}
 .operation-cell {
   display: flex;
   flex-wrap: wrap;

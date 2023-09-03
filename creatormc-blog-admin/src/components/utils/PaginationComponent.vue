@@ -87,11 +87,13 @@ export default {
 <style lang="scss" scoped>
 .foot-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 10px;
 }
 .foot-container>div {
-  margin-right: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 .to-page-style {
   display: flex;
