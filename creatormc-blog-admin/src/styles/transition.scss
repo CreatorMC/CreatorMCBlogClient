@@ -15,8 +15,6 @@
 .fade-transform-leave-active,
 .fade-transform-enter-active {
   transition: all .5s;
-  // min-height: calc(100vh - 50px);
-  // overflow: hidden;
 }
 
 .fade-transform-enter-from {
@@ -40,16 +38,20 @@
   transition: all .5s;
 }
 
-.breadcrumb-enter,
-.breadcrumb-leave-active {
+.breadcrumb-enter-from,
+.breadcrumb-leave-to {
   opacity: 0;
   transform: translateX(20px);
 }
 
-.breadcrumb-move {
-  transition: all .5s;
+.breadcrumb-enter-to,
+.breadcrumb-leave-from {
+  opacity: 100;
+  transform: translateX(0px);
 }
 
+/* 确保将离开的元素从布局流中删除
+  以便能够正确地计算移动的动画。 */
 .breadcrumb-leave-active {
   position: absolute;
 }

@@ -10,7 +10,9 @@
             </el-icon>
           </el-button>
           <el-breadcrumb :separator-icon="arrowRightIcon">
-            <el-breadcrumb-item v-for="(item, index) in $route.matched" v-show="index != 0" :to="{ path: item.path }">{{ item.meta.menuName }}</el-breadcrumb-item>
+            <transition-group name="breadcrumb">
+              <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="item" v-show="index != 0" :to="{ path: item.path }"><span>{{ item.meta.menuName }}</span></el-breadcrumb-item>
+            </transition-group>
           </el-breadcrumb>
         </div>
       </el-col>
