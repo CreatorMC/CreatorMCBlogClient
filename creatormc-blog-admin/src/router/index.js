@@ -7,6 +7,7 @@ import WriteIndex from "../views/content/article/write/index.vue";
 import UserIndex from "../views/system/user/index.vue";
 import RoleIndex from "../views/system/role/index.vue";
 import MenuIndex from "../views/system/menu/index.vue";
+import ArticleIndex from "../views/content/article/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -71,6 +72,23 @@ const router = createRouter({
               component: MenuIndex,
               meta: {
                 menuName: "菜单管理"
+              }
+            }
+          ]
+        },
+        {
+          path: "content",
+          redirect: "/index/content/article",
+          meta: {
+            menuName: "内容管理"
+          },
+          children: [
+            {
+              path: "article",
+              name: "ArticleIndex",
+              component: ArticleIndex,
+              meta: {
+                menuName: "文章管理"
               }
             }
           ]

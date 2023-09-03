@@ -39,12 +39,12 @@
               </template>
             </el-menu-item>
           </el-sub-menu>
-          <el-sub-menu index="4">
+          <el-sub-menu index="/index/content">
             <template #title>
               <el-icon><icon-svg name="table" /></el-icon>
               <span>内容管理</span>
             </template>
-            <el-menu-item>
+            <el-menu-item index="/index/content/article">
               <el-icon><icon-svg name="container" /></el-icon>
               <template #title>
                 <span>文章管理</span>
