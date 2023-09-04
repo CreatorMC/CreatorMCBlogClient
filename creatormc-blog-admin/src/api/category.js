@@ -1,3 +1,4 @@
+import downloadService from "../utils/downloadService";
 import service from "../utils/request";
 
 /**
@@ -93,6 +94,18 @@ export function deleteCategory(ids) {
  */
 export function changeCategoryStatus(dto) {
   return service.put("/content/category/changeStatus", dto, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 导出所有分类到Excel
+ * @returns 
+ */
+export function exportCategory() {
+  return downloadService.get("/content/category/export", {
     headers: {
       "token": localStorage.getItem("token")
     }

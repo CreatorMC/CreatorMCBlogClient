@@ -30,12 +30,14 @@ service.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 service.interceptors.response.use(function (response) {
+  // 未设置状态码则默认成功状态
+  const code = response.data.code || 200;
   // 2xx 范围内的状态码都会触发该函数。
   //完成进度条
   globalProperties.$nprogress.done();
-  if(response.data.code != 200) {
+  if(code != 200) {
     //请求有异常，显示错误提示，错误提示是从服务端返回回来的
-    if(response.data.code == 401) {
+    if(code == 401) {
       //未登录
       ElMessageBox.alert('您的登录状态已过期，请重新登录。', '提示', {
         confirmButtonText: '确认',

@@ -26,7 +26,7 @@
         <el-icon><Delete /></el-icon>
         <span>删除</span>
       </el-button>
-      <el-button type="success" plain>
+      <el-button type="success" plain @click="exportCategory">
         <el-icon><Download /></el-icon>
         <span>导出</span>
       </el-button>
@@ -74,7 +74,7 @@
 <script>
 import { ElMessage, ElMessageBox } from 'element-plus';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
-import { getPageCategoryList, deleteCategory, changeCategoryStatus } from '@/api/category';
+import { getPageCategoryList, deleteCategory, changeCategoryStatus, exportCategory } from '@/api/category';
 import AddCategoryComponent from '@/components/content/category/AddCategoryComponent.vue';
 import EditCategoryComponent from '@/components/content/category/EditCategoryComponent.vue';
 
@@ -191,6 +191,25 @@ export default {
       }).catch(() => {
         //取消
         data.status = data.status == "0" ? "1" : "0";
+      });
+    },
+    /**
+     * 导出所有分类到Excel
+     */
+    exportCategory() {
+      ElMessageBox.confirm(
+        `是否确认导出所有分类数据？`,
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        //确认
+        exportCategory();
+      }).catch(() => {
+        //取消
       });
     },
     /**
