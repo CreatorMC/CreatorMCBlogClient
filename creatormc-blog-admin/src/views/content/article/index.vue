@@ -75,7 +75,7 @@
 <script>
 import { ElMessage, ElMessageBox } from "element-plus"
 import PaginationComponent from "@/components/utils/PaginationComponent.vue"
-import { getArticleList } from "@/api/article";
+import { getArticleList, deleteArticle } from "@/api/article";
 
 export default {
   data() {
@@ -125,37 +125,37 @@ export default {
      * 删除文章
      */
     deleteArticle(ids) {
-      // ElMessageBox.confirm(
-      //   '确定要删除选中的文章吗？',
-      //   '警告',
-      //   {
-      //     confirmButtonText: '确认',
-      //     cancelButtonText: '取消',
-      //     type: 'warning',
-      //   }
-      // ).then(() => {
-      //   //确认
-      //   deleteArticle(ids).then((response) => {
-      //     if(response != null) {
-      //       ElMessage.success("删除成功");
-      //       //刷新数据
-      //       this.getTableData();
-      //     }
-      //   });
-      // }).catch(() => {
-      //   //取消
-      // });
+      ElMessageBox.confirm(
+        '确定要删除选中的文章吗？',
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }
+      ).then(() => {
+        //确认
+        deleteArticle(ids).then((response) => {
+          if(response != null) {
+            ElMessage.success("删除成功");
+            //刷新数据
+            this.getTableData();
+          }
+        });
+      }).catch(() => {
+        //取消
+      });
     },
     /**
      * 删除选中的文章
      */
     deleteSelectedArticle() {
-      // let selectedList = this.$refs['table'].getSelectionRows();
-      // let ids = [];
-      // selectedList.forEach(Article => {
-      //   ids.push(Article.id);
-      // });
-      // this.deleteArticle(ids);
+      let selectedList = this.$refs['table'].getSelectionRows();
+      let ids = [];
+      selectedList.forEach(article => {
+        ids.push(article.id);
+      });
+      this.deleteArticle(ids);
     },
     /**
      * 表格的选择项发生改变时触发

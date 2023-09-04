@@ -60,3 +60,16 @@ export function updateArticle(data) {
     }
   });
 }
+
+/**
+ * 删除文章
+ * @param {*} ids 文章id列表
+ * @returns 
+ */
+export function deleteArticle(ids) {
+  return service.delete("/content/article/" + ids, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
