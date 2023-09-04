@@ -49,7 +49,7 @@
               <el-icon><Edit /></el-icon>
               <span>编辑</span>
             </el-button>
-            <el-button type="danger" link @click="deleteCategory(scope.row)">
+            <el-button type="danger" link @click="deleteCategory([scope.row.id])">
               <el-icon><Delete /></el-icon>
               <span>删除</span>
             </el-button>
@@ -74,7 +74,7 @@
 <script>
 import { ElMessage, ElMessageBox } from 'element-plus';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
-import { getPageCategoryList } from '@/api/category';
+import { getPageCategoryList, deleteCategory } from '@/api/category';
 import AddCategoryComponent from '@/components/content/category/AddCategoryComponent.vue';
 import EditCategoryComponent from '@/components/content/category/EditCategoryComponent.vue';
 
@@ -130,34 +130,38 @@ export default {
     /**
      * 删除分类
      */
-    deleteCategory(data) {
-      // ElMessageBox.confirm(
-      //   `确定要删除&nbsp;<strong>${data.categoryName}</strong>&nbsp;分类项吗？`,
-      //   '警告',
-      //   {
-      //     confirmButtonText: '确认',
-      //     cancelButtonText: '取消',
-      //     type: 'warning',
-      //     dangerouslyUseHTMLString: true
-      //   }
-      // ).then(() => {
-      //   //确认
-      //   deleteCategory(data.id).then((response) => {
-      //     if (response != null) {
-      //       ElMessage.success("删除成功");
-      //       //刷新数据
-      //       this.getTableData();
-      //     }
-      //   });
-      // }).catch(() => {
-      //   //取消
-      // });
+    deleteCategory(ids) {
+      ElMessageBox.confirm(
+        `确定要删除选中的分类吗？`,
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        //确认
+        deleteCategory(ids).then((response) => {
+          if (response != null) {
+            ElMessage.success("删除成功");
+            //刷新数据
+            this.getTableData();
+          }
+        });
+      }).catch(() => {
+        //取消
+      });
     },
     /**
      * 删除选中的分类
      */
     deleteSelectedCategory() {
-
+      let selectedList = this.$refs['table'].getSelectionRows();
+      let ids = [];
+      selectedList.forEach(article => {
+        ids.push(article.id);
+      });
+      this.deleteCategory(ids);
     },
     /**
      * 更新分类状态

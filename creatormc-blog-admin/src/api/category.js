@@ -72,3 +72,16 @@ export function updateCategory(data) {
     }
   });
 }
+
+/**
+ * 删除分类
+ * @param {*} ids 分类id列表
+ * @returns 
+ */
+export function deleteCategory(ids) {
+  return service.delete("/content/category/" + ids, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
