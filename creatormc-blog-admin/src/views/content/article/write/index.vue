@@ -50,6 +50,7 @@
           :limit="1"
           :before-remove="uploadRemove"
           :http-request="upload"
+          list-type="picture"
         >
           <el-icon class="el-icon--upload"><upload-filled /></el-icon>
           <div class="el-upload__text">
@@ -65,9 +66,13 @@
       <el-form-item prop="content" label="文章内容" class="width-style">
         <mavon-editor class="width-style" ref="md" placeholder="请输入文章内容" v-model="form.content" @imgAdd="uploadArticleContentImg" @imgDel="deleteArticleContentImg" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-if="!isEdit">
         <el-button type="primary" @click="submitForm('0')">发布</el-button>
         <el-button type="info" @click="submitForm('1')">保存到草稿箱</el-button>
+      </el-form-item>
+      <el-form-item v-else>
+        <el-button type="primary" @click="saveEdit('0')">更新并发布</el-button>
+        <el-button type="info" @click="saveEdit('1')">更新并保存草稿</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -78,7 +83,8 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { deleteArticleCover, uploadArticleCover } from "@/api/upload"
 import { getAllCategory } from "@/api/category"
 import { getAllTag } from "@/api/tag"
-import { addArticle } from "@/api/article";
+import { addArticle, getArticle, updateArticle } from "@/api/article"
+import router from "../../../../router";
 
 export default {
   data() {
@@ -152,7 +158,9 @@ export default {
             trigger: 'blur'
           }
         ]
-      }
+      },
+      //是否处于编辑模式
+      isEdit: false
     }
   },
   methods: {
@@ -171,7 +179,8 @@ export default {
             ElMessage.success("添加成功");
             //重置表单
             that.$refs['form'].resetFields();
-            //进行路由跳转
+            // TODO 进行路由跳转
+            router.push("/index/content/article");
           });
         }
       });
@@ -226,14 +235,19 @@ export default {
       ).then(() => {
         //确认删除
         //发送删除请求
-        ElMessage.info("删除中");
-        deleteArticleCover(that.form.thumbnail).then((response) => {
-          if(response != null) {
-            ElMessage.success("删除成功");
-            //删除请求成功后清空文件列表
-            that.$refs['upload'].clearFiles();
-          }
-        });
+        if(that.isEdit) {
+          //如果处于编辑模式，不真正删除，以防删除后没有提交表单导致文章缩略图在前台不显示
+          ElMessage.success("删除成功");
+          that.$refs['upload'].clearFiles();
+        } else {
+          deleteArticleCover(that.form.thumbnail).then((response) => {
+            if(response != null) {
+              ElMessage.success("删除成功");
+              //删除请求成功后清空文件列表
+              that.$refs['upload'].clearFiles();
+            }
+          });
+        }
       }).catch(() => {
         //取消删除(外层的返回false本身就是取消删除，所以此处不用做任何事)
       });
@@ -266,9 +280,30 @@ export default {
           ElMessage.success("删除成功");
         }
       });
+    },
+    /**
+     * 更新文章
+     */
+    saveEdit(status) {
+      this.form.status = status;
+      const that = this;
+      //表单校验
+      this.$refs['form'].validate((valid, fields) => {
+        if(valid) {
+          updateArticle(that.form).then((response) => {
+            //添加文章成功
+            ElMessage.success("更新成功");
+            //重置表单
+            that.$refs['form'].resetFields();
+            // TODO 路由跳转
+            router.push("/index/content/article");
+          });
+        }
+      });
     }
   },
   mounted() {
+    this.isEdit = false;
     //查询所有分类，显示到选择文章分类下拉框中
     getAllCategory().then((response) => {
       if(response != null) {
@@ -283,6 +318,27 @@ export default {
         this.isLoadingTag = false;
       }
     });
+    //从文章管理界面点击编辑按钮后
+    if(this.$route.params.id[0]) {
+      this.isEdit = true;
+      getArticle(this.$route.params.id[0]).then((response) => {
+        if(response != null) {
+          this.form = response.data;
+          if(this.form.thumbnail != null && this.form.thumbnail != "") {
+            //有缩略图，创建一个假的缩略图文件对象，以在界面上显示
+            this.fileList.push(
+              {
+                name: "缩略图",
+                percentage: 0,
+                raw: new File([], "缩略图", null),
+                url: this.form.thumbnail,
+                status: "success"
+              }
+            );
+          }
+        }
+      });
+    }
   }
 }
 </script>

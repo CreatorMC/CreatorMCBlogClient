@@ -15,11 +15,12 @@
       </el-form-item>
     </el-form>
     <div>
-      <el-button type="primary" plain @click="openAddUserDialog">
+      <!-- TODO 先固定跳转的路径，等实现动态路由后，此处需要修改 -->
+      <el-button type="primary" plain @click="$router.push('/index/write')">
         <el-icon><Plus /></el-icon>
         <span>新增</span>
       </el-button>
-      <el-button type="danger" plain :disabled="isDisableDelete" @click="deleteSelectedUser">
+      <el-button type="danger" plain :disabled="isDisableDelete" @click="deleteSelectedArticle">
         <el-icon><Delete /></el-icon>
         <span>删除</span>
       </el-button>
@@ -46,14 +47,14 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" />
-      <el-table-column fixed="right" label="操作" width="200px">
+      <el-table-column fixed="right" label="操作" width="170px">
         <template #default="scope">
           <div class="operation-cell">
-            <el-button type="primary" link @click="openEditUserDialog(scope.row)">
+            <el-button type="primary" link @click="openEditArticleDialog(scope.row)">
               <el-icon><Edit /></el-icon>
               <span>编辑</span>
             </el-button>
-            <el-button type="danger" link @click="deleteUser([scope.row.id])">
+            <el-button type="danger" link @click="deleteArticle([scope.row.id])">
               <el-icon><Delete /></el-icon>
               <span>删除</span>
             </el-button>
@@ -115,23 +116,17 @@ export default {
       });
     },
     /**
-     * 打开编辑用户对话框
+     * 进入编辑文章页面
      */
-    openEditUserDialog(data) {
-      // this.$refs['editDialog'].openEditUserDialog(data);
+    openEditArticleDialog(data) {
+      this.$router.push("/index/write/" + data.id);
     },
     /**
-     * 打开新增用户对话框
+     * 删除文章
      */
-    openAddUserDialog() {
-      // this.$refs['addDialog'].openAddUserDialog();
-    },
-    /**
-     * 删除用户
-     */
-    deleteUser(ids) {
+    deleteArticle(ids) {
       // ElMessageBox.confirm(
-      //   '确定要删除选中的用户吗？',
+      //   '确定要删除选中的文章吗？',
       //   '警告',
       //   {
       //     confirmButtonText: '确认',
@@ -140,7 +135,7 @@ export default {
       //   }
       // ).then(() => {
       //   //确认
-      //   deleteUser(ids).then((response) => {
+      //   deleteArticle(ids).then((response) => {
       //     if(response != null) {
       //       ElMessage.success("删除成功");
       //       //刷新数据
@@ -152,15 +147,15 @@ export default {
       // });
     },
     /**
-     * 删除选中的用户
+     * 删除选中的文章
      */
-    deleteSelectedUser() {
+    deleteSelectedArticle() {
       // let selectedList = this.$refs['table'].getSelectionRows();
       // let ids = [];
-      // selectedList.forEach(user => {
-      //   ids.push(user.id);
+      // selectedList.forEach(Article => {
+      //   ids.push(Article.id);
       // });
-      // this.deleteUser(ids);
+      // this.deleteArticle(ids);
     },
     /**
      * 表格的选择项发生改变时触发

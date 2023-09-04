@@ -34,3 +34,29 @@ export function getArticleList(pageNum, pageSize, title, summary) {
     }
   });
 }
+
+/**
+ * 查询文章详情
+ * @param {*} id 文章id
+ * @returns 
+ */
+export function getArticle(id) {
+  return service.get("/content/article/" + id, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 更新文章
+ * @param {*} data 
+ * @returns 
+ */
+export function updateArticle(data) {
+  return service.put("/content/article", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

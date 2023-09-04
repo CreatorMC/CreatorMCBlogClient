@@ -18,17 +18,17 @@ const router = createRouter({
     },
     {
       path: "/login",
-      name: "Login",
+      name: "login",
       component: Login
     },
     {
       path: "/index",
-      name: "Index",
+      name: "index",
       component: Index,
       children: [
         {
           path: "dashboard",
-          name: "DashboardIndex",
+          name: "dashboard",
           component: DashboardIndex,
           //menuName 应该从后端接收
           meta: {
@@ -36,8 +36,8 @@ const router = createRouter({
           }
         },
         {
-          path: "write",
-          name: "WriteIndex",
+          path: "write/:id*",
+          name: "write",
           component: WriteIndex,
           meta: {
             menuName: "写文章"
@@ -52,7 +52,7 @@ const router = createRouter({
           children: [
             {
               path: "user",
-              name: "UserIndex",
+              name: "user",
               component: UserIndex,
               meta: {
                 menuName: "用户管理"
@@ -60,7 +60,7 @@ const router = createRouter({
             },
             {
               path: "role",
-              name: "RoleIndex",
+              name: "role",
               component: RoleIndex,
               meta: {
                 menuName: "角色管理"
@@ -68,7 +68,7 @@ const router = createRouter({
             },
             {
               path: "menu",
-              name: "MenuIndex",
+              name: "menu",
               component: MenuIndex,
               meta: {
                 menuName: "菜单管理"
@@ -85,7 +85,7 @@ const router = createRouter({
           children: [
             {
               path: "article",
-              name: "ArticleIndex",
+              name: "article",
               component: ArticleIndex,
               meta: {
                 menuName: "文章管理"
