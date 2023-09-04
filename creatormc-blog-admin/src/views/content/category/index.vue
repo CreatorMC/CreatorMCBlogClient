@@ -64,6 +64,8 @@
       :total="total"
       @get-table-data="getTableData"
     />
+    <!-- 编辑分类组件 -->
+    <EditCategoryComponent ref="editDialog" @get-table-data="getTableData" />
     <!-- 新增分类组件 -->
     <AddCategoryComponent ref="addDialog" @get-table-data="getTableData" />
   </div>
@@ -74,6 +76,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
 import { getPageCategoryList } from '@/api/category';
 import AddCategoryComponent from '@/components/content/category/AddCategoryComponent.vue';
+import EditCategoryComponent from '@/components/content/category/EditCategoryComponent.vue';
 
 export default {
   data() {
@@ -122,7 +125,7 @@ export default {
      * 打开编辑分类对话框
      */
     openEditCategoryDialog(data) {
-      // this.$refs['editDialog'].openEditCategoryDialog(data);
+      this.$refs['editDialog'].openEditCategoryDialog(data);
     },
     /**
      * 删除分类
@@ -201,7 +204,7 @@ export default {
   mounted() {
     this.getTableData();
   },
-  components: { PaginationComponent, AddCategoryComponent }
+  components: { PaginationComponent, AddCategoryComponent, EditCategoryComponent }
 }
 </script>
 

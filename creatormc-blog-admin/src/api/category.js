@@ -46,3 +46,29 @@ export function addCategory(data) {
     }
   });
 }
+
+/**
+ * 查询单个分类
+ * @param {*} id 分类id
+ * @returns 
+ */
+export function getCategory(id) {
+  return service.get("/content/category/" + id, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 更新分类
+ * @param {*} data 
+ * @returns 
+ */
+export function updateCategory(data) {
+  return service.put("/content/category", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
