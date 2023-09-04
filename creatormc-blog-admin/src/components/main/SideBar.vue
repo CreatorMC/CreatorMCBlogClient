@@ -56,7 +56,7 @@
                 <span>分类管理</span>
               </template>
             </el-menu-item>
-            <el-menu-item>
+            <el-menu-item index="/index/content/link">
               <el-icon><icon-svg name="link" /></el-icon>
               <template #title>
                 <span>友链管理</span>

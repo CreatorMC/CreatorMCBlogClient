@@ -9,6 +9,7 @@ import RoleIndex from "../views/system/role/index.vue";
 import MenuIndex from "../views/system/menu/index.vue";
 import ArticleIndex from "../views/content/article/index.vue";
 import CategoryIndex from "../views/content/category/index.vue";
+import LinkIndex from "../views/content/link/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,6 +99,14 @@ const router = createRouter({
               component: CategoryIndex,
               meta: {
                 menuName: "分类管理"
+              }
+            },
+            {
+              path: "link",
+              name: "link",
+              component: LinkIndex,
+              meta: {
+                menuName: "友链管理"
               }
             }
           ]
