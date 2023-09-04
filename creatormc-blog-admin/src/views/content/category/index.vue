@@ -74,7 +74,7 @@
 <script>
 import { ElMessage, ElMessageBox } from 'element-plus';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
-import { getPageCategoryList, deleteCategory } from '@/api/category';
+import { getPageCategoryList, deleteCategory, changeCategoryStatus } from '@/api/category';
 import AddCategoryComponent from '@/components/content/category/AddCategoryComponent.vue';
 import EditCategoryComponent from '@/components/content/category/EditCategoryComponent.vue';
 
@@ -167,31 +167,31 @@ export default {
      * 更新分类状态
      */
     changeStatus(val, data) {
-      // ElMessageBox.confirm(
-      //   '确认要&nbsp;<strong>' + (val == "0" ? "启用" : "停用") +'</strong>&nbsp;<strong>' + data.userName + "</strong>&nbsp;用户吗？",
-      //   '警告',
-      //   {
-      //     confirmButtonText: '确认',
-      //     cancelButtonText: '取消',
-      //     type: 'warning',
-      //     dangerouslyUseHTMLString: true
-      //   }
-      // ).then(() => {
-      //   //确认
-      //   changeUserStatus({
-      //     id: data.id,
-      //     status: val
-      //   }).then((response) => {
-      //     if(response != null) {
-      //       ElMessage.success("更新成功");
-      //     } else {
-      //       data.status = data.status == "0" ? "1" : "0";
-      //     }
-      //   });
-      // }).catch(() => {
-      //   //取消
-      //   data.status = data.status == "0" ? "1" : "0";
-      // });
+      ElMessageBox.confirm(
+        '确认要&nbsp;<strong>' + (val == "0" ? "启用" : "停用") +'</strong>&nbsp;<strong>' + data.name + "</strong>&nbsp;分类吗？",
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+          dangerouslyUseHTMLString: true
+        }
+      ).then(() => {
+        //确认
+        changeCategoryStatus({
+          id: data.id,
+          status: val
+        }).then((response) => {
+          if(response != null) {
+            ElMessage.success("更新成功");
+          } else {
+            data.status = data.status == "0" ? "1" : "0";
+          }
+        });
+      }).catch(() => {
+        //取消
+        data.status = data.status == "0" ? "1" : "0";
+      });
     },
     /**
      * 表格的选择项发生改变时触发

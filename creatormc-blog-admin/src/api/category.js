@@ -85,3 +85,16 @@ export function deleteCategory(ids) {
     }
   });
 }
+
+/**
+ * 更新分类状态
+ * @param {*} dto 
+ * @returns 
+ */
+export function changeCategoryStatus(dto) {
+  return service.put("/content/category/changeStatus", dto, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
