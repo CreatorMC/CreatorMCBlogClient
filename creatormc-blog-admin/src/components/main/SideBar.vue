@@ -50,7 +50,7 @@
                 <span>文章管理</span>
               </template>
             </el-menu-item>
-            <el-menu-item>
+            <el-menu-item index="/index/content/category">
               <el-icon><icon-svg name="category" /></el-icon>
               <template #title>
                 <span>分类管理</span>
