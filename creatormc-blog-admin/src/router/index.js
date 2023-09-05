@@ -10,6 +10,7 @@ import MenuIndex from "../views/system/menu/index.vue";
 import ArticleIndex from "../views/content/article/index.vue";
 import CategoryIndex from "../views/content/category/index.vue";
 import LinkIndex from "../views/content/link/index.vue";
+import TagIndex from "../views/content/tag/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -107,6 +108,14 @@ const router = createRouter({
               component: LinkIndex,
               meta: {
                 menuName: "友链管理"
+              }
+            },
+            {
+              path: "tag",
+              name: "tag",
+              component: TagIndex,
+              meta: {
+                menuName: "标签管理"
               }
             }
           ]

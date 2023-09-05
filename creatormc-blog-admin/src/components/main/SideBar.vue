@@ -62,7 +62,7 @@
                 <span>友链管理</span>
               </template>
             </el-menu-item>
-            <el-menu-item>
+            <el-menu-item index="/index/content/tag">
               <el-icon><icon-svg name="tag" /></el-icon>
               <template #title>
                 <span>标签管理</span>
