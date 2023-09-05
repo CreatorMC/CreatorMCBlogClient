@@ -59,3 +59,16 @@ export function updateLink(data) {
     }
   });
 }
+
+/**
+ * 删除友链
+ * @param {*} ids 友链id列表
+ * @returns 
+ */
+export function deleteLink(ids) {
+  return service.delete("/content/link/" + ids, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

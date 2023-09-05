@@ -77,7 +77,7 @@
 <script>
 import { ElMessage, ElMessageBox } from 'element-plus';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
-import { getPageLinkList } from '@/api/link';
+import { getPageLinkList, deleteLink } from '@/api/link';
 import AddLinkComponent from '@/components/content/link/AddLinkComponent.vue';
 import EditLinkComponent from '@/components/content/link/EditLinkComponent.vue';
 
@@ -134,37 +134,37 @@ export default {
      * 删除友链
      */
     deleteLink(ids) {
-      // ElMessageBox.confirm(
-      //   `确定要删除选中的友链吗？`,
-      //   '警告',
-      //   {
-      //     confirmButtonText: '确认',
-      //     cancelButtonText: '取消',
-      //     type: 'warning'
-      //   }
-      // ).then(() => {
-      //   //确认
-      //   deleteLink(ids).then((response) => {
-      //     if (response != null) {
-      //       ElMessage.success("删除成功");
-      //       //刷新数据
-      //       this.getTableData();
-      //     }
-      //   });
-      // }).catch(() => {
-      //   //取消
-      // });
+      ElMessageBox.confirm(
+        `确定要删除选中的友链吗？`,
+        '警告',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        //确认
+        deleteLink(ids).then((response) => {
+          if (response != null) {
+            ElMessage.success("删除成功");
+            //刷新数据
+            this.getTableData();
+          }
+        });
+      }).catch(() => {
+        //取消
+      });
     },
     /**
      * 删除选中的友链
      */
     deleteSelectedLink() {
-      // let selectedList = this.$refs['table'].getSelectionRows();
-      // let ids = [];
-      // selectedList.forEach(article => {
-      //   ids.push(article.id);
-      // });
-      // this.deleteLink(ids);
+      let selectedList = this.$refs['table'].getSelectionRows();
+      let ids = [];
+      selectedList.forEach(article => {
+        ids.push(article.id);
+      });
+      this.deleteLink(ids);
     },
     /**
      * 表格的选择项发生改变时触发
