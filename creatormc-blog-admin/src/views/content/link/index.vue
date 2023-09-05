@@ -69,6 +69,7 @@
       :total="total"
       @get-table-data="getTableData"
     />
+    <EditLinkComponent ref="editDialog" @get-table-data="getTableData"/>
     <AddLinkComponent ref="addDialog" @get-table-data="getTableData" />
   </div>
 </template>
@@ -78,6 +79,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
 import { getPageLinkList } from '@/api/link';
 import AddLinkComponent from '@/components/content/link/AddLinkComponent.vue';
+import EditLinkComponent from '@/components/content/link/EditLinkComponent.vue';
 
 export default {
   data() {
@@ -126,7 +128,7 @@ export default {
      * 打开编辑友链对话框
      */
     openEditLinkDialog(data) {
-      // this.$refs['editDialog'].openEditLinkDialog(data);
+      this.$refs['editDialog'].openEditLinkDialog(data);
     },
     /**
      * 删除友链
@@ -179,7 +181,7 @@ export default {
   mounted() {
     this.getTableData();
   },
-  components: { PaginationComponent, AddLinkComponent }
+  components: { PaginationComponent, AddLinkComponent, EditLinkComponent }
 }
 </script>
 

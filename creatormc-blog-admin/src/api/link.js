@@ -33,3 +33,29 @@ export function addLink(data) {
     }
   });
 }
+
+/**
+ * 查询单个友链
+ * @param {*} id 友链id
+ * @returns 
+ */
+export function getLink(id) {
+  return service.get("/content/link/" + id, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 更新友链
+ * @param {*} data 
+ * @returns 
+ */
+export function updateLink(data) {
+  return service.put("/content/link", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
