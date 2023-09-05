@@ -20,3 +20,16 @@ export function getPageLinkList(pageNum, pageSize, dto) {
     }
   });
 }
+
+/**
+ * 添加友链
+ * @param {*} data 
+ * @returns 
+ */
+export function addLink(data) {
+  return service.post("/content/link", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
