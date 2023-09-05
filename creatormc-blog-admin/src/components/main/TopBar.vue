@@ -22,7 +22,7 @@
             <el-avatar shape="square" :src="avatar" fit="cover"></el-avatar>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>首页</el-dropdown-item>
+                <el-dropdown-item @click="$router.push('/')">首页</el-dropdown-item>
                 <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
