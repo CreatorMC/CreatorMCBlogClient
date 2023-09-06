@@ -18,10 +18,9 @@ export const userStore = defineStore("user",{
         nickName: "",
         //性别
         sex: ""
-      }
+      },
+      //动态路由信息
+      routes: []
     }
-  },
-  persist: {
-    enabled: true   //开启存储，默认存储到sessionStorage
   }
 });
