@@ -143,7 +143,9 @@ export async function disposeRouters(data) {
           // 这还正好实现了懒加载！用户未点击的菜单没有被加载，直到用户点击菜单时才会加载相应组件
           component: modules[`/src/views/${item.component}.vue`],
           meta: {
-            menuName: item.menuName
+            menuName: item.menuName,
+            menuType: item.menuType,
+            icon: item.icon
           },
           // 递归孩子，没什么好说的，别忘了加 await
           children: await dispose(item.children)
@@ -152,7 +154,9 @@ export async function disposeRouters(data) {
           name: item.path.indexOf(':') != -1 ? item.path.substring(0, item.path.lastIndexOf('/')) : item.path,
           // redirect: item.children[0].path,
           meta: {
-            menuName: item.menuName
+            menuName: item.menuName,
+            menuType: item.menuType,
+            icon: item.icon
           },
           children: await dispose(item.children)
         }

@@ -9,66 +9,7 @@
               <span>主页</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/index/write">
-            <el-icon><icon-svg name="edit" /></el-icon>
-            <template #title>
-              <span>写文章</span>
-            </template>
-          </el-menu-item>
-          <el-sub-menu index="/index/system">
-            <template #title>
-              <el-icon><icon-svg name="setting" /></el-icon>
-              <span>系统管理</span>
-            </template>
-            <el-menu-item index="/index/system/user">
-              <el-icon><icon-svg name="user" /></el-icon>
-              <template #title>
-                <span>用户管理</span>
-              </template>
-            </el-menu-item>
-            <el-menu-item index="/index/system/role">
-              <el-icon><icon-svg name="role" /></el-icon>
-              <template #title>
-                <span>角色管理</span>
-              </template>
-            </el-menu-item>
-            <el-menu-item index="/index/system/menu">
-              <el-icon><icon-svg name="tree-table" /></el-icon>
-              <template #title>
-                <span>菜单管理</span>
-              </template>
-            </el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="/index/content">
-            <template #title>
-              <el-icon><icon-svg name="table" /></el-icon>
-              <span>内容管理</span>
-            </template>
-            <el-menu-item index="/index/content/article">
-              <el-icon><icon-svg name="container" /></el-icon>
-              <template #title>
-                <span>文章管理</span>
-              </template>
-            </el-menu-item>
-            <el-menu-item index="/index/content/category">
-              <el-icon><icon-svg name="category" /></el-icon>
-              <template #title>
-                <span>分类管理</span>
-              </template>
-            </el-menu-item>
-            <el-menu-item index="/index/content/link">
-              <el-icon><icon-svg name="link" /></el-icon>
-              <template #title>
-                <span>友链管理</span>
-              </template>
-            </el-menu-item>
-            <el-menu-item index="/index/content/tag">
-              <el-icon><icon-svg name="tag" /></el-icon>
-              <template #title>
-                <span>标签管理</span>
-              </template>
-            </el-menu-item>
-          </el-sub-menu>
+          <SideBarRoute :routes="routes" pre="/index/" />
         </el-menu>
       </el-scrollbar>
     </div>
@@ -77,15 +18,19 @@
 </template>
 
 <script>
+import { userStore } from '@/store/user';
+import SideBarRoute from './SideBarRoute.vue';
+
 export default {
   props: {
-    isCollapse: Boolean   //是否折叠菜单
+    isCollapse: Boolean //是否折叠菜单
   },
   data() {
     return {
-
-    }
-  }
+      routes: userStore().routes
+    };
+  },
+  components: { SideBarRoute }
 }
 </script>
 
