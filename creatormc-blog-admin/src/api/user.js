@@ -152,7 +152,7 @@ export async function disposeRouters(data) {
         } : {
           path: item.path,
           name: item.path.indexOf(':') != -1 ? item.path.substring(0, item.path.lastIndexOf('/')) : item.path,
-          // redirect: item.children[0].path,
+          redirect: item.children.length > 0 ? item.children[0].path : null,
           meta: {
             menuName: item.menuName,
             menuType: item.menuType,
