@@ -145,7 +145,8 @@ export async function disposeRouters(data) {
           meta: {
             menuName: item.menuName,
             menuType: item.menuType,
-            icon: item.icon
+            icon: item.icon,
+            visible: item.visible
           },
           // 递归孩子，没什么好说的，别忘了加 await
           children: await dispose(item.children)
@@ -156,7 +157,8 @@ export async function disposeRouters(data) {
           meta: {
             menuName: item.menuName,
             menuType: item.menuType,
-            icon: item.icon
+            icon: item.icon,
+            visible: item.visible
           },
           children: await dispose(item.children)
         }

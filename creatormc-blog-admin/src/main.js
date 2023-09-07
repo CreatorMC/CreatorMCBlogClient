@@ -9,7 +9,6 @@ import 'nprogress/nprogress.css'
 import { createPinia } from 'pinia'                             //引入 Pinia
 import mavonEditor from 'mavon-editor'                          //引入 MavonEditor
 import 'mavon-editor/dist/css/index.css'
-import piniaPersist from 'pinia-plugin-persist'                 //引入 Pinia的固化插件
 import '@/styles/empty.scss'                                    //引入一个空的scss，解决部分scss样式不生效问题
 import IconSVG from '@/components/utils/IconSVGComponent.vue'   //引入自定义的图标组件
 
@@ -20,8 +19,6 @@ NProgress.configure({ showSpinner: false })                     //配置没有�
 const app = createApp(App)
 
 const pinia = createPinia()
-
-pinia.use(piniaPersist)
 
 //全局注册组件
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
