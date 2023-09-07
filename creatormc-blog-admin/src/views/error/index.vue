@@ -10,7 +10,7 @@
         您可以尝试访问以下链接:
       </p>
       <div style="width: 100%;">
-        <el-button type="primary" size="default">返回首页</el-button>
+        <el-button type="primary" size="default" @click="$router.push('/')">返回首页</el-button>
       </div>
     </div>
   </div>
