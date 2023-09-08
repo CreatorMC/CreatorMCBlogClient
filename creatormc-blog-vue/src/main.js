@@ -10,7 +10,7 @@ import { createPinia } from 'pinia'                             //引入 Pinia
 import mavonEditor from 'mavon-editor'                          //引入 MavonEditor
 import 'mavon-editor/dist/css/index.css'
 import '@/styles/empty.scss'                                    //引入一个空的scss，解决部分scss样式不生效问题
-// import IconSVG from '@/components/utils/IconSVGComponent.vue'   //引入自定义的图标组件
+import IconSVG from '@/components/utils/IconSVGComponent.vue'   //引入自定义的图标组件
 
 import App from './App.vue'
 
@@ -24,7 +24,7 @@ const pinia = createPinia()
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-// app.component("icon-svg", IconSVG)
+app.component("icon-svg", IconSVG)
 app.use(ElementPlus)
 app.use(router)
 app.use(pinia)

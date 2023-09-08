@@ -32,5 +32,6 @@ body {
   margin: 0 calc((100vw - 100%) * -1) 0 0;
   padding-right: calc(100vw - 100%);
   overflow-x: hidden;
+  background-color: #efefef;
 }
 </style>

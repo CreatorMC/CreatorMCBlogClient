@@ -1,31 +1,33 @@
 <template>
   <div>
-    <div class="top-container">
-      
+    <StartScreenComponent />
+    <div id="main-container" class="main-container">
+      <div class="seat"></div>
+      内容
     </div>
   </div>
 </template>
 
 <script>
+import StartScreenComponent from '@/components/content/index/StartScreenComponent.vue';
 export default {
   data() {
     return {
-
     }
-  }
+  },
+  components: { StartScreenComponent }
 }
 </script>
 
 <style lang="scss" scoped>
-.top-container {
-  width: 100%;
-  height: 100vh;
-  background: url("/img/index.png") no-repeat center;
-  background-size: cover;
+.main-container {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
 }
-.bg {
-  position: fixed;
-  width: 100%;
-  height: 100vh;
+
+.seat {
+  height: $headHeight;
 }
 </style>
