@@ -13,11 +13,14 @@
 <script>
 export default {
   name: "StartScreenComponent",
+  emits: [
+    "close"
+  ],
   data() {
     return {
       tips: [
         "永远保持对技术的好奇心",
-        "技术学到最后一定都是简单的"
+        "技术学到最后一定都是简洁的"
       ],
       showTip: "",
       isShowCodeCursor: true
@@ -66,6 +69,7 @@ export default {
         // 此组件要销毁了
         removeEventListener("wheel", this.mouseRoll, { passive: false });
         document.getElementsByTagName("body")[0].style.overflow = "";
+        this.$emit("close");
       }, 1000)
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <StartScreenComponent />
+    <StartScreenComponent v-if="isShowStratScreen" @close="closeStartScreen" />
     <div id="main-container" class="main-container">
       <div class="seat"></div>
       内容
@@ -13,6 +13,12 @@ import StartScreenComponent from '@/components/content/index/StartScreenComponen
 export default {
   data() {
     return {
+      isShowStratScreen: true
+    }
+  },
+  methods: {
+    closeStartScreen() {
+      this.isShowStratScreen = false;
     }
   },
   components: { StartScreenComponent }
