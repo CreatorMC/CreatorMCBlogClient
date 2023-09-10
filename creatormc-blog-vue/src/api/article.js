@@ -18,3 +18,12 @@ export function articleList(pageNum, pageSize, categoryId) {
 export function hotArticleList() {
   return service.get("/article/hotArticleList");
 }
+
+/**
+ * 查询文章详情
+ * @param {*} id 文章id
+ * @returns 
+ */
+export function getArticle(id) {
+  return service.get("/article/" + id);
+}

@@ -11,6 +11,10 @@ import mavonEditor from 'mavon-editor'                          //引入 MavonEd
 import 'mavon-editor/dist/css/index.css'
 import '@/styles/empty.scss'                                    //引入一个空的scss，解决部分scss样式不生效问题
 import IconSVG from '@/components/utils/IconSVGComponent.vue'   //引入自定义的图标组件
+import { Marked } from 'marked'                                 //引入 Marked 用于渲染 Markdown
+import { markedHighlight } from "marked-highlight"              //引入 markedHighlight 用于代码高亮
+import hljs from 'highlight.js'                                 //引入 highlight.js 用于代码高亮
+import 'highlight.js/styles/atom-one-dark.css';                        //引入 highlight.js 的样式
 
 import App from './App.vue'
 
@@ -32,6 +36,13 @@ app.use(mavonEditor)
 
 //定义全局属性
 app.config.globalProperties.$nprogress = NProgress  //页面顶部加载进度条
+app.config.globalProperties.$markdown = new Marked(markedHighlight({
+  langPrefix: 'hljs language-',
+  highlight(code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+    return hljs.highlight(code, { language }).value;
+  }
+}))
 
 app.mount('#app')
 

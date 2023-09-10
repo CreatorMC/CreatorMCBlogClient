@@ -1,7 +1,6 @@
 import nProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
 import Index from "../views/index.vue";
-import HomeIndex from "../views/home/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,10 +17,13 @@ const router = createRouter({
         {
           path: "home",
           name: "home",
-          component: HomeIndex,
-          meta: {
-            menuName: "主页"
-          }
+          component: () => import('../views/home/index.vue')
+        },
+        {
+          path: "article/:id",
+          name: "article",
+          component: () => import('../views/content/article/index.vue'),
+          props: true
         }
       ]
     },
