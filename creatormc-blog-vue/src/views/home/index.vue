@@ -48,9 +48,7 @@ export default {
           this.isLoading = false;
           let maxPage = Math.ceil(parseFloat(response.data.total) / this.pageSize)
           if(this.pageNum >= maxPage) {
-            console.log("尽头");
             this.isDisable = true;
-            console.log(this.isDisable);
           } else {
             this.isDisable = false;
             this.pageNum++;

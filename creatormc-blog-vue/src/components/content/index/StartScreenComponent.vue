@@ -74,8 +74,6 @@ export default {
     }
   },
   mounted() {
-    // 确保用户在网页最上方
-    setTimeout(() => {scrollTo(0,0);}, 50);
     // 给 body 添加样式，隐藏滚动条
     document.getElementsByTagName("body")[0].style.overflow = "hidden";
     // 展示开屏动画
