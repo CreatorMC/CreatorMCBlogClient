@@ -7,7 +7,7 @@
         <el-col :sm="24" :md="16">
           <ArticleListComponent :articles="articles" />
         </el-col>
-        <el-col :sm="24" :md="8">
+        <el-col class="gutter-v" :sm="24" :md="8">
           <el-card shadow="hover">
             <div class="avatar">
               <el-avatar :size="100" shape="circle" src="/img/avatar.png" fit="cover"></el-avatar>
@@ -20,6 +20,7 @@
               </div>
             </div>
           </el-card>
+          <HotArticleComponent :hotArticles="hotArticles" />
         </el-col>
       </el-row>
     </div>
@@ -28,8 +29,9 @@
 
 <script>
 import StartScreenComponent from '@/components/content/index/StartScreenComponent.vue';
-import { articleList } from '@/api/article';
+import { articleList, hotArticleList } from '@/api/article';
 import ArticleListComponent from '@/components/content/index/ArticleListComponent.vue';
+import HotArticleComponent from '@/components/content/index/HotArticleComponent.vue';
 export default {
   data() {
     return {
@@ -37,7 +39,8 @@ export default {
       pageSize: 10,
       categoryId: -1,
       isShowStratScreen: true,
-      articles: []
+      articles: [],
+      hotArticles: []
     }
   },
   methods: {
@@ -53,12 +56,23 @@ export default {
           this.articles = response.data.rows;
         }
       });
+    },
+    /**
+     * 查询浏览量前10条的文章
+     */
+    hotArticleList() {
+      hotArticleList().then((response) => {
+        if(response != null) {
+          this.hotArticles = response.data;
+        }
+      });
     }
   },
   mounted() {
     this.articleList();
+    this.hotArticleList();
   },
-  components: { StartScreenComponent, ArticleListComponent }
+  components: { StartScreenComponent, ArticleListComponent, HotArticleComponent }
 }
 </script>
 
@@ -97,6 +111,12 @@ export default {
   }
   i:hover {
     color: var(--el-color-info-light-3);
+  }
+}
+
+.gutter-v {
+  > div {
+    margin-bottom: 30px;
   }
 }
 </style>

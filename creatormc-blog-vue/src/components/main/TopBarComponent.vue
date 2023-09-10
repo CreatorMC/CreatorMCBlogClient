@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <el-menu class="bar-container" mode="horizontal" default-active="1" :ellipsis="false">
-      <el-menu-item index="1">首页</el-menu-item>
-      <el-menu-item index="2">分类</el-menu-item>
-      <el-menu-item index="3">友链</el-menu-item>
-      <el-menu-item index="4">关于</el-menu-item>
+    <el-menu class="bar-container" mode="horizontal" default-active="/index/home" :ellipsis="false" router>
+      <el-menu-item index="/index/home">首页</el-menu-item>
+      <el-menu-item index="/">分类</el-menu-item>
+      <el-menu-item index="/">友链</el-menu-item>
+      <el-menu-item index="/">关于</el-menu-item>
       <div class="flex-grow" />
       <div class="head">
         <el-avatar src="" fit="cover">

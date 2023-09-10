@@ -10,3 +10,11 @@ import service from "../utils/request";
 export function articleList(pageNum, pageSize, categoryId) {
   return service.get("/article/articleList/" + pageNum + "/" + pageSize + (categoryId ? ("/" + categoryId) : ""));
 }
+
+/**
+ * 查询浏览量前10条的文章
+ * @returns 
+ */
+export function hotArticleList() {
+  return service.get("/article/hotArticleList");
+}
