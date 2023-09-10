@@ -8,7 +8,7 @@
               <div class="tag-container">
                 <el-tag class="tag" type="info">{{ item.categoryName }}</el-tag>
               </div>
-              <span class="title-span">{{ item.title }}</span>
+                <router-link to="/"><span class="title-span">{{ item.title }}</span></router-link>
             </div>
           </h1>
           <h2 style="color: gray;">

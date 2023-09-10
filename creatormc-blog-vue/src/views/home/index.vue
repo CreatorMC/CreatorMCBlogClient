@@ -7,7 +7,20 @@
         <el-col :sm="24" :md="16">
           <ArticleListComponent :articles="articles" />
         </el-col>
-        <el-col :sm="24" :md="8">第二列</el-col>
+        <el-col :sm="24" :md="8">
+          <el-card shadow="hover">
+            <div class="avatar">
+              <el-avatar :size="100" shape="circle" src="/img/avatar.png" fit="cover"></el-avatar>
+              <h1>创造者MC</h1>
+              <div class="icon">
+                <a href="https://github.com/CreatorMC" target="_blank"><el-icon><icon-svg name="icon-github" /></el-icon></a>
+                <a href="https://gitee.com/creator-mc" target="_blank"><el-icon><icon-svg name="icon-gitee" /></el-icon></a>
+                <a href="https://blog.csdn.net/weixin_59232910?type=blog" target="_blank"><el-icon><icon-svg name="icon-csdn" /></el-icon></a>
+                <a href="https://space.bilibili.com/152404569" target="_blank"><el-icon><icon-svg name="icon-Bilibili" /></el-icon></a>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -65,5 +78,25 @@ export default {
 
 .seat {
   height: calc($headHeight + 20px);
+}
+
+.avatar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  i {
+    font-size: 2em;
+    color: var(--el-color-info);
+  }
+  i:hover {
+    color: var(--el-color-info-light-3);
+  }
 }
 </style>
