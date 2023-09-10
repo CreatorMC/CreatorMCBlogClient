@@ -57,10 +57,11 @@ export default {
       text-overflow: ellipsis;
     }
     .hot-article-title {
-      font-size: large;
+      font-size: 14px;
       font-weight: bold;
     }
     .hot-article-view {
+      font-size: 12px;
       color: gray;
     }
   }
