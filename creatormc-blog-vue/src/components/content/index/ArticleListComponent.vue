@@ -8,7 +8,7 @@
               <div class="tag-container">
                 <el-tag class="tag" type="info">{{ item.categoryName }}</el-tag>
               </div>
-              <router-link style="position: relative; z-index:10;" to="/"><span class="title-span">{{ item.title }}</span></router-link>
+              <router-link class="link" to="/"><span class="title-span">{{ item.title }}</span></router-link>
             </div>
           </h1>
           <h2 style="color: gray;">
@@ -25,6 +25,11 @@
         </div>
       </div>
     </el-card>
+    <div style="margin-bottom: 30px; width:100%;">
+      <el-button style="width:100%;" type="primary" :loading="isLoading" :disabled="isDisable" @click="$emit('loadMore')">
+        {{ isDisable ? "到达世界的尽头~" : "加载更多" }}
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -32,11 +37,16 @@
 export default {
   name: "ArticleListComponent",
   props: {
-    articles: Array
+    articles: Array,
+    isLoading: Boolean,
+    isDisable: Boolean
   },
+  emits: [
+    "loadMore"
+  ],
   data() {
     return {
-
+      
     }
   },
   methods: {
@@ -44,7 +54,7 @@ export default {
      * 得到发布时间
      * https://github.com/hy-inger/hy-inger.github.io/issues/7
      */
-     publishTime(str) {
+    publishTime(str) {
       let date = str.split(' ')[0];
       let arr = date.split('-');
       return `${arr[0]}年${arr[1]}月${arr[2]}日`;
@@ -114,5 +124,16 @@ export default {
       font-size: 12px;
     }
   }
+}
+
+.link {
+  position: relative;
+  z-index:10;
+  color: black;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--el-color-primary);
 }
 </style>

@@ -5,23 +5,9 @@
       <div class="seat"></div>
       <el-row :gutter="30">
         <el-col :sm="24" :md="16">
-          <ArticleListComponent :articles="articles" />
+          <ArticleListComponent :articles="articles" :isLoading="isLoading" :isDisable="isDisable" @loadMore="articleList" />
         </el-col>
-        <el-col class="gutter-v" :sm="24" :md="8">
-          <el-card shadow="hover">
-            <div class="avatar">
-              <el-avatar :size="100" shape="circle" src="/img/avatar.png" fit="cover"></el-avatar>
-              <h1>创造者MC</h1>
-              <div class="icon">
-                <a href="https://github.com/CreatorMC" target="_blank"><el-icon><icon-svg name="icon-github" /></el-icon></a>
-                <a href="https://gitee.com/creator-mc" target="_blank"><el-icon><icon-svg name="icon-gitee" /></el-icon></a>
-                <a href="https://blog.csdn.net/weixin_59232910?type=blog" target="_blank"><el-icon><icon-svg name="icon-csdn" /></el-icon></a>
-                <a href="https://space.bilibili.com/152404569" target="_blank"><el-icon><icon-svg name="icon-Bilibili" /></el-icon></a>
-              </div>
-            </div>
-          </el-card>
-          <HotArticleComponent :hotArticles="hotArticles" />
-        </el-col>
+        <RightSideComponent />
       </el-row>
     </div>
   </div>
@@ -29,18 +15,22 @@
 
 <script>
 import StartScreenComponent from '@/components/content/index/StartScreenComponent.vue';
-import { articleList, hotArticleList } from '@/api/article';
+import { articleList } from '@/api/article';
 import ArticleListComponent from '@/components/content/index/ArticleListComponent.vue';
-import HotArticleComponent from '@/components/content/index/HotArticleComponent.vue';
+import RightSideComponent from '@/components/content/index/RightSideComponent.vue';
 export default {
   data() {
     return {
       pageNum: 1,
       pageSize: 10,
       categoryId: -1,
+      // 显示开屏页
       isShowStratScreen: true,
-      articles: [],
-      hotArticles: []
+      // 是否正在加载文章
+      isLoading: false,
+      // 加载更多按钮是否禁用
+      isDisable: false,
+      articles: []
     }
   },
   methods: {
@@ -51,28 +41,28 @@ export default {
      * 查询文章列表
      */
     articleList() {
+      this.isLoading = true;
       articleList(this.pageNum, this.pageSize, this.categoryId == -1 ? null : this.categoryId).then((response) => {
         if(response != null) {
           this.articles = response.data.rows;
-        }
-      });
-    },
-    /**
-     * 查询浏览量前10条的文章
-     */
-    hotArticleList() {
-      hotArticleList().then((response) => {
-        if(response != null) {
-          this.hotArticles = response.data;
+          this.isLoading = false;
+          let maxPage = Math.ceil(parseFloat(response.data.total) / this.pageSize)
+          if(this.pageNum >= maxPage) {
+            console.log("尽头");
+            this.isDisable = true;
+            console.log(this.isDisable);
+          } else {
+            this.isDisable = false;
+            this.pageNum++;
+          }
         }
       });
     }
   },
   mounted() {
     this.articleList();
-    this.hotArticleList();
   },
-  components: { StartScreenComponent, ArticleListComponent, HotArticleComponent }
+  components: { StartScreenComponent, ArticleListComponent, RightSideComponent }
 }
 </script>
 
@@ -92,31 +82,5 @@ export default {
 
 .seat {
   height: calc($headHeight + 20px);
-}
-
-.avatar {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-}
-
-.icon {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-  i {
-    font-size: 2em;
-    color: var(--el-color-info);
-  }
-  i:hover {
-    color: var(--el-color-info-light-3);
-  }
-}
-
-.gutter-v {
-  > div {
-    margin-bottom: 30px;
-  }
 }
 </style>
