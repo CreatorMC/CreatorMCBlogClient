@@ -18,7 +18,7 @@
       </el-input>
     </el-form-item>
     <div class="text-container">
-      <el-button link>没有账号？立即注册</el-button>
+      <el-button link @click="$emit('showRegister')">没有账号？立即注册</el-button>
       <el-button link>忘记密码</el-button>
     </div>
     <el-form-item>
@@ -33,6 +33,9 @@ import router from '@/router';
 
 export default {
   name: "LoginComponent",
+  emits: [
+    "showRegister"
+  ],
   data() {
     return {
       form: {
