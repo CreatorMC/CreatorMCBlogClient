@@ -24,7 +24,13 @@ const router = createRouter({
           name: "article",
           component: () => import('../views/content/article/index.vue'),
           props: true
-        }
+        },
+        {
+          path: "category/:categoryId",
+          name: "category",
+          component: () => import('../views/home/index.vue'),
+          props: true
+        },
       ]
     },
     // 捕获所有未匹配到的路由

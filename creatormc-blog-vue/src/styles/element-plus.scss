@@ -1,1 +1,18 @@
 //覆盖 ElementPlus 的样式
+@import './variables.scss';
+
+.custom-menu-popper {
+  border: 0px !important;
+  background-color: unset !important;
+  ul {
+    background-color: $headSubMenuBgColor !important;
+    li {
+      color: white !important;
+      background-color: unset !important;
+    }
+    li:hover {
+      color: var(--el-menu-active-color) !important;
+      background-color: $headSubMenuBgColor !important;
+    }
+  }
+}

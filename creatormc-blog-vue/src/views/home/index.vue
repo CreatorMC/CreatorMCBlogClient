@@ -1,6 +1,6 @@
 <template>
   <div>
-    <StartScreenComponent v-if="isShowStratScreen" @close="closeStartScreen" />
+    <StartScreenComponent v-if="isShowStratScreen && categoryId == null" @close="closeStartScreen" />
     <div id="main-container" class="main-container">
       <div class="seat"></div>
       <el-row :gutter="30">
@@ -19,11 +19,13 @@ import { articleList } from '@/api/article';
 import ArticleListComponent from '@/components/content/index/ArticleListComponent.vue';
 import RightSideComponent from '@/components/content/index/RightSideComponent.vue';
 export default {
+  props: {
+    categoryId: null
+  },
   data() {
     return {
       pageNum: 1,
       pageSize: 10,
-      categoryId: -1,
       // 显示开屏页
       isShowStratScreen: true,
       // 是否正在加载文章
@@ -42,7 +44,7 @@ export default {
      */
     articleList() {
       this.isLoading = true;
-      articleList(this.pageNum, this.pageSize, this.categoryId == -1 ? null : this.categoryId).then((response) => {
+      articleList(this.pageNum, this.pageSize, this.categoryId).then((response) => {
         if(response != null) {
           this.articles = response.data.rows;
           this.isLoading = false;
@@ -59,6 +61,11 @@ export default {
   },
   mounted() {
     this.articleList();
+  },
+  watch: {
+    categoryId(val, oldVal) {
+      this.articleList();
+    }
   },
   components: { StartScreenComponent, ArticleListComponent, RightSideComponent }
 }
