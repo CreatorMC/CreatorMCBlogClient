@@ -27,7 +27,7 @@ export default {
   height: $headHeight;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $headSubMenuBgColor;
   backdrop-filter: blur(4px);
   padding: 0px;
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);

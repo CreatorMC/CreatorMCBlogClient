@@ -10,7 +10,7 @@
                 <h1>
                   <div class="title">
                     <div class="tag-container">
-                      <el-tag class="tag" type="info">{{ article.categoryName }}</el-tag>
+                      <el-tag class="tag" type="info"><router-link :to="`/index/category/${article.categoryId}`">{{ article.categoryName }}</router-link></el-tag>
                     </div>
                     <span class="title-span">{{ article.title }}</span>
                   </div>
@@ -133,6 +133,10 @@ export default {
   margin-left: -100%;
   font-weight: normal;
   margin-right: 10px;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 @media screen and (max-width: 800px) {
