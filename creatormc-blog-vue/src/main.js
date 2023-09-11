@@ -14,7 +14,7 @@ import IconSVG from '@/components/utils/IconSVGComponent.vue'   //引入自定�
 import { Marked } from 'marked'                                 //引入 Marked 用于渲染 Markdown
 import { markedHighlight } from "marked-highlight"              //引入 markedHighlight 用于代码高亮
 import hljs from 'highlight.js'                                 //引入 highlight.js 用于代码高亮
-import 'highlight.js/styles/atom-one-dark.css';                        //引入 highlight.js 的样式
+import 'highlight.js/styles/atom-one-dark.css'                  //引入 highlight.js 的样式
 
 import App from './App.vue'
 

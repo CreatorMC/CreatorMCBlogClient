@@ -68,7 +68,14 @@ export default {
     }
   },
   mounted() {
+    // 页面刚加载时
     this.getArticle();
+  },
+  watch: {
+    id(val, oldVal) {
+      // id改变时刷新页面
+      this.getArticle();
+    }
   },
   components: { RightSideComponent }
 }

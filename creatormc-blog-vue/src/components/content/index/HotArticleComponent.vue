@@ -14,7 +14,7 @@
         </el-image>
       </div>
       <div class="hot-body">
-        <div class="hot-article-title">{{ item.title }}</div>
+        <div class="hot-article-title"><router-link class="link" :to="`/index/article/${item.id}`">{{ item.title }}</router-link></div>
         <div class="hot-article-view">{{ item.viewCount }}浏览</div>
       </div>
     </div>
@@ -72,5 +72,15 @@ export default {
       height: 56.25px;
     }
   }
+}
+.link {
+  position: relative;
+  z-index:10;
+  color: black;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--el-color-primary);
 }
 </style>
