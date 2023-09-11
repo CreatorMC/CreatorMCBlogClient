@@ -10,7 +10,7 @@
       <el-menu-item index="/">关于</el-menu-item>
       <div class="flex-grow" />
       <div class="head">
-        <el-avatar src="" fit="cover">
+        <el-avatar src="" fit="cover" @click="$router.push('/login')">
           未登录
         </el-avatar>
       </div>

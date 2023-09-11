@@ -10,6 +10,11 @@ const router = createRouter({
       redirect: "/index/home"
     },
     {
+      path: "/login",
+      name: "login",
+      component: () => import('../views/login/index.vue')
+    },
+    {
       path: "/index",
       name: "index",
       component: Index,
