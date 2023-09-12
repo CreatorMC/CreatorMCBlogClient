@@ -30,6 +30,7 @@
 <script>
 import { login } from '@/api/login';
 import router from '@/router';
+import { ElMessage } from 'element-plus'; 
 
 export default {
   name: "LoginComponent",
@@ -71,6 +72,7 @@ export default {
           login(this.form).then((response) => {
             if (response != null) {
               //登录成功，保存token到localStorage中
+              ElMessage.success("登陆成功");
               localStorage.setItem("token", response.data.token);
               //跳转到首页
               router.push("/index/home");
