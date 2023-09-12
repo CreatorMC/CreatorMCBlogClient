@@ -12,7 +12,7 @@ export const userStore = defineStore("user",{
         id: "",
         //昵称
         nickName: "",
-        //性别
+        //性别 0男，1女，2未知
         sex: ""
       }
     }

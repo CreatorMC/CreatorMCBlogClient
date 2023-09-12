@@ -72,20 +72,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-container {
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 100vh;
-}
-
-@media screen and (max-width: 800px) {
-  .main-container {
-    max-width: 95% !important;
-  }
-}
-
-.seat {
-  height: calc($headHeight + 20px);
-}
 </style>

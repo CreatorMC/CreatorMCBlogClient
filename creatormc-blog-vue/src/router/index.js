@@ -38,6 +38,11 @@ const router = createRouter({
           component: () => import('../views/home/index.vue'),
           props: true
         },
+        {
+          path: "user",
+          name: "user",
+          component: () => import('../views/user/index.vue')
+        },
       ]
     },
     // 捕获所有未匹配到的路由
