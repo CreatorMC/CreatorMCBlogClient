@@ -11,7 +11,7 @@
 <script>
 import { getRandomImg } from '@/api/login';
 import LoginComponent from '@/components/login/LoginComponent.vue';
-import RegisterComponent from '../../components/login/RegisterComponent.vue';
+import RegisterComponent from '@/components/login/RegisterComponent.vue';
 
 export default {
   data() {

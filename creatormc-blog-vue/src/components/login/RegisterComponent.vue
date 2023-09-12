@@ -16,20 +16,20 @@
       <el-input type="password" v-model="form.password" show-password placeholder="密码：6-12位英文、数字、下划线"></el-input>
     </el-form-item>
     <el-form-item prop="confirmPassword">
-      <el-input type="confirmPassword" v-model="confirmPassword" show-password placeholder="确认密码"></el-input>
+      <el-input type="confirmPassword" v-model="form.confirmPassword" show-password placeholder="确认密码"></el-input>
     </el-form-item>
     <div class="text-container">
       <el-button link @click="$emit('showLogin')">已有账号？立即登录</el-button>
     </div>
     <el-form-item>
-      <el-button class="login-button" type="primary" :loading="isRegister">注册</el-button>
+      <el-button class="login-button" type="primary" :loading="isRegister" @click="register">注册</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-import { login } from '@/api/login';
-import router from '@/router';
+import { register } from '@/api/user';
+import { ElMessage } from 'element-plus';
 
 export default {
   name: "LoginComponent",
@@ -42,10 +42,10 @@ export default {
         userName: "",
         nickName: "",
         email: "",
-        password: ""
+        password: "",
+        // 确认密码，请求时不带此字段
+        confirmPassword: "",
       },
-      // 确认密码
-      confirmPassword: "",
       isRegister: false,
       rules: {
         userName: [
@@ -55,37 +55,110 @@ export default {
             trigger: "blur"
           }
         ],
+        nickName: [
+          {
+            required: true,
+            message: "请输入昵称",
+            trigger: "blur"
+          }
+        ],
+        email: [
+          {
+            required: true,
+            message: "请输入邮箱",
+            trigger: "blur"
+          },
+          {
+            validator: this.validateEmail,
+            trigger: 'blur'
+          }
+        ],
         password: [
           {
             required: true,
             message: "请输入密码",
             trigger: "blur"
+          },
+          {
+            validator: this.validatePass,
+            trigger: 'blur'
+          }
+        ],
+        confirmPassword: [
+          {
+            required: true,
+            message: "请再次输入密码",
+            trigger: "blur"
+          },
+          {
+            validator: this.validateConfirmPassword,
+            trigger: 'blur'
           }
         ]
       }
     };
   },
   methods: {
-    // login() {
-    //   //校验表单
-    //   this.$refs["form"].validate((valid) => {
-    //     if (valid) {
-    //       //把按钮状态设置为加载中
-    //       this.isRegister = true;
-    //       login(this.form).then((response) => {
-    //         if (response != null) {
-    //           //登录成功，保存token到localStorage中
-    //           localStorage.setItem("token", response.data.token);
-    //           //跳转到首页
-    //           router.push("/index/home");
-    //         }
-    //       }).finally(() => {
-    //         //恢复按钮状态
-    //         this.isRegister = false;
-    //       });
-    //     }
-    //   });
-    // },
+    /**
+     * 验证密码
+     */
+    validatePass(rule, value, callback) {
+      let passReg = /^(\w){6,18}$/;
+      if(passReg.test(value)) {
+        callback();
+      } else {
+        callback(new Error("长度在6-18之间，只包含英文、数字、下划线"));
+      }
+    },
+    /**
+     * 验证邮箱
+     */
+    validateEmail(rule, value, callback) {
+      let emailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+      if(emailReg.test(value)) {
+        callback();
+      } else {
+        callback(new Error("邮箱格式不正确"));
+      }
+    },
+    /**
+     * 验证确认密码
+     */
+    validateConfirmPassword(rule, value, callback) {
+      if(value == this.form.password) {
+        callback();
+      } else {
+        callback(new Error("两次输入不一致"));
+      }
+    },
+    /**
+     * 用户注册
+     */
+    register() {
+      //校验表单
+      this.$refs["form"].validate((valid) => {
+        if (valid) {
+          //把按钮状态设置为加载中
+          this.isRegister = true;
+          register({
+            userName: this.form.userName,
+            nickName: this.form.nickName,
+            email: this.form.email,
+            password: this.form.password
+          }).then((response) => {
+            if (response != null) {
+              //注册成功
+              ElMessage.success("注册成功");
+              //跳转到登录组件
+              this.$emit("showLogin");
+            }
+          }).finally(() => {
+            //恢复按钮状态
+            this.isRegister = false;
+          });
+        }
+      });
+    },
   }
 }
 </script>
