@@ -10,8 +10,8 @@
       <el-menu-item index="/">关于</el-menu-item>
       <div class="flex-grow" />
       <div class="head">
-        <el-avatar src="" fit="cover" @click="$router.push('/login')">
-          未登录
+        <el-avatar :src="avatar" fit="cover" @click="$router.push('/login')">
+          <span v-show="avatar == null || avatar == ''">未登录</span>
         </el-avatar>
       </div>
     </el-menu>
@@ -20,9 +20,27 @@
 
 <script>
 import { getCategoryList } from '@/api/category';
+import { userStore } from '@/store/user';
+import { ref } from 'vue';
 
 export default {
   name: "TopBarComponent",
+  setup() {
+    const store = userStore();
+    //创建响应式的头像变量
+    var avatar = ref("");
+    var nickName = ref("");
+    avatar.value = store.user.avatar;
+    //订阅pinia的userStore产生的变化，发生变化时重新给响应式对象赋值
+    store.$subscribe((mutation, state) => {
+      avatar.value = state.user.avatar;
+      nickName.value = state.user.nickName;
+    });
+    return {
+      avatar,   //头像链接
+      nickName  //昵称
+    }
+  },
   data() {
     return {
       categories: []
