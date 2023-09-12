@@ -89,7 +89,7 @@ router.afterEach(() => {
   if(to.name !== 'login') {
     //获取用户信息
     const store = userStore();
-    if(store.user.id == null || store.user.id == "") {
+    if((store.user.id == null || store.user.id == "") && localStorage.getItem("token")) {
       try {
         //用户信息没有获取过
         const response = await userInfo();
@@ -97,7 +97,7 @@ router.afterEach(() => {
           //将返回数据保存到pinia中
           store.user = response.data;
         } else {
-          return false;
+          return true;
         }
       } catch (error) {
         // TODO 错误 取消导航 跳转到404页面

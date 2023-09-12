@@ -10,9 +10,20 @@
       <el-menu-item index="/">关于</el-menu-item>
       <div class="flex-grow" />
       <div class="head">
-        <el-avatar :src="avatar" fit="cover" @click="$router.push('/login')">
-          <span v-show="avatar == null || avatar == ''">未登录</span>
-        </el-avatar>
+        <el-dropdown :disabled="avatar == null || avatar == ''">
+          <el-avatar :src="avatar" fit="cover" @click="$router.push('/login')">
+            <span v-show="avatar == null || avatar == ''">未登录</span>
+          </el-avatar>
+          <template v-if="!(avatar == null || avatar == '')" #dropdown>
+            <div style="text-align: center; border-bottom: 1px var(--el-border-color) var(--el-border-style)">
+              <h3>{{ nickName }}</h3>
+            </div>
+            <el-dropdown-menu>
+              <el-dropdown-item>编辑个人信息</el-dropdown-item>
+              <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
     </el-menu>
   </div>
@@ -22,6 +33,8 @@
 import { getCategoryList } from '@/api/category';
 import { userStore } from '@/store/user';
 import { ref } from 'vue';
+import { logout } from '@/api/login';
+import router from '@/router';
 
 export default {
   name: "TopBarComponent",
@@ -31,6 +44,7 @@ export default {
     var avatar = ref("");
     var nickName = ref("");
     avatar.value = store.user.avatar;
+    nickName.value = store.user.nickName;
     //订阅pinia的userStore产生的变化，发生变化时重新给响应式对象赋值
     store.$subscribe((mutation, state) => {
       avatar.value = state.user.avatar;
@@ -51,6 +65,21 @@ export default {
       getCategoryList().then((response) => {
         if(response != null) {
           this.categories = response.data;
+        }
+      });
+    },
+    /**
+     * 退出登录
+     */
+    logout() {
+      logout().then((response) => {
+        if(response != null) {
+          localStorage.removeItem("token");
+          router.push("/login");
+          const store = userStore();
+          //恢复store状态到初始值
+          store.$reset();
+          sessionStorage.clear();
         }
       });
     }
@@ -95,12 +124,15 @@ export default {
 .head {
   display: flex;
   align-items: center;
-  > span {
+  span {
     font-size: 12px;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
+  }
+  :deep(.el-avatar) {
+    outline: none;
   }
 }
 </style>

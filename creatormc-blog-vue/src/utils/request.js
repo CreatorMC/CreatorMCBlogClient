@@ -38,10 +38,18 @@ service.interceptors.response.use(function (response) {
   if(code != 200) {
     //请求有异常，显示错误提示，错误提示是从服务端返回回来的
     if(code == 401) {
-      //未登录
-      ElMessageBox.alert('您的登录状态已过期，请重新登录。', '提示', {
-        confirmButtonText: '确认',
-        callback: (action) => {
+      if(localStorage.getItem("token")) {
+        //未登录，并且token存在，提示登录状态过期
+        ElMessageBox.confirm(
+          '您的登录状态已过期。<br>您可以重新登录，或继续留在当前页面。',
+          '提示', 
+          {
+            confirmButtonText: '重新登陆',
+            cancelButtonText: '留在此页',
+            type: 'warning',
+            dangerouslyUseHTMLString: true
+          }
+        ).then(() => {
           //删除token
           localStorage.removeItem("token");
           //跳转到登录页
@@ -51,8 +59,19 @@ service.interceptors.response.use(function (response) {
           store.$reset();
           //清空sessionStorage
           sessionStorage.clear();
-        }
-      })
+        }).catch(() => {
+          //删除token
+          localStorage.removeItem("token");
+          const store = userStore();
+          //恢复store状态到初始值
+          store.$reset();
+          //清空sessionStorage
+          sessionStorage.clear();
+        })
+      } else {
+        //TODO 未登录，但token不存在，提示用户此功能需要登录
+        
+      }
       return null;
     }
     ElMessage.error(response.data.msg);
