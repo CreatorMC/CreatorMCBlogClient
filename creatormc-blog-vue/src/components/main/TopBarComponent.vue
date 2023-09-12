@@ -19,7 +19,7 @@
               <h3>{{ nickName }}</h3>
             </div>
             <el-dropdown-menu>
-              <el-dropdown-item>编辑个人信息</el-dropdown-item>
+              <el-dropdown-item>个人中心</el-dropdown-item>
               <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>

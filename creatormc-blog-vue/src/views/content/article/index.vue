@@ -32,6 +32,7 @@
 <script>
 import RightSideComponent from '@/components/content/index/RightSideComponent.vue';
 import { getArticle } from '@/api/article';
+import { updateViewCount } from '@/api/article';
 
 export default {
   props: [
@@ -55,6 +56,16 @@ export default {
       })
     },
     /**
+     * 更新对应文章的浏览量
+     */
+    updateViewCount() {
+      updateViewCount(this.id).then((response) => {
+        if(response != null) {
+          //成功
+        }
+      });
+    },
+    /**
      * 得到发布时间
      * https://github.com/hy-inger/hy-inger.github.io/issues/7
      */
@@ -70,11 +81,13 @@ export default {
   mounted() {
     // 页面刚加载时
     this.getArticle();
+    this.updateViewCount();
   },
   watch: {
     id(val, oldVal) {
       // id改变时刷新页面
       this.getArticle();
+      this.updateViewCount();
     }
   },
   components: { RightSideComponent }

@@ -27,3 +27,12 @@ export function hotArticleList() {
 export function getArticle(id) {
   return service.get("/article/" + id);
 }
+
+/**
+ * 更新对应文章的浏览量
+ * @param {*} id 文章id
+ * @returns 
+ */
+export function updateViewCount(id) {
+  return service.put("/article/updateViewCount/" + id);
+}
