@@ -67,10 +67,14 @@ export default {
       });
       setTimeout(() => {
         // 此组件要销毁了
-        removeEventListener("wheel", this.mouseRoll, { passive: false });
-        document.getElementsByTagName("body")[0].style.overflow = "";
         this.$emit("close");
       }, 1000)
+    },
+    destory() {
+      console.log("销毁");
+      removeEventListener("wheel", this.mouseRoll, { passive: false });
+      document.getElementsByTagName("body")[0].style.overflow = "";
+      this.$emit("close");
     }
   },
   mounted() {
@@ -80,6 +84,9 @@ export default {
     this.tipShowAnimate();
     // 监听鼠标滚轮滚动事件
     addEventListener("wheel", this.mouseRoll, { passive: false });
+  },
+  unmounted() {
+    this.destory();
   }
 }
 </script>
