@@ -15,10 +15,10 @@
             <span v-show="id == null || id == ''">未登录</span>
           </el-avatar>
           <template #dropdown>
-            <div style="text-align: center; border-bottom: 1px var(--el-border-color) var(--el-border-style)">
+            <div class="nick">
               <h3>{{ nickName }}</h3>
             </div>
-            <el-dropdown-menu>
+            <el-dropdown-menu class="drop">
               <el-dropdown-item @click="$router.push('/index/user')">个人中心</el-dropdown-item>
               <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
@@ -137,5 +137,18 @@ export default {
   :deep(.el-avatar) {
     outline: none;
   }
+}
+
+.nick {
+  text-align: center;
+  border-bottom: 1px var(--el-border-color) var(--el-border-style);
+  h3 {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}
+
+.drop :deep(.el-dropdown-menu__item) {
+  justify-content: center;
 }
 </style>
