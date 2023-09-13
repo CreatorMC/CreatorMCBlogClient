@@ -10,11 +10,11 @@
       <el-menu-item index="/">关于</el-menu-item>
       <div class="flex-grow" />
       <div class="head">
-        <el-dropdown :disabled="avatar == null || avatar == ''">
-          <el-avatar :src="avatar" fit="cover" @click="$router.push('/login')">
-            <span v-show="avatar == null || avatar == ''">未登录</span>
+        <el-dropdown :disabled="id == null || id == ''">
+          <el-avatar :src="id && id != '' ? (avatar && avatar != '' ? avatar : $defaultAvatar) : ''" fit="cover" @click="$router.push('/login')">
+            <span v-show="id == null || id == ''">未登录</span>
           </el-avatar>
-          <template v-if="!(avatar == null || avatar == '')" #dropdown>
+          <template #dropdown>
             <div style="text-align: center; border-bottom: 1px var(--el-border-color) var(--el-border-style)">
               <h3>{{ nickName }}</h3>
             </div>
@@ -43,8 +43,10 @@ export default {
     //创建响应式的头像变量
     var avatar = ref("");
     var nickName = ref("");
+    var id = ref("");
     avatar.value = store.user.avatar;
     nickName.value = store.user.nickName;
+    id.value = store.user.id;
     //订阅pinia的userStore产生的变化，发生变化时重新给响应式对象赋值
     store.$subscribe((mutation, state) => {
       avatar.value = state.user.avatar;
@@ -52,7 +54,8 @@ export default {
     });
     return {
       avatar,   //头像链接
-      nickName  //昵称
+      nickName, //昵称
+      id        //用户id，用于判断有没有登录
     }
   },
   data() {

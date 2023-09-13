@@ -2,7 +2,7 @@
   <div>
     <el-form class="form" label-width="100px" label-position="left">
       <el-form-item label="头像">
-        <el-avatar class="head" shape="circle" :src="form.avatar" fit="cover"></el-avatar>
+        <el-avatar class="head" shape="circle" :src="form.avatar && form.avatar != '' ? form.avatar : $defaultAvatar" fit="cover"></el-avatar>
       </el-form-item>
       <el-form-item label="昵称">
         {{ form.nickName }}

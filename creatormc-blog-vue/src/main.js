@@ -36,6 +36,7 @@ app.use(mavonEditor)
 
 //定义全局属性
 app.config.globalProperties.$nprogress = NProgress  //页面顶部加载进度条
+app.config.globalProperties.$defaultAvatar = '/img/default_avatar.png'
 app.config.globalProperties.$markdown = new Marked(markedHighlight({
   langPrefix: 'hljs language-',
   highlight(code, lang) {
