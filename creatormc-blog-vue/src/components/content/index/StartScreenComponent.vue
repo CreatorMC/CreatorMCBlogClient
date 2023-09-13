@@ -71,7 +71,6 @@ export default {
       }, 1000)
     },
     destory() {
-      console.log("销毁");
       removeEventListener("wheel", this.mouseRoll, { passive: false });
       document.getElementsByTagName("body")[0].style.overflow = "";
       this.$emit("close");
