@@ -22,6 +22,7 @@
             </template>
             <div class="content" v-html="article.content"></div>
           </el-card>
+          <CommentComponent />
         </el-col>
         <RightSideComponent />
       </el-row>
@@ -33,6 +34,7 @@
 import RightSideComponent from '@/components/content/index/RightSideComponent.vue';
 import { getArticle } from '@/api/article';
 import { updateViewCount } from '@/api/article';
+import CommentComponent from '@/components/main/CommentComponent.vue';
 
 export default {
   props: [
@@ -90,7 +92,7 @@ export default {
       this.updateViewCount();
     }
   },
-  components: { RightSideComponent }
+  components: { RightSideComponent, CommentComponent }
 }
 </script>
 
