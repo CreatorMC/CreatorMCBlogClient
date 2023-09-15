@@ -11,15 +11,24 @@
         />
         <EmojiComponent :emojiNames="emojiNames" :emojiMap="emojiMap" @addEmoji="addEmoji" />
         <el-button type="primary">发送</el-button>
+        <div class="title">
+          评论（{{ total }}）
+        </div>
+        <CommentItemComponent :commentList="commentList" />
       </el-space>
     </el-card>
   </div>
 </template>
 
 <script>
+import { commentList } from '@/api/comment';
 import EmojiComponent from './EmojiComponent.vue';
+import CommentItemComponent from './CommentItemComponent.vue';
 export default {
   name: "CommentComponent",
+  props: [
+    'id'
+  ],
   data() {
     return {
       text: "",
@@ -71,7 +80,15 @@ export default {
         "困惑",
         "痛苦",
         "生气"
-      ]
+      ],
+      //评论列表
+      commentList: [],
+      //总评论数
+      total: 0,
+      //查询第几页评论
+      pageNum: 2,
+      //每页多少条评论
+      pageSize: 10
     };
   },
   methods: {
@@ -80,6 +97,23 @@ export default {
      */
     addEmoji(name) {
       this.text += `[${name}]`;
+    },
+    /**
+     * 获取文章评论列表
+     */
+    getCommentList() {
+      commentList(this.id, this.pageNum, this.pageSize).then((response) => {
+        if(response != null) {
+          console.log(response);
+          this.commentList = response.data.rows;
+          this.total = response.data.total;
+          this.pageNum++;
+          let maxPage = Math.ceil(this.total / this.pageSize);
+          if(this.pageNum > maxPage) {
+            //TODO 没有下一页了
+          }
+        }
+      });
     }
   },
   mounted() {
@@ -87,8 +121,9 @@ export default {
     this.emojiNames.forEach(name => {
       this.emojiMap.set(name, `/emoji/${name}.png`);
     });
+    this.getCommentList();
   },
-  components: { EmojiComponent }
+  components: { EmojiComponent, CommentItemComponent }
 }
 </script>
 

@@ -22,7 +22,7 @@
             </template>
             <div class="content" v-html="article.content"></div>
           </el-card>
-          <CommentComponent />
+          <CommentComponent :id="id" />
         </el-col>
         <RightSideComponent />
       </el-row>
