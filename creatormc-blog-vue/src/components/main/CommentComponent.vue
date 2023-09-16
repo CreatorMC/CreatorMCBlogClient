@@ -15,6 +15,9 @@
           评论（{{ total }}）
         </div>
         <CommentItemComponent :commentList="commentList" />
+        <div v-loading="isLoading" class="load" ref="load">
+          {{ loadText }}
+        </div>
       </el-space>
     </el-card>
   </div>
@@ -86,9 +89,17 @@ export default {
       //总评论数
       total: 0,
       //查询第几页评论
-      pageNum: 2,
+      pageNum: 1,
       //每页多少条评论
-      pageSize: 10
+      pageSize: 10,
+      //加载文本
+      loadText: "滑动加载",
+      //是否在加载评论
+      isLoading: false,
+      //是否禁用加载评论
+      isDisabled: false,
+      //用于限制滚动事件的连续触发，避免造成连续请求
+      isScroll: false
     };
   },
   methods: {
@@ -102,18 +113,34 @@ export default {
      * 获取文章评论列表
      */
     getCommentList() {
+      this.isLoading = true;
       commentList(this.id, this.pageNum, this.pageSize).then((response) => {
         if(response != null) {
           console.log(response);
-          this.commentList = response.data.rows;
+          this.commentList = this.commentList.concat(response.data.rows);
           this.total = response.data.total;
           this.pageNum++;
+          this.isLoading = false;
+          this.isScroll = false;
           let maxPage = Math.ceil(this.total / this.pageSize);
           if(this.pageNum > maxPage) {
-            //TODO 没有下一页了
+            this.loadText = "没有更多评论了(。・∀・)~~~"
+            this.isDisabled = true;
           }
         }
       });
+    },
+    /**
+     * 页面滚动时触发，为了滚动到底部加载评论
+     */
+    scrollHandler() {
+      let windowHeight = document.documentElement.clientHeight;
+      let loadTop = this.$refs.load.getBoundingClientRect().top;
+      if(!this.isScroll && loadTop < windowHeight && !this.isDisabled) {
+        //加载组件在窗口的下方，刚刚被用户看到时
+        this.isScroll = true;
+        this.getCommentList();
+      }
     }
   },
   mounted() {
@@ -122,6 +149,12 @@ export default {
       this.emojiMap.set(name, `/emoji/${name}.png`);
     });
     this.getCommentList();
+    //监听页面滚动事件
+    addEventListener("scroll", this.scrollHandler);
+  },
+  unmounted() {
+    //取消监听事件
+    removeEventListener("scroll", this.scrollHandler);
   },
   components: { EmojiComponent, CommentItemComponent }
 }
@@ -134,5 +167,12 @@ export default {
 .title {
   font-size: large;
   font-weight: bold;
+}
+.load {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: gray;
+  font-size: x-small;
 }
 </style>    
