@@ -10,3 +10,16 @@ import service from "../utils/request";
 export function commentList(articleId, pageNum, pageSize) {
   return service.get(`/comment/commentList/${articleId}/${pageNum}/${pageSize}`);
 }
+
+/**
+ * 添加评论
+ * @param {*} data 
+ * @returns 
+ */
+export function addComment(data) {
+  return service.post("/comment", data, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

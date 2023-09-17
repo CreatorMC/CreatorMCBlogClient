@@ -69,8 +69,22 @@ service.interceptors.response.use(function (response) {
           sessionStorage.clear();
         })
       } else {
-        //TODO 未登录，但token不存在，提示用户此功能需要登录
-        
+        //未登录，但token不存在，提示用户此功能需要登录
+        ElMessageBox.confirm(
+          '此功能需要登录后才能使用<br>您可以立即登录，或继续留在当前页面。',
+          '提示', 
+          {
+            confirmButtonText: '立即登陆',
+            cancelButtonText: '留在此页',
+            type: 'warning',
+            dangerouslyUseHTMLString: true
+          }
+        ).then(() => {
+          //跳转到登录页
+          router.push("/login");
+        }).catch(() => {
+          //留在此页
+        })
       }
       return null;
     }

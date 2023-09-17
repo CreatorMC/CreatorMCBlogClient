@@ -2,15 +2,7 @@
   <div>
     <el-card class="bottom" shadow="never">
       <el-space style="width: 100%;" alignment="normal" direction="vertical" size="default" wrap fill>
-        <div class="title">发表评论</div>
-        <el-input
-          v-model="text"
-          :rows="5"
-          type="textarea"
-          placeholder="想好说什么了吗？"
-        />
-        <EmojiComponent :emojiNames="emojiNames" :emojiMap="emojiMap" @addEmoji="addEmoji" />
-        <el-button type="primary">发送</el-button>
+        <SendCommentComponent :emojiNames="emojiNames" :emojiMap="emojiMap" :type="type" :articleId="id" @sendComment="refreshCommentList" />
         <div class="title">
           评论（{{ total }}）
         </div>
@@ -25,16 +17,17 @@
 
 <script>
 import { commentList } from '@/api/comment';
-import EmojiComponent from './EmojiComponent.vue';
 import CommentItemComponent from './CommentItemComponent.vue';
+import SendCommentComponent from './SendCommentComponent.vue';
 export default {
   name: "CommentComponent",
   props: [
-    'id'
+    'id',
+    //评论类型 0代表文章评论，1代表友链评论
+    'type'
   ],
   data() {
     return {
-      text: "",
       emojiMap: null,
       emojiNames: [
         "嘿嘿",
@@ -104,10 +97,14 @@ export default {
   },
   methods: {
     /**
-     * 在输入框中添加表情
+     * 刷新文章评论列表
      */
-    addEmoji(name) {
-      this.text += `[${name}]`;
+    refreshCommentList() {
+      this.pageNum = 1;
+      this.loadText = "滑动加载",
+      this.isDisabled = false,
+      this.commentList.splice(0, this.commentList.length);
+      this.getCommentList();
     },
     /**
      * 获取文章评论列表
@@ -116,7 +113,6 @@ export default {
       this.isLoading = true;
       commentList(this.id, this.pageNum, this.pageSize).then((response) => {
         if(response != null) {
-          console.log(response);
           this.commentList = this.commentList.concat(response.data.rows);
           this.total = response.data.total;
           this.pageNum++;
@@ -156,7 +152,7 @@ export default {
     //取消监听事件
     removeEventListener("scroll", this.scrollHandler);
   },
-  components: { EmojiComponent, CommentItemComponent }
+  components: { CommentItemComponent, SendCommentComponent }
 }
 </script>
 
