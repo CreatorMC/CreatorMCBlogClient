@@ -6,7 +6,7 @@
         <div class="title">
           评论（{{ total }}）
         </div>
-        <CommentItemComponent :commentList="commentList" :emojiMap="emojiMap" />
+        <CommentItemComponent :commentList="commentList" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="id" />
         <div v-loading="isLoading" class="load" ref="load">
           {{ loadText }}
         </div>
