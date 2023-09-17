@@ -17,11 +17,11 @@
               {{ item.createTime }}
             </div>
           </div>
-          <div>{{ item.content }}</div>
+          <div v-html="parseEmoji(item.content)" class="comment"></div>
         </div>
       </div>
       <div class="children" v-if="item.children && item.children.length > 0">
-        <CommentItemComponent :commentList="item.children" />
+        <CommentItemComponent :commentList="item.children" :emojiMap="emojiMap" />
       </div>
     </template>
   </div>
@@ -31,11 +31,41 @@
 export default {
   name: "CommentItemComponent",
   props: {
-    commentList: Array
+    commentList: Array,
+    emojiMap: Map
   },
   data() {
     return {
 
+    }
+  },
+  methods: {
+    /**
+     * 转换评论里的表情
+     */
+    parseEmoji(text) {
+      let startIndex = -1;
+      let stringBuilder = "";
+      let tempString = "";
+      for (let index = 0; index < text.length; index++) {
+        let c = text.charAt(index);
+        if(startIndex == -1 && c == '[') {
+          startIndex = index;
+        } else if(startIndex != -1 && c == ']') {
+          stringBuilder += this.emojiMap.has(tempString) ? `<img src="${this.emojiMap.get(tempString)}">` : `[${tempString}]`;
+          startIndex = -1;
+          tempString = "";
+        } else if(startIndex != -1) {
+          tempString += c;
+        } else {
+          stringBuilder += c;
+        }
+        //把未闭合的方括号里的内容加上
+        if(index == text.length - 1 && tempString != "") {
+          stringBuilder += `[${tempString}`;
+        }
+      }
+      return stringBuilder;
     }
   }
 }
@@ -62,6 +92,12 @@ export default {
       font-size: x-small;
       color: gray;
     }
+  }
+  .comment :deep(img) {
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    -webkit-user-drag: none;
   }
 }
 .children{
