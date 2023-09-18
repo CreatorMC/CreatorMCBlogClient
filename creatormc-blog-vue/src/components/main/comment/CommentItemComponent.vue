@@ -20,6 +20,16 @@
           <div v-html="parseEmoji(item.content)" class="comment"></div>
           <div>
             <el-button v-if="user && user.id" type="primary" link @click="isShowSendComments[index] = !isShowSendComments[index]">{{ isShowSendComments[index] ? "取消回复" : "回复" }}</el-button>
+            <el-button v-if="item.children && item.children.length > 0" type="primary" link @click="expand(index)">
+              <template v-if="!isExpands[index]">
+                {{ `展开(${item.children.length})` }}
+                <el-icon><CaretRight /></el-icon>
+              </template>
+              <template v-else>
+                {{ `折叠(${item.children.length})` }}
+                <el-icon><CaretBottom /></el-icon>
+              </template>
+            </el-button>
           </div>
           <SendCommentComponent style="margin-top: 10px;" v-show="isShowSendComments[index]"
             :emojiNames="emojiNames"
@@ -33,9 +43,9 @@
           />
         </div>
       </div>
-      <div class="children" v-if="item.children && item.children.length > 0">
+      <CollapseComponent class="children" v-if="item.children && item.children.length > 0" :ref="`collapse${index}`" v-model="isExpands[index]" >
         <CommentItemComponent :commentList="item.children" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="articleId" @sendComment="$emit('sendComment')" />
-      </div>
+      </CollapseComponent>
     </template>
   </div>
 </template>
@@ -43,6 +53,7 @@
 <script>
 import { userStore } from '@/store/user';
 import SendCommentComponent from './SendCommentComponent.vue';
+import CollapseComponent from '@/components/utils/CollapseComponent.vue';
 
 export default {
   name: "CommentItemComponent",
@@ -60,7 +71,9 @@ export default {
     return {
       user: userStore().user,
       //是否显示发送评论组件
-      isShowSendComments: []
+      isShowSendComments: [],
+      //评论是否展开
+      isExpands: []
     };
   },
   methods: {
@@ -93,13 +106,17 @@ export default {
         }
       }
       return stringBuilder;
+    },
+    expand(index) {
+      this.$refs[`collapse${index}`][0].changeStatus();
     }
   },
   mounted() {
     //初始化数组
     this.isShowSendComments = new Array(this.commentList.length).fill(false);
+    this.isExpands = new Array(this.commentList.length).fill(false);
   },
-  components: { SendCommentComponent }
+  components: { SendCommentComponent, CollapseComponent }
 }
 </script>
 

@@ -34,7 +34,7 @@
 import RightSideComponent from '@/components/content/index/RightSideComponent.vue';
 import { getArticle } from '@/api/article';
 import { updateViewCount } from '@/api/article';
-import CommentComponent from '@/components/main/CommentComponent.vue';
+import CommentComponent from '@/components/main/comment/CommentComponent.vue';
 
 export default {
   props: [
