@@ -116,15 +116,16 @@ export default {
           this.commentList = this.commentList.concat(response.data.rows);
           this.total = response.data.total;
           this.pageNum++;
-          this.isLoading = false;
-          this.isScroll = false;
           let maxPage = Math.ceil(this.total / this.pageSize);
           if(this.pageNum > maxPage) {
             this.loadText = "没有更多评论了(。・∀・)~~~"
             this.isDisabled = true;
           }
         }
-      });
+      }).finally(() => {
+        this.isLoading = false;
+        this.isScroll = false;
+      })
     },
     /**
      * 页面滚动时触发，为了滚动到底部加载评论
