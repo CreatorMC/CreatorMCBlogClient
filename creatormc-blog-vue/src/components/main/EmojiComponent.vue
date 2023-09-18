@@ -65,6 +65,8 @@ export default {
 .emoji-container {
   display: flex;
   flex-wrap: wrap;
+  max-height: 240px;
+  overflow: auto;
   > div {
     cursor: pointer;
     background-color: #f7f7f7;

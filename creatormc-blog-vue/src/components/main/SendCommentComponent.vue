@@ -70,6 +70,7 @@ export default {
       }).then((response) => {
         if(response != null) {
           ElMessage.success("发送成功");
+          this.text = "";
           this.$emit('sendComment');
         }
       }).finally(() => {

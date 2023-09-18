@@ -21,11 +21,20 @@
           <div>
             <el-button v-if="user && user.id" type="primary" link @click="isShowSendComments[index] = !isShowSendComments[index]">{{ isShowSendComments[index] ? "取消回复" : "回复" }}</el-button>
           </div>
-          <SendCommentComponent style="margin-top: 10px;" v-show="isShowSendComments[index]" :emojiNames="emojiNames" :emojiMap="emojiMap" :type="type" :articleId="articleId"/>
+          <SendCommentComponent style="margin-top: 10px;" v-show="isShowSendComments[index]"
+            :emojiNames="emojiNames"
+            :emojiMap="emojiMap"
+            :type="type"
+            :articleId="articleId"
+            :rootId="(item.rootId == '-1') ? item.id : item.rootId"
+            :toCommentUserId="item.createBy"
+            :toCommentId="item.id"
+            @sendComment="$emit('sendComment')"
+          />
         </div>
       </div>
       <div class="children" v-if="item.children && item.children.length > 0">
-        <CommentItemComponent :commentList="item.children" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="articleId" />
+        <CommentItemComponent :commentList="item.children" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="articleId" @sendComment="$emit('sendComment')" />
       </div>
     </template>
   </div>
@@ -44,6 +53,9 @@ export default {
     type: String,
     articleId: String
   },
+  emits: [
+    'sendComment'
+  ],
   data() {
     return {
       user: userStore().user,
