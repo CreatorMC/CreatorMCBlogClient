@@ -113,6 +113,10 @@ export default {
      * 获取文章评论列表
      */
     getCommentList(id) {
+      //加锁，防止重复请求
+      if(this.isLoading) {
+        return;
+      }
       this.isLoading = true;
       if(this.type == '0') {
         commentList(id, this.pageNum, this.pageSize).then((response) => {
