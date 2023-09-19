@@ -44,6 +44,11 @@ const router = createRouter({
           component: () => import('../views/user/index.vue'),
           props: true
         },
+        {
+          path: "link",
+          name: "link",
+          component: () => import('../views/content/link/index.vue')
+        },
       ]
     },
     // 捕获所有未匹配到的路由

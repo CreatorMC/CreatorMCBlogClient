@@ -6,7 +6,7 @@
         <template #title>分类</template>
         <el-menu-item v-for="item in categories" :index="`/index/category/${item.id}`">{{ item.name }}</el-menu-item>
       </el-sub-menu>
-      <el-menu-item index="/">友链</el-menu-item>
+      <el-menu-item index="/index/link">友链</el-menu-item>
       <el-menu-item index="/">关于</el-menu-item>
       <div class="flex-grow" />
       <div class="head">

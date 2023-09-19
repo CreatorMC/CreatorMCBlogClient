@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { commentList } from '@/api/comment';
+import { commentList, linkCommentList } from '@/api/comment';
 import CommentItemComponent from './CommentItemComponent.vue';
 import SendCommentComponent from './SendCommentComponent.vue';
 export default {
@@ -114,21 +114,39 @@ export default {
      */
     getCommentList(id) {
       this.isLoading = true;
-      commentList(id, this.pageNum, this.pageSize).then((response) => {
-        if(response != null) {
-          this.commentList = this.commentList.concat(response.data.rows);
-          this.total = response.data.total;
-          this.pageNum++;
-          let maxPage = Math.ceil(this.total / this.pageSize);
-          if(this.pageNum > maxPage) {
-            this.loadText = "没有更多评论了(。・∀・)~~~"
-            this.isDisabled = true;
+      if(this.type == '0') {
+        commentList(id, this.pageNum, this.pageSize).then((response) => {
+          if(response != null) {
+            this.commentList = this.commentList.concat(response.data.rows);
+            this.total = response.data.total;
+            this.pageNum++;
+            let maxPage = Math.ceil(this.total / this.pageSize);
+            if(this.pageNum > maxPage) {
+              this.loadText = "没有更多评论了(。・∀・)~~~"
+              this.isDisabled = true;
+            }
           }
-        }
-      }).finally(() => {
-        this.isLoading = false;
-        this.isScroll = false;
-      })
+        }).finally(() => {
+          this.isLoading = false;
+          this.isScroll = false;
+        })
+      } else {
+        linkCommentList(this.pageNum, this.pageSize).then((response) => {
+          if(response != null) {
+            this.commentList = this.commentList.concat(response.data.rows);
+            this.total = response.data.total;
+            this.pageNum++;
+            let maxPage = Math.ceil(this.total / this.pageSize);
+            if(this.pageNum > maxPage) {
+              this.loadText = "没有更多评论了(。・∀・)~~~"
+              this.isDisabled = true;
+            }
+          }
+        }).finally(() => {
+          this.isLoading = false;
+          this.isScroll = false;
+        })
+      }
     },
     /**
      * 页面滚动时触发，为了滚动到底部加载评论
