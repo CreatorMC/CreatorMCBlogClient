@@ -22,7 +22,7 @@
             </template>
             <div class="content" v-html="article.content"></div>
           </el-card>
-          <CommentComponent :id="id" type="0" />
+          <CommentComponent ref="comment" :id="id" type="0" />
         </el-col>
         <RightSideComponent />
       </el-row>
@@ -90,6 +90,7 @@ export default {
       // id改变时刷新页面
       this.getArticle();
       this.updateViewCount();
+      this.$refs.comment.refreshCommentList(val);
     }
   },
   components: { RightSideComponent, CommentComponent }

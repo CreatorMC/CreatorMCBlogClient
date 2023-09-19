@@ -2,11 +2,11 @@
   <div>
     <el-card class="bottom" shadow="never">
       <el-space style="width: 100%;" alignment="normal" direction="vertical" size="default" wrap fill>
-        <SendCommentComponent :emojiNames="emojiNames" :emojiMap="emojiMap" :type="type" :articleId="id" @sendComment="refreshCommentList" />
+        <SendCommentComponent :emojiNames="emojiNames" :emojiMap="emojiMap" :type="type" :articleId="id" @sendComment="refreshCommentList(id)" />
         <div class="title">
           评论（{{ total }}）
         </div>
-        <CommentItemComponent :commentList="commentList" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="id" @sendComment="refreshCommentList" />
+        <CommentItemComponent :commentList="commentList" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="id" @sendComment="refreshCommentList(id)" />
         <div v-loading="isLoading" class="load" ref="load">
           {{ loadText }}
         </div>
@@ -25,6 +25,9 @@ export default {
     'id',
     //评论类型 0代表文章评论，1代表友链评论
     'type'
+  ],
+  expose: [
+    'refreshCommentList'
   ],
   data() {
     return {
@@ -99,19 +102,19 @@ export default {
     /**
      * 刷新文章评论列表
      */
-    refreshCommentList() {
+    refreshCommentList(id) {
       this.pageNum = 1;
       this.loadText = "滑动加载",
       this.isDisabled = false,
       this.commentList.splice(0, this.commentList.length);
-      this.getCommentList();
+      this.getCommentList(id);
     },
     /**
      * 获取文章评论列表
      */
-    getCommentList() {
+    getCommentList(id) {
       this.isLoading = true;
-      commentList(this.id, this.pageNum, this.pageSize).then((response) => {
+      commentList(id, this.pageNum, this.pageSize).then((response) => {
         if(response != null) {
           this.commentList = this.commentList.concat(response.data.rows);
           this.total = response.data.total;
@@ -136,7 +139,7 @@ export default {
       if(!this.isScroll && loadTop < windowHeight && !this.isDisabled) {
         //加载组件在窗口的下方，刚刚被用户看到时
         this.isScroll = true;
-        this.getCommentList();
+        this.getCommentList(this.id);
       }
     }
   },
@@ -145,7 +148,7 @@ export default {
     this.emojiNames.forEach(name => {
       this.emojiMap.set(name, `/emoji/${name}.png`);
     });
-    this.getCommentList();
+    this.getCommentList(this.id);
     //监听页面滚动事件
     addEventListener("scroll", this.scrollHandler);
   },
