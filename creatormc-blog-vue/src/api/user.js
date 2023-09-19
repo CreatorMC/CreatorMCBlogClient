@@ -13,6 +13,15 @@ export function userInfo() {
 }
 
 /**
+ * 获取指定id的用户信息
+ * @param {*} id 用户id
+ * @returns 
+ */
+export function getUserInfo(id) {
+  return service.get(`/user/${id}`);
+}
+
+/**
  * 用户注册
  * @param {*} data 
  * @returns 

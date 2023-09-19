@@ -19,7 +19,7 @@
               <h3>{{ nickName }}</h3>
             </div>
             <el-dropdown-menu class="drop">
-              <el-dropdown-item @click="$router.push('/index/user')">个人中心</el-dropdown-item>
+              <el-dropdown-item @click="$router.push(`/index/user/${id}`)">个人中心</el-dropdown-item>
               <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>

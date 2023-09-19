@@ -14,7 +14,7 @@
         {{ form.sex == "0" ? "男" : (form.sex == "1" ? "女" : "未知") }}
       </el-form-item>
     </el-form>
-    <div class="footer">
+    <div class="footer" v-if="form.id == userStore().user.id">
       <el-button type="primary" @click="$emit('update:isEdit', true)">编辑个人信息</el-button>
     </div>
   </div>
@@ -38,9 +38,10 @@ export default {
 
     }
   },
-  mounted() {
-    const store = userStore();
-    this.$emit('update:form', store.user);
+  methods: {
+    userStore() {
+      return userStore();
+    }
   }
 }
 </script>

@@ -3,7 +3,9 @@
     <template v-for="item, index in commentList">
       <div class="comment-container">
         <div>
-          <el-avatar shape="circle" :src="item.avatar ? item.avatar : '/img/default_avatar.png'" fit="cover"></el-avatar>
+          <router-link :to="`/index/user/${item.createBy}`">
+            <el-avatar shape="circle" :src="item.avatar ? item.avatar : '/img/default_avatar.png'" fit="cover"></el-avatar>
+          </router-link>
         </div>
         <div style="width: 100%;">
           <div class="header">
@@ -22,11 +24,11 @@
             <el-button v-if="user && user.id" type="primary" link @click="isShowSendComments[index] = !isShowSendComments[index]">{{ isShowSendComments[index] ? "取消回复" : "回复" }}</el-button>
             <el-button v-if="item.children && item.children.length > 0" type="primary" link @click="expand(index)">
               <template v-if="!isExpands[index]">
-                {{ `展开(${item.children.length})` }}
+                {{ `${item.children.length}条评论` }}
                 <el-icon><CaretRight /></el-icon>
               </template>
               <template v-else>
-                {{ `折叠(${item.children.length})` }}
+                {{ `收起(${item.children.length})` }}
                 <el-icon><CaretBottom /></el-icon>
               </template>
             </el-button>
