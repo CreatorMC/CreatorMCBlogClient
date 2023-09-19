@@ -49,7 +49,10 @@ export default {
      * 在输入框中添加表情
      */
     addEmoji(name) {
-      this.text += `[${name}]`;
+      let tempText = this.text + `[${name}]`;
+      if(tempText.length <= 512) {
+        this.text = tempText;
+      }
     },
     /**
      * 添加评论
