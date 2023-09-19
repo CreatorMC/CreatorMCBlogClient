@@ -95,7 +95,10 @@ service.interceptors.response.use(function (response) {
 }, function (error) {
   // 超出 2xx 范围的状态码都会触发该函数。
   globalProperties.$nprogress.done();
-  ElMessage.error(error);
+  //判断错误是否是取消请求，取消请求一般是主动调用的，不应暴露给用户，影响用户体验。
+  if(error.code != "ERR_CANCELED") {
+    ElMessage.error(error);
+  }
   return error;
 });
 

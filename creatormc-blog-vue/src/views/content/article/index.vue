@@ -90,6 +90,7 @@ export default {
       // id改变时刷新页面
       this.getArticle();
       this.updateViewCount();
+      this.$refs.comment.cancelAjax();
       this.$refs.comment.refreshCommentList(val);
     }
   },

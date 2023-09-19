@@ -7,8 +7,8 @@ import service from "../utils/request";
  * @param {*} pageSize 一页几条记录
  * @returns 
  */
-export function commentList(articleId, pageNum, pageSize) {
-  return service.get(`/comment/commentList/${articleId}/${pageNum}/${pageSize}`);
+export function commentList(articleId, pageNum, pageSize, config) {
+  return service.get(`/comment/commentList/${articleId}/${pageNum}/${pageSize}`, config);
 }
 
 /**
@@ -17,8 +17,8 @@ export function commentList(articleId, pageNum, pageSize) {
  * @param {*} pageSize 一页几条记录
  * @returns 
  */
-export function linkCommentList(pageNum, pageSize) {
-  return service.get(`/comment/linkCommentList/${pageNum}/${pageSize}`);
+export function linkCommentList(pageNum, pageSize, config) {
+  return service.get(`/comment/linkCommentList/${pageNum}/${pageSize}`, config);
 }
 
 /**

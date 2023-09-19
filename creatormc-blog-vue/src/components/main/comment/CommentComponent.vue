@@ -27,7 +27,8 @@ export default {
     'type'
   ],
   expose: [
-    'refreshCommentList'
+    'refreshCommentList',
+    'cancelAjax'
   ],
   data() {
     return {
@@ -95,7 +96,9 @@ export default {
       //是否禁用加载评论
       isDisabled: false,
       //用于限制滚动事件的连续触发，避免造成连续请求
-      isScroll: false
+      isScroll: false,
+      //用于在外层组件调用刷新方法时取消旧的请求
+      controller: new AbortController()
     };
   },
   methods: {
@@ -110,6 +113,16 @@ export default {
       this.getCommentList(id);
     },
     /**
+     * 取消请求
+     */
+    cancelAjax() {
+      //取消旧的请求
+      this.controller.abort();
+      this.isLoading = false;
+      this.isScroll = false;
+      this.controller = new AbortController();
+    },
+    /**
      * 获取文章评论列表
      */
     getCommentList(id) {
@@ -119,7 +132,7 @@ export default {
       }
       this.isLoading = true;
       if(this.type == '0') {
-        commentList(id, this.pageNum, this.pageSize).then((response) => {
+        commentList(id, this.pageNum, this.pageSize, { signal: this.controller.signal }).then((response) => {
           if(response != null) {
             this.commentList = this.commentList.concat(response.data.rows);
             this.total = response.data.total;
@@ -135,7 +148,7 @@ export default {
           this.isScroll = false;
         })
       } else {
-        linkCommentList(this.pageNum, this.pageSize).then((response) => {
+        linkCommentList(this.pageNum, this.pageSize, { signal: this.controller.signal }).then((response) => {
           if(response != null) {
             this.commentList = this.commentList.concat(response.data.rows);
             this.total = response.data.total;
