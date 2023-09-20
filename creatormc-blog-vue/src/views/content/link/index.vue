@@ -137,9 +137,18 @@ export default {
 .link:hover .container {
   background-color: var(--el-color-primary-light-7);
 }
+
 .link:nth-child(2n+1) {
   .container {
     margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .link:nth-child(2n+1) {
+    .container {
+      margin-right: 0px;
+    }
   }
 }
 </style>
