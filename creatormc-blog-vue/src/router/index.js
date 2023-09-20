@@ -49,6 +49,11 @@ const router = createRouter({
           name: "link",
           component: () => import('../views/content/link/index.vue')
         },
+        {
+          path: "about",
+          name: "about",
+          component: () => import('../views/content/about/index.vue')
+        },
       ]
     },
     // 捕获所有未匹配到的路由
