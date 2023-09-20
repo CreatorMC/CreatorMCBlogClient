@@ -7,7 +7,8 @@
           评论（{{ total }}）
         </div>
         <CommentItemComponent :commentList="commentList" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="id" @sendComment="refreshCommentList(id)" />
-        <div v-loading="isLoading" class="load" ref="load">
+        <div class="load" ref="load">
+          <LoadingComponent v-if="isLoading" />
           {{ loadText }}
         </div>
       </el-space>
@@ -19,6 +20,8 @@
 import { commentList, linkCommentList } from '@/api/comment';
 import CommentItemComponent from './CommentItemComponent.vue';
 import SendCommentComponent from './SendCommentComponent.vue';
+import LoadingComponent from '@/components/utils/LoadingComponent.vue';
+
 export default {
   name: "CommentComponent",
   props: [
@@ -191,7 +194,7 @@ export default {
     //取消监听事件
     removeEventListener("scroll", this.scrollHandler);
   },
-  components: { CommentItemComponent, SendCommentComponent }
+  components: { CommentItemComponent, SendCommentComponent, LoadingComponent }
 }
 </script>
 
