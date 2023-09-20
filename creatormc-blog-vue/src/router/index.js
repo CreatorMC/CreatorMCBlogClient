@@ -59,11 +59,11 @@ const router = createRouter({
     // 捕获所有未匹配到的路由
     // https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-Not-found-%E8%B7%AF%E7%94%B1
     // 此处不能重定向，否则重定向会覆盖全局解析守卫中的跳转，导致刷新网页也跳转到 404
-    // {
-    //   path: '/:pathMatch(.*)*',
-    //   name: "error",
-    //   component: () => import('@/views/error/index.vue')
-    // }
+    {
+      path: '/:pathMatch(.*)*',
+      name: "error",
+      component: () => import('@/views/error/index.vue')
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
     if(to.fullPath == '/index/home') {
