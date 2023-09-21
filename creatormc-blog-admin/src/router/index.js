@@ -1,8 +1,5 @@
 import nProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
-import DashboardIndex from "../views/dashboard/index.vue";
-import Index from "../views/index.vue";
-import Login from "../views/login/index.vue";
 import { getAdminUserInfo } from "@/api/user";
 import { userStore } from "@/store/user";
 import { disposeRouters, getRouters } from "../api/user";
@@ -17,17 +14,17 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: Login
+      component: () => import('../views/login/index.vue')
     },
     {
       path: "/index",
       name: "index",
-      component: Index,
+      component: () => import('../views/index.vue'),
       children: [
         {
           path: "dashboard",
           name: "dashboard",
-          component: DashboardIndex,
+          component: () => import('../views/dashboard/index.vue'),
           meta: {
             menuName: "主页"
           }
