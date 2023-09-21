@@ -116,7 +116,7 @@ router.beforeResolve(async to => {
           return true;
         }
       } catch (error) {
-        // TODO 错误 取消导航 跳转到404页面
+        //错误 取消导航
         return false;
       }
     }
