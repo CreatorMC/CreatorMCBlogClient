@@ -39,20 +39,34 @@ service.interceptors.response.use(function (response) {
     //请求有异常，显示错误提示，错误提示是从服务端返回回来的
     if(code == 401) {
       //未登录
-      ElMessageBox.alert('您的登录状态已过期，请重新登录。', '提示', {
-        confirmButtonText: '确认',
-        callback: (action) => {
-          //删除token
-          localStorage.removeItem("token");
-          //跳转到登录页
-          router.push("/login");
-          const store = userStore();
-          //恢复store状态到初始值
-          store.$reset();
-          //清空sessionStorage
-          sessionStorage.clear();
-        }
-      })
+      if(localStorage.getItem("token")) {
+        //未登录，并且token存在，提示登录状态过期
+        ElMessageBox.alert('您的登录状态已过期，请重新登录。', '提示', {
+          confirmButtonText: '确认',
+          callback: (action) => {
+            //删除token
+            localStorage.removeItem("token");
+            //跳转到登录页
+            router.push("/login");
+            const store = userStore();
+            //恢复store状态到初始值
+            store.$reset();
+            //清空sessionStorage
+            sessionStorage.clear();
+          }
+        })
+      } else {
+        //未登录，但token不存在，直接跳转到登录页面
+        //删除token
+        localStorage.removeItem("token");
+        //跳转到登录页
+        router.push("/login");
+        const store = userStore();
+        //恢复store状态到初始值
+        store.$reset();
+        //清空sessionStorage
+        sessionStorage.clear();
+      }
       return null;
     }
     ElMessage.error(response.data.msg);

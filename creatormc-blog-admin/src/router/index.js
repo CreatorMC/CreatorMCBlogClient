@@ -86,7 +86,7 @@ router.beforeResolve(async to => {
           return false;
         }
       } catch (error) {
-        // TODO 错误 取消导航 跳转到404页面
+        //错误 取消导航
         return false;
       }
     }
@@ -102,7 +102,7 @@ router.beforeResolve(async to => {
         // 返回语句，为了防止在同一页面刷新后，路由匹配不到的问题
         return to.fullPath;
       } catch (error) {
-        // TODO 错误 取消导航 跳转到404页面
+        //错误 取消导航
         return false;
       }
     }
