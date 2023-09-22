@@ -2,7 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 //配置 vite-plugin-svg-spritemap 为了方便的生成 sprite
-import { svgSpritemap } from 'vite-plugin-svg-spritemap'
+// import { svgSpritemap } from 'vite-plugin-svg-spritemap'
 
 // https://vitejs.dev/config/
 // 在配置中使用环境变量
