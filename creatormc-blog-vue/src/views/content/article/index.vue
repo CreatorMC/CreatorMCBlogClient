@@ -54,6 +54,7 @@ export default {
         if(response != null) {
           this.article = response.data;
           this.article.content = this.$markdown.parse(response.data.content);
+          this.$nextTick(this.publishCodeLanguage);
         }
       })
     },
@@ -78,6 +79,20 @@ export default {
       let date = str.split(' ')[0];
       let arr = date.split('-');
       return `${arr[0]}年${arr[1]}月${arr[2]}日`;
+    },
+    /**
+     * 给代码区域添加语言显示
+     */
+    publishCodeLanguage() {
+      let codes = document.getElementsByClassName('hljs');
+      for (let index = 0; index < codes.length; index++) {
+        let item = codes[index];
+        let element = document.createElement('div');
+        element.classList.add('mark-down-code-language');
+        element.innerHTML = item.classList[1].substring(item.classList[1].indexOf('-') + 1);
+        item.parentElement.style.position = 'relative';
+        item.parentElement.appendChild(element);
+      }
     }
   },
   mounted() {
