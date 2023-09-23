@@ -30,7 +30,7 @@
       <el-table-column prop="id" label="文章id" />
       <el-table-column prop="title" label="标题" />
       <el-table-column prop="summary" label="摘要" />
-      <el-table-column prop="categoryId" label="分类" />
+      <el-table-column prop="categoryName" label="分类" />
       <el-table-column prop="isTop" label="是否置顶">
         <template #default="scope">
           {{scope.row.isTop == "0" ? "否" : "是"}}
