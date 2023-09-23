@@ -2,6 +2,7 @@
 @import './variables.scss';
 @import './transition.scss';
 
+//代码中语言标签样式
 .mark-down-code-language {
   position: absolute;
   right: 0px;
@@ -10,4 +11,26 @@
   color: var(--el-color-info-light-5);
   background-color: #263445;
   padding: 0.5em;
+}
+
+//复制代码按钮样式
+.hljs ~ .mark-down-code-copy {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  top: 0px;
+  cursor: pointer;
+  margin: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: none;
+}
+
+//经过代码区域时才显示
+.hljs:hover ~ .mark-down-code-copy,
+.hljs ~ .mark-down-code-copy:hover {
+  display: unset;
+}
+
+.hljs ~ .mark-down-code-copy:active {
+  background-color: rgba(0, 0, 0, 0.1);
 }

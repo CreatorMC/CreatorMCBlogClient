@@ -35,6 +35,8 @@ import RightSideComponent from '@/components/content/index/RightSideComponent.vu
 import { getArticle } from '@/api/article';
 import { updateViewCount } from '@/api/article';
 import CommentComponent from '@/components/main/comment/CommentComponent.vue';
+import { createApp } from 'vue';
+import CopyButtonComponentVue from '../../../components/utils/CopyButtonComponent.vue';
 
 export default {
   props: [
@@ -54,7 +56,7 @@ export default {
         if(response != null) {
           this.article = response.data;
           this.article.content = this.$markdown.parse(response.data.content);
-          this.$nextTick(this.publishCodeLanguage);
+          this.$nextTick(this.publishCode);
         }
       })
     },
@@ -81,17 +83,27 @@ export default {
       return `${arr[0]}年${arr[1]}月${arr[2]}日`;
     },
     /**
-     * 给代码区域添加语言显示
+     * 给代码区域添加语言显示和复制按钮
      */
-    publishCodeLanguage() {
+    publishCode() {
       let codes = document.getElementsByClassName('hljs');
       for (let index = 0; index < codes.length; index++) {
         let item = codes[index];
+        //添加语言标签
         let element = document.createElement('div');
         element.classList.add('mark-down-code-language');
         element.innerHTML = item.classList[1].substring(item.classList[1].indexOf('-') + 1);
         item.parentElement.style.position = 'relative';
         item.parentElement.appendChild(element);
+        //添加复制按钮
+        const copyButton = createApp(CopyButtonComponentVue, {
+          code: item.innerText
+        });
+        let elementTwo = document.createElement('div');
+        elementTwo.classList.add('mark-down-code-copy');
+        elementTwo.style.right = element.clientWidth + "px";
+        copyButton.mount(elementTwo);
+        item.parentElement.appendChild(elementTwo);
       }
     }
   },
