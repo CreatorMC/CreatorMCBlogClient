@@ -1,40 +1,43 @@
 <template>
-  <div class="main-container">
-    <div class="seat"></div>
-    <el-row :gutter="30">
-      <el-col :sm="24" :md="16">
-        <el-card class="body" shadow="never">
-          <template #header>
-            <h1>友情链接</h1>
-          </template>
-          <div>
-            <p>
-              如果您是网站站长，欢迎您联系我添加您的网站链接！<br>
-              申请方式：邮箱、社交平台私信均可。<br>
-              申请格式：<br>
-              网站名称: 您的网站名称<br>
-              网站地址: 您的网站链接<br>
-              网站描述: 您的网站描述<br>
-            </p>
-            <el-row>
-              <el-col class="link" v-for="item in linkList" :sm="24" :md="12">
-                <a :href="item.address" target="_blank">
-                  <div class="container">
-                    <el-image class="icon" :src="item.logo" fit="contain"></el-image>
-                    <div class="content">
-                      <div><h4>{{ item.name }}</h4></div>
-                      <div class="description"><span>{{ item.description }}</span></div>
+  <div>
+    <div class="main-container">
+      <div class="seat"></div>
+      <el-row :gutter="30">
+        <el-col :sm="24" :md="16">
+          <el-card class="body" shadow="never">
+            <template #header>
+              <h1>友情链接</h1>
+            </template>
+            <div>
+              <p>
+                如果您是网站站长，欢迎您联系我添加您的网站链接！<br>
+                申请方式：邮箱、社交平台私信均可。<br>
+                申请格式：<br>
+                网站名称: 您的网站名称<br>
+                网站地址: 您的网站链接<br>
+                网站描述: 您的网站描述<br>
+              </p>
+              <el-row>
+                <el-col class="link" v-for="item in linkList" :sm="24" :md="12">
+                  <a :href="item.address" target="_blank">
+                    <div class="container">
+                      <el-image class="icon" :src="item.logo" fit="contain"></el-image>
+                      <div class="content">
+                        <div><h4>{{ item.name }}</h4></div>
+                        <div class="description"><span>{{ item.description }}</span></div>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </el-col>
-            </el-row>
-          </div>
-        </el-card>
-        <CommentComponent id="1" type="1" />
-      </el-col>
-      <RightSideComponent />
-    </el-row>
+                  </a>
+                </el-col>
+              </el-row>
+            </div>
+          </el-card>
+          <CommentComponent id="1" type="1" />
+        </el-col>
+        <RightSideComponent />
+      </el-row>
+    </div>
+    <ToTopComponent />
   </div>
 </template>
 
@@ -42,6 +45,7 @@
 import RightSideComponent from '@/components/content/index/RightSideComponent.vue';
 import CommentComponent from '@/components/main/comment/CommentComponent.vue';
 import { getAllLink } from '@/api/link';
+import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 export default {
   data() {
     return {
@@ -63,7 +67,7 @@ export default {
   mounted() {
     this.getAllLink();
   },
-  components: { RightSideComponent, CommentComponent }
+  components: { RightSideComponent, CommentComponent, ToTopComponent }
 }
 </script>
 
