@@ -27,6 +27,7 @@
         <RightSideComponent />
       </el-row>
     </div>
+    <ToTopComponent />
   </div>
 </template>
 
@@ -36,7 +37,8 @@ import { getArticle } from '@/api/article';
 import { updateViewCount } from '@/api/article';
 import CommentComponent from '@/components/main/comment/CommentComponent.vue';
 import { createApp } from 'vue';
-import CopyButtonComponentVue from '../../../components/utils/CopyButtonComponent.vue';
+import CopyButtonComponentVue from '@/components/utils/CopyButtonComponent.vue';
+import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 
 export default {
   props: [
@@ -121,7 +123,7 @@ export default {
       this.$refs.comment.refreshCommentList(val);
     }
   },
-  components: { RightSideComponent, CommentComponent }
+  components: { RightSideComponent, CommentComponent, ToTopComponent }
 }
 </script>
 

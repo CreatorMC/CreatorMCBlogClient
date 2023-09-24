@@ -10,6 +10,7 @@
         <RightSideComponent />
       </el-row>
     </div>
+    <ToTopComponent />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import StartScreenComponent from '@/components/content/index/StartScreenComponen
 import { articleList } from '@/api/article';
 import ArticleListComponent from '@/components/content/index/ArticleListComponent.vue';
 import RightSideComponent from '@/components/content/index/RightSideComponent.vue';
+import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 export default {
   props: {
     categoryId: null
@@ -67,7 +69,7 @@ export default {
       this.articleList();
     }
   },
-  components: { StartScreenComponent, ArticleListComponent, RightSideComponent }
+  components: { StartScreenComponent, ArticleListComponent, RightSideComponent, ToTopComponent }
 }
 </script>
 
