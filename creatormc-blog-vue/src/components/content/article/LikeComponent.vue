@@ -70,6 +70,14 @@ export default {
   mounted() {
     this.getUserLike();
     this.getLikeCount();
+  },
+  watch: {
+    id(val, oldVal) {
+      this.$nextTick(() => {
+        this.getUserLike();
+        this.getLikeCount();
+      })
+    }
   }
 }
 </script>
