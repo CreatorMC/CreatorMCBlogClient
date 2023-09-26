@@ -36,3 +36,38 @@ export function getArticle(id) {
 export function updateViewCount(id) {
   return service.put("/article/updateViewCount/" + id);
 }
+
+/**
+ * 查询对应文章是否被当前用户点赞过
+ * @param {*} id 文章id
+ * @returns 
+ */
+export function getUserLike(id) {
+  return service.get(`/article/getUserLike/${id}`, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}
+
+/**
+ * 查询对应文章的点赞量
+ * @param {*} id 文章id
+ * @returns 
+ */
+export function getLikeCount(id) {
+  return service.get(`/article/getLikeCount/${id}`);
+}
+
+/**
+ * 更新对应文章的点赞量
+ * @param {*} id 文章id
+ * @returns 
+ */
+export function updateLikeCount(id) {
+  return service.put(`/article/updateLikeCount/${id}`, null, {
+    headers: {
+      "token": localStorage.getItem("token")
+    }
+  });
+}

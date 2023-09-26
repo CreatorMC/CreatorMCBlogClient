@@ -21,6 +21,7 @@
               </div>
             </template>
             <div class="content" v-html="article.content"></div>
+            <LikeComponent :id="id" />
           </el-card>
           <CommentComponent ref="comment" :id="id" type="0" />
         </el-col>
@@ -39,6 +40,7 @@ import CommentComponent from '@/components/main/comment/CommentComponent.vue';
 import { createApp } from 'vue';
 import CopyButtonComponentVue from '@/components/utils/CopyButtonComponent.vue';
 import ToTopComponent from '@/components/utils/ToTopComponent.vue';
+import LikeComponent from '@/components/content/article/LikeComponent.vue';
 
 export default {
   props: [
@@ -123,7 +125,7 @@ export default {
       this.$refs.comment.refreshCommentList(val);
     }
   },
-  components: { RightSideComponent, CommentComponent, ToTopComponent }
+  components: { RightSideComponent, CommentComponent, ToTopComponent, LikeComponent }
 }
 </script>
 
