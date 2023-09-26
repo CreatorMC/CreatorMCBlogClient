@@ -69,6 +69,10 @@ service.interceptors.response.use(function (response) {
           sessionStorage.clear();
         })
       } else {
+        if(response.config.url.indexOf("/article/getUserLike/") != -1) {
+          //该请求路径不做提示
+          return null;
+        }
         //未登录，但token不存在，提示用户此功能需要登录
         ElMessageBox.confirm(
           '此功能需要登录后才能使用<br>您可以立即登录，或继续留在当前页面。',

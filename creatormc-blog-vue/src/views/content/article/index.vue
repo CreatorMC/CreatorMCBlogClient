@@ -26,6 +26,7 @@
           <CommentComponent ref="comment" :id="id" type="0" />
         </el-col>
         <RightSideComponent />
+        <DirectoryComponent />
       </el-row>
     </div>
     <ToTopComponent />
@@ -41,6 +42,7 @@ import { createApp } from 'vue';
 import CopyButtonComponentVue from '@/components/utils/CopyButtonComponent.vue';
 import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 import LikeComponent from '@/components/content/article/LikeComponent.vue';
+import DirectoryComponent from '@/components/content/article/DirectoryComponent.vue';
 
 export default {
   props: [
@@ -125,7 +127,7 @@ export default {
       this.$refs.comment.refreshCommentList(val);
     }
   },
-  components: { RightSideComponent, CommentComponent, ToTopComponent, LikeComponent }
+  components: { RightSideComponent, CommentComponent, ToTopComponent, LikeComponent, DirectoryComponent }
 }
 </script>
 
