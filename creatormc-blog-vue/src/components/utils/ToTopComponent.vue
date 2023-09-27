@@ -41,7 +41,7 @@ export default {
 .top {
   position: fixed;
   top: -900px;
-  right: 80px;
+  right: calc(97px - (100vw - 100%));
   width: 64px;
   height: 900px;
   z-index: 400;

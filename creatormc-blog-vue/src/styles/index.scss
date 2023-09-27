@@ -2,6 +2,25 @@
 @import './variables.scss';
 @import './transition.scss';
 
+//主要内容样式
+.main-container {
+  max-width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 800px) {
+  .main-container {
+    max-width: 95vw !important;
+  }
+}
+
+// 顶部占位样式
+.seat {
+  height: calc($headHeight + 20px);
+}
+
 //代码中语言标签样式
 .mark-down-code-language {
   position: absolute;

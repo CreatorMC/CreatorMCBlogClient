@@ -35,22 +35,4 @@ body {
   overflow-x: hidden;
   background-color: #efefef;
 }
-
-.main-container {
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 100vh;
-}
-
-@media screen and (max-width: 800px) {
-  .main-container {
-    max-width: 95% !important;
-  }
-}
-
-// 顶部占位样式
-.seat {
-  height: calc($headHeight + 20px);
-}
 </style>

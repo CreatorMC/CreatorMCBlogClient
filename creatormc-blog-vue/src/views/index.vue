@@ -38,7 +38,7 @@ export default {
 .header {
   position: fixed;
   z-index: 500;
-  width: 100%;
+  width: 100vw;
   height: $headHeight;
   left: 0;
   top: 0;
@@ -52,7 +52,7 @@ export default {
   position: fixed;
   left: 0px;
   top: 0px;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   z-index: -10;
   filter: brightness(80%);
