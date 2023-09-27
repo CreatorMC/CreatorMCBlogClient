@@ -25,8 +25,9 @@
           </el-card>
           <CommentComponent ref="comment" :id="id" type="0" />
         </el-col>
-        <RightSideComponent />
-        <DirectoryComponent />
+        <RightSideComponent>
+          <DirectoryComponent ref="directory" />
+        </RightSideComponent>
       </el-row>
     </div>
     <ToTopComponent />
@@ -63,6 +64,7 @@ export default {
           this.article = response.data;
           this.article.content = this.$markdown.parse(response.data.content);
           this.$nextTick(this.publishCode);
+          this.$nextTick(this.$refs.directory.init);
         }
       })
     },

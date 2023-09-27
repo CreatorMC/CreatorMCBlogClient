@@ -13,6 +13,7 @@
       </div>
     </el-card>
     <HotArticleComponent :hotArticles="hotArticles" />
+    <slot></slot>
   </el-col>
 </template>
 

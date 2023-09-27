@@ -34,3 +34,8 @@
 .hljs ~ .mark-down-code-copy:active {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+//点击文章目录时，标题文字与页面顶部的距离
+.creatormc-article-markdown-title {
+  scroll-margin-top: calc($headHeight + 20px);
+}

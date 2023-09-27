@@ -45,6 +45,17 @@ app.config.globalProperties.$markdown = new Marked(markedHighlight({
   }
 }))
 
+//自定义marked的标题渲染，添加一个特殊的类名，便于获取元素
+const renderer = {
+  heading(text, level) {
+    return `
+            <h${level} class="creatormc-article-markdown-title">
+              ${text}
+            </h${level}>`;
+  }
+};
+app.config.globalProperties.$markdown.use({ renderer })
+
 app.mount('#app')
 
 //导出全局属性
