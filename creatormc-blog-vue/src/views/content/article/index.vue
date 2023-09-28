@@ -31,6 +31,7 @@
       </el-row>
     </div>
     <ToTopComponent />
+    <SideBarComponent />
   </div>
 </template>
 
@@ -44,6 +45,7 @@ import CopyButtonComponentVue from '@/components/utils/CopyButtonComponent.vue';
 import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 import LikeComponent from '@/components/content/article/LikeComponent.vue';
 import DirectoryComponent from '@/components/content/article/DirectoryComponent.vue';
+import SideBarComponent from '@/components/content/article/SideBarComponent.vue';
 
 export default {
   props: [
@@ -129,7 +131,7 @@ export default {
       this.$refs.comment.refreshCommentList(val);
     }
   },
-  components: { RightSideComponent, CommentComponent, ToTopComponent, LikeComponent, DirectoryComponent }
+  components: { RightSideComponent, CommentComponent, ToTopComponent, LikeComponent, DirectoryComponent, SideBarComponent }
 }
 </script>
 

@@ -49,7 +49,7 @@ export default {
   cursor: pointer;
   display: flex;
   justify-content: center;
-  transition: all 0.5s ease-in-out;
+  transition: top 0.5s ease-in-out;
   .light {
     position: absolute;
     width: 24px;

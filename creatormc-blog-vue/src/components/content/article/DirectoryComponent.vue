@@ -90,6 +90,8 @@ export default {
 }
 .body {
   margin: calc(-1 * var(--el-card-padding));
+  max-height: 77.5vh;
+  overflow: auto;
   :deep(ul),:deep(li) {
     list-style: disc;
   }
