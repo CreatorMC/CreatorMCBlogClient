@@ -29,9 +29,13 @@ export default {
     //评论类型 0代表文章评论，1代表友链评论
     'type'
   ],
+  emits: [
+    'updateTotal'
+  ],
   expose: [
     'refreshCommentList',
-    'cancelAjax'
+    'cancelAjax',
+    'getTotal'
   ],
   data() {
     return {
@@ -179,6 +183,12 @@ export default {
         this.isScroll = true;
         this.getCommentList(this.id);
       }
+    },
+    /**
+     * 获取一共几条评论
+     */
+    getTotal() {
+      return this.total;
     }
   },
   mounted() {
@@ -193,6 +203,11 @@ export default {
   unmounted() {
     //取消监听事件
     removeEventListener("scroll", this.scrollHandler);
+  },
+  watch: {
+    total(val, oldVal) {
+      this.$emit('updateTotal', val)
+    }
   },
   components: { CommentItemComponent, SendCommentComponent, LoadingComponent }
 }

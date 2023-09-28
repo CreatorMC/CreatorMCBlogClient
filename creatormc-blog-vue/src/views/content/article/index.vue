@@ -23,7 +23,7 @@
             <div class="content" v-html="article.content"></div>
             <LikeComponent :id="id" />
           </el-card>
-          <CommentComponent ref="comment" :id="id" type="0" />
+          <CommentComponent ref="comment" :id="id" type="0" @updateTotal="updateCommentTotal" />
         </el-col>
         <RightSideComponent>
           <DirectoryComponent ref="directory" />
@@ -31,7 +31,7 @@
       </el-row>
     </div>
     <ToTopComponent />
-    <SideBarComponent />
+    <SideBarComponent :commentTotal="commentTotal" @toComment="toComment" />
   </div>
 </template>
 
@@ -53,7 +53,8 @@ export default {
   ],
   data() {
     return {
-      article: {}
+      article: {},
+      commentTotal: '0'
     };
   },
   methods: {
@@ -115,6 +116,20 @@ export default {
         copyButton.mount(elementTwo);
         item.parentElement.appendChild(elementTwo);
       }
+    },
+    /**
+     * 跳转到评论的位置
+     */
+    toComment() {
+      this.$refs.comment.$el.scrollIntoView({
+        behavior: 'smooth'
+      });
+    },
+    /**
+     * 更新总评论数
+     */
+    updateCommentTotal(value) {
+      this.commentTotal = value;
     }
   },
   mounted() {
