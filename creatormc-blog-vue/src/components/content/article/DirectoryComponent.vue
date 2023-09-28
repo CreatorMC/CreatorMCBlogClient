@@ -25,6 +25,8 @@ export default {
      * 为了确保当此组件加载时，外层组件已经渲染了文章内容，此方法需要暴露给外部
      */
     init() {
+      //先清空目录，避免因组件未重新创建导致上次初始化的目录还存在的问题
+      this.$refs.directoryBody.innerHTML = "";
       this.titleNodes = document.getElementsByClassName("creatormc-article-markdown-title");
       let rootNode = document.createElement("div");
       let that = this;
