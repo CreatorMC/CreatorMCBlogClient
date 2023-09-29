@@ -21,7 +21,7 @@
               </div>
             </template>
             <div class="content" v-html="article.content"></div>
-            <LikeComponent :id="id" />
+            <LikeComponent ref="like" :id="id" @updateLikeCount="updateLikeCount" @updateIsLiked="updateIsLiked" />
           </el-card>
           <CommentComponent ref="comment" :id="id" type="0" @updateTotal="updateCommentTotal" />
         </el-col>
@@ -31,7 +31,7 @@
       </el-row>
     </div>
     <ToTopComponent />
-    <SideBarComponent :commentTotal="commentTotal" @toComment="toComment" />
+    <SideBarComponent :commentTotal="commentTotal" :likeCount="likeCount" :isLiked="isLiked" @toComment="toComment" @clickLike="clickLike" />
   </div>
 </template>
 
@@ -54,7 +54,9 @@ export default {
   data() {
     return {
       article: {},
-      commentTotal: '0'
+      commentTotal: '0',
+      likeCount: '0',
+      isLiked: false
     };
   },
   methods: {
@@ -130,6 +132,24 @@ export default {
      */
     updateCommentTotal(value) {
       this.commentTotal = value;
+    },
+    /**
+     * 更新总点赞数
+     */
+    updateLikeCount(value) {
+      this.likeCount = value;
+    },
+    /**
+     * 更新是否被点赞过
+     */
+    updateIsLiked(value) {
+      this.isLiked = value;
+    },
+    /**
+     * 侧边栏按钮点击点赞
+     */
+    clickLike() {
+      this.$refs.like.updateLikeCount();
     }
   },
   mounted() {

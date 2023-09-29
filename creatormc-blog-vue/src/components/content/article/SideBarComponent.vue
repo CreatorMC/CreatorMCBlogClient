@@ -15,9 +15,9 @@
       content="点赞"
       placement="right"
     >
-      <div class="item">
+      <div :class="isLiked ? 'liked' : ''" class="item" @click="clickLike">
         <el-icon><icon-svg name="icon-like" /></el-icon>
-        <div style="font-size: small;">0</div>
+        <div style="font-size: small;">{{ likeCount }}</div>
       </div>
     </el-tooltip>
     <el-popover
@@ -48,10 +48,13 @@
 export default {
   name: "SideBarComponent",
   props: {
-    commentTotal: String
+    commentTotal: '0',
+    likeCount: '0',
+    isLiked: false
   },
   emits: [
-    'toComment'
+    'toComment',
+    'clickLike'
   ],
   data() {
     return {
@@ -64,6 +67,12 @@ export default {
      */
     toComment() {
       this.$emit('toComment')
+    },
+    /**
+     * 点击点赞
+     */
+    clickLike() {
+      this.$emit('clickLike');
     }
   }
 }
@@ -95,6 +104,9 @@ export default {
   .item:hover :deep(i) {
     color: var(--el-color-primary-light-3);
   }
+}
+.liked :deep(i){
+  color: var(--el-color-primary-light-3);
 }
 
 @media screen and (max-width: 800px) {

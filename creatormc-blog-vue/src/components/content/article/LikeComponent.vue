@@ -23,6 +23,13 @@ export default {
   props: [
     'id'
   ],
+  expose: [
+    'updateLikeCount'
+  ],
+  emits: [
+    'updateLikeCount',
+    'updateIsLiked'
+  ],
   data() {
     return {
       count: '0',
@@ -77,6 +84,12 @@ export default {
         this.getUserLike();
         this.getLikeCount();
       })
+    },
+    count(val, oldVal) {
+      this.$emit('updateLikeCount', val);
+    },
+    isLiked(val, oldVal) {
+      this.$emit('updateIsLiked', val);
     }
   }
 }
