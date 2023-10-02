@@ -13,6 +13,7 @@
 <script>
 import IconSVGComponent from './IconSVGComponent.vue';
 import { ElIcon, ElTooltip } from 'element-plus';
+import { copyText } from '@/utils/copy';
 
 export default {
   name: "CopyButtonComponent",
@@ -30,29 +31,7 @@ export default {
      * 复制文本
      */
     textCopy(t) {
-      let that = this;
-      // 如果当前浏览器版本不兼容navigator.clipboard
-      if (!navigator.clipboard) {
-        var ele = document.createElement("input");
-        ele.value = t;
-        document.body.appendChild(ele);
-        ele.select();
-        var isSuccess = document.execCommand("copy");
-        document.body.removeChild(ele);
-        if (isSuccess) {
-          //复制成功
-          that.copySuccess();
-        } else {
-          //复制失败
-        }
-      } else {
-        navigator.clipboard.writeText(t).then(function () {
-          //复制成功
-          that.copySuccess();
-        }).catch(function () {
-          //复制失败
-        })
-      }
+      copyText(t, this.copySuccess);
     },
     /**
      * 复制成功后调用

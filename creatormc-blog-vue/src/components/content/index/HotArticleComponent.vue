@@ -75,7 +75,7 @@ export default {
 }
 .link {
   position: relative;
-  z-index:10;
+  z-index:0;
   color: black;
   text-decoration: none;
 }

@@ -31,7 +31,7 @@
       </el-row>
     </div>
     <ToTopComponent />
-    <SideBarComponent :commentTotal="commentTotal" :likeCount="likeCount" :isLiked="isLiked" @toComment="toComment" @clickLike="clickLike" />
+    <SideBarComponent :commentTotal="commentTotal" :likeCount="likeCount" :isLiked="isLiked" :article="article" @toComment="toComment" @clickLike="clickLike" />
   </div>
 </template>
 

@@ -30,51 +30,87 @@
         </div>
       </template>
       <div class="share-list">
-        <div>
+        <div @click="shareLink">
           <el-icon><icon-svg name="icon-link" /></el-icon><div>&nbsp;复制链接</div>
         </div>
-        <div>
+        <div @click="sharePic">
           <el-icon><icon-svg name="icon-image" /></el-icon><div>&nbsp;生成海报</div>
         </div>
-        <div>
+        <div @click="shareQQ">
           <el-icon><icon-svg name="icon-QQ" /></el-icon><div>&nbsp;QQ分享</div>
         </div>
       </div>
     </el-popover>
+    <ShareImgComponent :article="article" v-model="showShareImg" />
   </div>
 </template>
 
 <script>
+import { copyText } from '@/utils/copy';
+import { ElMessage } from 'element-plus';
+import ShareImgComponent from './ShareImgComponent.vue';
+
 export default {
   name: "SideBarComponent",
   props: {
-    commentTotal: '0',
-    likeCount: '0',
-    isLiked: false
+    commentTotal: "0",
+    likeCount: "0",
+    isLiked: false,
+    article: Object
   },
   emits: [
-    'toComment',
-    'clickLike'
+    "toComment",
+    "clickLike"
   ],
   data() {
     return {
-
-    }
+      showShareImg: false
+    };
   },
   methods: {
     /**
      * 跳转到评论的位置
      */
     toComment() {
-      this.$emit('toComment')
+      this.$emit("toComment");
     },
     /**
      * 点击点赞
      */
     clickLike() {
-      this.$emit('clickLike');
+      this.$emit("clickLike");
+    },
+    /**
+     * 复制链接
+     */
+    shareLink() {
+      copyText(location.href, () => {
+        ElMessage.success("复制成功");
+      });
+    },
+    /**
+     * 生成海报
+     */
+    sharePic() {
+      this.showShareImg = true;
+    },
+    /**
+     * 分享到QQ
+     */
+    shareQQ() {
+      let title = encodeURIComponent(this.article.title);
+      // 分享内容链接
+      let url = encodeURIComponent(location.href);
+      // 分享图片的路径，多张图片以＂|＂隔开，可选参数
+      let picurl = encodeURIComponent(this.article.thumbnail || "");
+      let link = "http://connect.qq.com/widget/shareqq/index.html?title=" + title
+        + "&url=" + url
+        + "&pics=" + picurl;
+      // 在新窗口中打开
+      window.open(link, "_blank");
     }
-  }
+  },
+  components: { ShareImgComponent }
 }
 </script>
 
