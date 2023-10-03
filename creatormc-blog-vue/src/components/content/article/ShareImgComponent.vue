@@ -1,6 +1,14 @@
 <template>
   <el-dialog class="czzmc-img-container" v-model="showDialog" title="分享">
-    <canvas id="shareCanvas" width="400" height="500"></canvas>
+    <canvas v-loading="loading" id="shareCanvas" width="400" height="500"></canvas>
+    <div class="bottom-container">
+      <el-button class="button" type="success" circle @click="downloadImg">
+        <el-icon><Download /></el-icon>
+      </el-button>
+      <el-button class="button" type="danger" circle @click="showDialog = false">
+        <el-icon><Close /></el-icon>
+      </el-button>
+    </div>
   </el-dialog>
 </template>
 
@@ -19,11 +27,13 @@ export default {
   ],
   data() {
     return {
-
+      loading: true
     }
   },
   methods: {
     drawImg() {
+      //正在加载分享图
+      this.loading = true;
       let that = this;
       /**
        * 分享所需的图片全部加载完成后调用
@@ -53,6 +63,8 @@ export default {
         writeText(ctx, that.article.summary, 359, 84, 20, 321, 6, 14);
         //画二维码
         ctx.drawImage(imgObjs[2], 305, 406);
+        //加载完成
+        that.loading = false;
       }
 
       QRCode.toDataURL(window.location.href, {
@@ -99,11 +111,23 @@ export default {
           img.srcType = srcList[i].srcType;
           //开始加载
           img.src = srcList[i].src;
+          //设置图片跨域（存储图片的服务器也要设置跨域）
+          img.crossOrigin="anonymous";
         }
 
       }).catch(err => {
         console.error(err);
       })
+    },
+    /**
+     * 下载图片
+     */
+    downloadImg() {
+      let canvas = document.getElementById("shareCanvas");
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "分享.png";
+      a.click();
     }
   },
   computed: {
@@ -127,6 +151,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.bottom-container{
+  margin-top: 10px;
+  text-align: center;
+  .button{
+    width: 32px;
+    height: 32px;
+  }
+}
+</style>
 
 <style lang="scss">
 .czzmc-img-container {

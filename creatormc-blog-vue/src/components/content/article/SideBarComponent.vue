@@ -131,11 +131,11 @@ export default {
     background-color: rgba(255, 255, 255, 0.85);
     margin-bottom: 20px;
     justify-content: center;
-  }
-  :deep(i) {
-    font-size: 32px;
-    color: var(--el-color-info-dark-2);
-    transition: all 0.2s ease;
+    :deep(i) {
+      font-size: 32px;
+      color: var(--el-color-info-dark-2);
+      transition: all 0.2s ease;
+    }
   }
   .item:hover :deep(i) {
     color: var(--el-color-primary-light-3);
