@@ -3,6 +3,7 @@
     <template #header>
       <span class="hot-title">热门文章</span>
     </template>
+    <el-skeleton :loading="loading" animated />
     <div class="hot-article" v-for="item in hotArticles">
       <div class="hot-img">
         <el-image :src="item.thumbnail" fit="cover" :lazy="true">
@@ -25,7 +26,8 @@
 export default {
   name: "HotArticleComponent",
   props: {
-    hotArticles: Array
+    hotArticles: Array,
+    loading: true
   },
   data() {
     return {

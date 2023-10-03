@@ -1,7 +1,9 @@
 <template>
   <el-dialog class="czzmc-img-container" v-model="showDialog" title="分享">
-    <canvas v-loading="loading" id="shareCanvas" width="400" height="500"></canvas>
-    <div class="bottom-container">
+    <div v-loading="loading" element-loading-background="rgba(255, 255, 255, 1.0)">
+      <canvas id="shareCanvas" width="400" height="500"></canvas>
+    </div>
+    <div v-show="!loading" class="bottom-container">
       <el-button class="button" type="success" circle @click="downloadImg">
         <el-icon><Download /></el-icon>
       </el-button>
@@ -42,6 +44,8 @@ export default {
         //获取 canvas
         let canvas = document.getElementById("shareCanvas");
         let ctx = canvas.getContext("2d");
+        //清空 canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         //按照自定义的类型字段排序
         imgObjs.sort((a, b) => {
           return a.srcType - b.srcType;

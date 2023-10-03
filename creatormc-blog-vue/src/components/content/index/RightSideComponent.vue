@@ -12,7 +12,7 @@
         </div>
       </div>
     </el-card>
-    <HotArticleComponent :hotArticles="hotArticles" />
+    <HotArticleComponent :loading="loading" :hotArticles="hotArticles" />
     <slot></slot>
   </el-col>
 </template>
@@ -24,7 +24,9 @@ export default {
   name: "RightSideComponent",
   data() {
     return {
-      hotArticles: []
+      hotArticles: [],
+      //热门文章是否正在获取
+      loading: true
     };
   },
   methods: {
@@ -35,6 +37,8 @@ export default {
       hotArticleList().then((response) => {
         if (response != null) {
           this.hotArticles = response.data;
+          //不显示骨架屏
+          this.loading = false;
         }
       });
     }

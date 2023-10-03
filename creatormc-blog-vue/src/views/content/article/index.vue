@@ -31,7 +31,7 @@
       </el-row>
     </div>
     <ToTopComponent />
-    <SideBarComponent :commentTotal="commentTotal" :likeCount="likeCount" :isLiked="isLiked" :article="article" @toComment="toComment" @clickLike="clickLike" />
+    <SideBarComponent v-show="isFinish" :commentTotal="commentTotal" :likeCount="likeCount" :isLiked="isLiked" :article="article" @toComment="toComment" @clickLike="clickLike" />
   </div>
 </template>
 
@@ -56,7 +56,9 @@ export default {
       article: {},
       commentTotal: '0',
       likeCount: '0',
-      isLiked: false
+      isLiked: false,
+      //是否完成查询文章
+      isFinish: false
     };
   },
   methods: {
@@ -70,6 +72,7 @@ export default {
           this.article.content = this.$markdown.parse(response.data.content);
           this.$nextTick(this.publishCode);
           this.$nextTick(this.$refs.directory.init);
+          this.isFinish = true;
         }
       })
     },
