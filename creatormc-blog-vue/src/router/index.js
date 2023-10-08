@@ -54,6 +54,12 @@ const router = createRouter({
           name: "about",
           component: () => import('../views/content/about/index.vue')
         },
+        {
+          path: "search/:text",
+          name: "search",
+          component: () => import('../views/search/index.vue'),
+          props: true
+        },
       ]
     },
     // 捕获所有未匹配到的路由

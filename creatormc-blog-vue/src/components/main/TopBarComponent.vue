@@ -9,6 +9,20 @@
       <el-menu-item index="/index/link">友链</el-menu-item>
       <el-menu-item index="/index/about">关于</el-menu-item>
       <div class="flex-grow" />
+      <div class="search">
+        <el-input
+          v-model="searchText"
+          class="search-input"
+          :maxlength="32"
+          @keydown.enter.native="search"
+        >
+          <template #prepend>
+            <el-button @click="search">
+              <el-icon><Search /></el-icon>
+            </el-button>
+          </template>
+        </el-input>
+      </div>
       <div class="head">
         <el-dropdown :disabled="id == null || id == ''">
           <el-avatar :src="id && id != '' ? (avatar && avatar != '' ? avatar : $defaultAvatar) : ''" fit="cover" @click="$router.push('/login')">
@@ -60,7 +74,9 @@ export default {
   },
   data() {
     return {
-      categories: []
+      categories: [],
+      //搜索文本
+      searchText: ""
     }
   },
   methods: {
@@ -85,6 +101,14 @@ export default {
           sessionStorage.clear();
         }
       });
+    },
+    search() {
+      if(this.searchText && this.searchText != "") {
+        //跳转到搜索页面
+        router.push(`/index/search/${this.searchText}`);
+        //清空搜索框
+        this.searchText = "";
+      }
     }
   },
   mounted() {
@@ -150,5 +174,21 @@ export default {
 
 .drop :deep(.el-dropdown-menu__item) {
   justify-content: center;
+}
+
+.search {
+  display: flex;
+  margin-right: 10px;
+  .search-input{
+    margin: auto;
+    --el-input-border-radius: 50px;
+    --el-input-bg-color: rgba(0, 0, 0, 0.5);
+    --el-input-text-color: var(--el-color-info-light-9);
+    --el-input-border-color: var(--el-color-warning-dark-2);
+    :deep(.el-input-group__prepend) {
+      color: var(--el-input-text-color);
+      background-color: var(--el-input-bg-color);
+    }
+  }
 }
 </style>

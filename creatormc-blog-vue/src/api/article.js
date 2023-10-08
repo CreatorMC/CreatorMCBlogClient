@@ -71,3 +71,14 @@ export function updateLikeCount(id) {
     }
   });
 }
+
+/**
+ * 搜索文章
+ * @param {*} pageNum 第几页
+ * @param {*} pageSize 每页几条记录
+ * @param {*} text 要搜索的文本
+ * @returns 
+ */
+export function getSearchArticle(pageNum, pageSize, text) {
+  return service.get(`/article/getSearchArticle/${pageNum}/${pageSize}/${text}`);
+}
