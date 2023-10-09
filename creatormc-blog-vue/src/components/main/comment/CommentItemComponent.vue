@@ -95,7 +95,7 @@ export default {
           startIndex = index;
         }
         else if (startIndex != -1 && c == "]") {
-          stringBuilder += this.emojiMap.has(tempString) ? `<img src="${this.emojiMap.get(tempString)}">` : `[${tempString}]`;
+          stringBuilder += this.emojiMap.has(tempString) ? `<img src="${this.emojiMap.get(tempString)}" alt="[${tempString}]">` : `[${tempString}]`;
           startIndex = -1;
           tempString = "";
         }
