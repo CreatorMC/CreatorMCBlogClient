@@ -21,7 +21,7 @@
           </div>
           <div v-html="parseEmoji(item.content)" class="comment"></div>
           <div>
-            <el-button v-if="user && user.id" type="primary" link @click="isShowSendComments[index] = !isShowSendComments[index]">{{ isShowSendComments[index] ? "取消回复" : "回复" }}</el-button>
+            <el-button v-if="user && user.id && enable" type="primary" link @click="isShowSendComments[index] = !isShowSendComments[index]">{{ isShowSendComments[index] ? "取消回复" : "回复" }}</el-button>
             <el-button v-if="item.children && item.children.length > 0" type="primary" link @click="expand(index)">
               <template v-if="!isExpands[index]">
                 {{ `${item.children.length}条评论` }}
@@ -41,6 +41,7 @@
             :rootId="(item.rootId == '-1') ? item.id : item.rootId"
             :toCommentUserId="item.createBy"
             :toCommentId="item.id"
+            :article="article"
             @sendComment="$emit('sendComment')"
           />
         </div>
@@ -64,7 +65,9 @@ export default {
     emojiMap: Map,
     emojiNames: Array,
     type: String,
-    articleId: String
+    articleId: String,
+    article: Object,
+    enable: Boolean
   },
   emits: [
     'sendComment'

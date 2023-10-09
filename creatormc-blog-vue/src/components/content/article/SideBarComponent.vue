@@ -142,7 +142,7 @@ export default {
   }
 }
 .liked :deep(i){
-  color: var(--el-color-primary-light-3);
+  color: var(--el-color-primary-light-3) !important;
 }
 
 @media screen and (max-width: 800px) {
