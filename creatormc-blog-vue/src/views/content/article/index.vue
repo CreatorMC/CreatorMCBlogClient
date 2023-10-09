@@ -73,6 +73,8 @@ export default {
           this.$nextTick(this.publishCode);
           this.$nextTick(this.$refs.directory.init);
           this.isFinish = true;
+          //确保文章存在，才更新浏览量
+          this.updateViewCount();
         }
       })
     },
@@ -83,6 +85,7 @@ export default {
       updateViewCount(this.id).then((response) => {
         if(response != null) {
           //成功
+          this.article.viewCount = response.data;
         }
       });
     },
@@ -158,13 +161,11 @@ export default {
   mounted() {
     // 页面刚加载时
     this.getArticle();
-    this.updateViewCount();
   },
   watch: {
     id(val, oldVal) {
       // id改变时刷新页面
       this.getArticle();
-      this.updateViewCount();
       this.$refs.comment.cancelAjax();
       this.$refs.comment.refreshCommentList(val);
     }
