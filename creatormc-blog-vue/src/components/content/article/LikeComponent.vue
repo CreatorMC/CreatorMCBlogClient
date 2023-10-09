@@ -21,7 +21,8 @@ import { ElMessage } from "element-plus";
 export default {
   name: "LikeComponent",
   props: [
-    'id'
+    'id',
+    'article'
   ],
   expose: [
     'updateLikeCount'
@@ -62,6 +63,11 @@ export default {
      * 更新对应文章的点赞量
      */
     updateLikeCount() {
+      if(!this.article.id) {
+        //此时文章未加载完成，或文章不存在
+        ElMessage.error("文章不存在");
+        return;
+      }
       updateLikeCount(this.id).then((response) => {
         if(response != null) {
           ElMessage.success({

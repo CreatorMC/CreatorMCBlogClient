@@ -2,7 +2,7 @@
   <div>
     <el-card class="bottom" shadow="never">
       <el-space style="width: 100%;" alignment="normal" direction="vertical" size="default" wrap fill>
-        <SendCommentComponent :emojiNames="emojiNames" :emojiMap="emojiMap" :type="type" :articleId="id" @sendComment="refreshCommentList(id)" />
+        <SendCommentComponent :emojiNames="emojiNames" :emojiMap="emojiMap" :type="type" :articleId="id" :article="article" @sendComment="refreshCommentList(id)" />
         <div class="title">
           评论（{{ total }}）
         </div>
@@ -27,7 +27,8 @@ export default {
   props: [
     'id',
     //评论类型 0代表文章评论，1代表友链评论
-    'type'
+    'type',
+    'article'
   ],
   emits: [
     'updateTotal'
