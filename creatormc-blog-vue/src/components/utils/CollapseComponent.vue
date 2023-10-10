@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       //状态转换时的阻塞，为了防止用户切换过快导致bug
-      block: false
+      block: false,
+      maxHeight: 0
     }
   },
   methods: {
@@ -30,17 +31,25 @@ export default {
     open() {
       this.$refs.dom.style.display = '';
       let h = this.$refs.dom.offsetHeight;
+      this.maxHeight = h;
       this.$refs.dom.style.maxHeight = '0px';
       //为了避免在同一帧设置高度，导致过渡不生效
       setTimeout(() => {
         this.$refs.dom.style.maxHeight = `${h + 10}px`;
+        setTimeout(() => {
+          //过渡动画结束后，复原样式，因为内部可能会展开回复框，导致变高
+          this.$refs.dom.style.maxHeight = '';
+        }, 500);
       }, 1);
     },
     /**
      * 折叠
      */
     close() {
-      this.$refs.dom.style.maxHeight = '0px';
+      this.$refs.dom.style.maxHeight = `${this.maxHeight}px`;
+      setTimeout(() => {
+        this.$refs.dom.style.maxHeight = '0px';
+      }, 1);
       setTimeout(() => {
         this.$refs.dom.style.maxHeight = '';
         this.$refs.dom.style.display = 'none';

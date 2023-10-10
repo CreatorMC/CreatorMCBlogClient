@@ -32,7 +32,7 @@
               </el-row>
             </div>
           </el-card>
-          <CommentComponent id="1" type="1" />
+          <CommentComponent id="1" type="1" :enable="true" />
         </el-col>
         <RightSideComponent />
       </el-row>

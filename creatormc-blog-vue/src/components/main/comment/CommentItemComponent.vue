@@ -33,7 +33,7 @@
               </template>
             </el-button>
           </div>
-          <SendCommentComponent style="margin-top: 10px;" v-show="isShowSendComments[index]"
+          <SendCommentComponent style="margin-top: 10px;" v-show="isShowSendComments[index] && enable"
             :emojiNames="emojiNames"
             :emojiMap="emojiMap"
             :type="type"
@@ -41,13 +41,20 @@
             :rootId="(item.rootId == '-1') ? item.id : item.rootId"
             :toCommentUserId="item.createBy"
             :toCommentId="item.id"
-            :article="article"
             @sendComment="$emit('sendComment')"
           />
         </div>
       </div>
       <CollapseComponent class="children" v-if="item.children && item.children.length > 0" :ref="`collapse${index}`" v-model="isExpands[index]" >
-        <CommentItemComponent :commentList="item.children" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="articleId" @sendComment="$emit('sendComment')" />
+        <CommentItemComponent
+          :commentList="item.children"
+          :emojiMap="emojiMap"
+          :emojiNames="emojiNames"
+          :type="type"
+          :articleId="articleId"
+          :enable="enable"
+          @sendComment="$emit('sendComment')" 
+        />
       </CollapseComponent>
     </template>
   </div>
@@ -66,8 +73,7 @@ export default {
     emojiNames: Array,
     type: String,
     articleId: String,
-    article: Object,
-    enable: Boolean
+    enable: true
   },
   emits: [
     'sendComment'

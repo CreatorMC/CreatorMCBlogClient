@@ -2,12 +2,25 @@
   <div>
     <el-card class="bottom" shadow="never">
       <el-space style="width: 100%;" alignment="normal" direction="vertical" size="default" wrap fill>
-        <SendCommentComponent v-if="article.isComment ? (article.isComment == '1') : true" :emojiNames="emojiNames" :emojiMap="emojiMap" :type="type" :articleId="id" :article="article" @sendComment="refreshCommentList(id)" />
+        <SendCommentComponent
+          v-if="enable"
+          :emojiNames="emojiNames"
+          :emojiMap="emojiMap"
+          :type="type"
+          :articleId="id"
+          @sendComment="refreshCommentList(id)" />
         <div class="load" v-else>该文章已禁止评论</div>
         <div class="title">
           评论（{{ total }}）
         </div>
-        <CommentItemComponent :commentList="commentList" :emojiMap="emojiMap" :emojiNames="emojiNames" :type="type" :articleId="id" :article="article" :enable="article.isComment ? (article.isComment == '1') : true" @sendComment="refreshCommentList(id)" />
+        <CommentItemComponent
+          :commentList="commentList"
+          :emojiMap="emojiMap"
+          :emojiNames="emojiNames"
+          :type="type"
+          :articleId="id"
+          :enable="enable"
+          @sendComment="refreshCommentList(id)" />
         <div class="load" ref="load">
           <LoadingComponent v-if="isLoading" />
           {{ loadText }}
@@ -29,7 +42,7 @@ export default {
     'id',
     //评论类型 0代表文章评论，1代表友链评论
     'type',
-    'article'
+    'enable'
   ],
   emits: [
     'updateTotal'

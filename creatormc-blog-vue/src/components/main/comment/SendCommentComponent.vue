@@ -32,8 +32,7 @@ export default {
     //所回复的目标评论的userid
     toCommentUserId: "-1",
     //回复目标评论id
-    toCommentId: "-1",
-    article: Object
+    toCommentId: "-1"
   },
   emits: [
     'sendComment'
@@ -61,10 +60,6 @@ export default {
     addComment() {
       if(this.text == "") {
         ElMessage.warning("评论内容不能为空");
-        return;
-      }
-      if(!this.article.id) {
-        ElMessage.error("文章不存在");
         return;
       }
       this.isLoading = true;

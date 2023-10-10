@@ -23,7 +23,12 @@
             <div class="content" v-html="article.content"></div>
             <LikeComponent ref="like" :id="id" :article="article" @updateLikeCount="updateLikeCount" @updateIsLiked="updateIsLiked" />
           </el-card>
-          <CommentComponent ref="comment" :id="id" type="0" :article="article" @updateTotal="updateCommentTotal" />
+          <CommentComponent ref="comment"
+            :id="id"
+            type="0"
+            :enable="article && article.isComment ? (article.isComment == '1') : false"
+            @updateTotal="updateCommentTotal"
+          />
         </el-col>
         <RightSideComponent>
           <DirectoryComponent ref="directory" />
