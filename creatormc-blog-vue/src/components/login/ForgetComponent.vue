@@ -142,7 +142,7 @@ export default {
           let timer = setInterval(() => {
             this.sendVCodeButtonText = `已发送(${second})`;
             second--;
-            if(second <= 0) {
+            if(second < 0) {
               this.sendVCodeButtonText = '发送验证码';
               this.isDisableSendEmail = false;
               clearInterval(timer);
@@ -159,20 +159,25 @@ export default {
      * 更新用户密码
      */
     updateUserPassword() {
-      this.isMakeSure = true;
-      updateUserPassword({
-        email: this.form.email,
-        vCode: this.form.vCode,
-        password: this.form.password,
-        uuid: this.uuid
-      }).then((response) => {
-        if(response != null) {
-          ElMessage.success("更新成功");
-          //返回登录界面
-          this.$emit('showLogin');
+      //校验表单
+      this.$refs["form"].validate((valid) => {
+        if (valid) {
+          this.isMakeSure = true;
+          updateUserPassword({
+            email: this.form.email,
+            vCode: this.form.vCode,
+            password: this.form.password,
+            uuid: this.uuid
+          }).then((response) => {
+            if(response != null) {
+              ElMessage.success("更新成功");
+              //返回登录界面
+              this.$emit('showLogin');
+            }
+          }).finally(() => {
+            this.isMakeSure = false;
+          });
         }
-      }).finally(() => {
-        this.isMakeSure = false;
       });
     }
   }
