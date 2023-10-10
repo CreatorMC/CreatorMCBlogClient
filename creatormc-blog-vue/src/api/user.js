@@ -51,3 +51,12 @@ export function updateUserInfo(file, email, nickName, sex) {
     }
   })
 }
+
+/**
+ * 更新用户密码
+ * @param {*} data 
+ * @returns 
+ */
+export function updateUserPassword(data) {
+  return service.put("/user/userPassword", data);
+}

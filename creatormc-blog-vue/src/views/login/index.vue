@@ -1,8 +1,9 @@
 <template>
   <div id="father">
     <div id="container">
-      <LoginComponent v-if="showIndex == 0" @showRegister="showRegister" />
+      <LoginComponent v-if="showIndex == 0" @showRegister="showRegister" @showForget="showForget" />
       <RegisterComponent v-else-if="showIndex == 1" @showLogin="showLogin" />
+      <ForgetComponent v-else-if="showIndex == 2" @showLogin="showLogin" />
     </div>
     <el-image class="bg-img" :src="backgroundImg" fit="cover" draggable="false" @contextmenu="rightClick"></el-image>
   </div>
@@ -12,6 +13,7 @@
 import { getRandomImg } from '@/api/login';
 import LoginComponent from '@/components/login/LoginComponent.vue';
 import RegisterComponent from '@/components/login/RegisterComponent.vue';
+import ForgetComponent from '../../components/login/ForgetComponent.vue';
 
 export default {
   data() {
@@ -35,6 +37,12 @@ export default {
     showLogin() {
       this.showIndex = 0;
     },
+    /**
+     * 显示忘记密码组件
+     */
+    showForget() {
+      this.showIndex = 2;
+    },
     rightClick(e) {
       //禁止右键保存图片
       e.preventDefault();
@@ -45,7 +53,7 @@ export default {
       this.backgroundImg = response.data;
     });
   },
-  components: { LoginComponent, RegisterComponent }
+  components: { LoginComponent, RegisterComponent, ForgetComponent }
 }
 </script>
 

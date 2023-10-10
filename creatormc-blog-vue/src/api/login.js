@@ -28,3 +28,12 @@ export function logout() {
 export function getRandomImg() {
   return service.get("/randomImg");
 }
+
+/**
+ * 发送验证码
+ * @param {*} email 
+ * @returns 
+ */
+export function sendEmailVCode(email) {
+  return service.post("/sendEmailVCode", email);
+}

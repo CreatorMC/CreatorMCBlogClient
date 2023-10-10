@@ -19,7 +19,7 @@
     </el-form-item>
     <div class="text-container">
       <el-button link @click="$emit('showRegister')">没有账号？立即注册</el-button>
-      <el-button link>忘记密码</el-button>
+      <el-button link @click="$emit('showForget')">忘记密码</el-button>
     </div>
     <el-form-item>
       <el-button class="login-button" type="primary" :loading="isLogin" @click="login">登录</el-button>
@@ -35,7 +35,8 @@ import { ElMessage } from 'element-plus';
 export default {
   name: "LoginComponent",
   emits: [
-    "showRegister"
+    "showRegister",
+    "showForget"
   ],
   data() {
     return {
