@@ -2,7 +2,7 @@
   <div>
     <div class="main-container">
       <div class="seat"></div>
-      <el-row :gutter="30">
+      <el-row :gutter="gutter">
         <el-col :sm="24" :md="16">
           <el-card class="body" shadow="never">
             <template #header>
@@ -66,6 +66,11 @@ export default {
   },
   mounted() {
     this.getAllLink();
+  },
+  computed: {
+    gutter() {
+      return window.innerWidth <= 800 ? 5 : 30;
+    }
   },
   components: { RightSideComponent, CommentComponent, ToTopComponent }
 }

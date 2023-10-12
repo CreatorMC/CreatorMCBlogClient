@@ -2,7 +2,7 @@
   <div>
     <div class="main-container">
       <div class="seat"></div>
-      <el-row :gutter="30">
+      <el-row :gutter="gutter">
         <el-col :sm="24" :md="16">
           <el-card class="body" shadow="never">
             <template #header>
@@ -36,6 +36,11 @@ import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 export default {
   data() {
     return {};
+  },
+  computed: {
+    gutter() {
+      return window.innerWidth <= 800 ? 5 : 30;
+    }
   },
   components: { RightSideComponent, ToTopComponent }
 }

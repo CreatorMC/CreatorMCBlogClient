@@ -3,7 +3,7 @@
     <StartScreenComponent v-if="isShowStratScreen && categoryId == null" @close="closeStartScreen" />
     <div id="main-container" class="main-container">
       <div class="seat"></div>
-      <el-row :gutter="30">
+      <el-row :gutter="gutter">
         <el-col :sm="24" :md="16">
           <ArticleListComponent :articles="articles" :isLoading="isLoading" :isDisable="isDisable" @loadMore="articleList" />
         </el-col>
@@ -67,6 +67,11 @@ export default {
   watch: {
     categoryId(val, oldVal) {
       this.articleList();
+    }
+  },
+  computed: {
+    gutter() {
+      return window.innerWidth <= 800 ? 5 : 30;
     }
   },
   components: { StartScreenComponent, ArticleListComponent, RightSideComponent, ToTopComponent }

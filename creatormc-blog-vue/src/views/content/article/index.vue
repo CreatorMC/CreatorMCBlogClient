@@ -2,7 +2,7 @@
   <div>
     <div id="main-container" class="main-container">
       <div class="seat"></div>
-      <el-row :gutter="30">
+      <el-row :gutter="gutter">
         <el-col :sm="24" :md="16">
           <el-card class="article" shadow="never">
             <template #header>
@@ -173,6 +173,11 @@ export default {
       this.getArticle();
       this.$refs.comment.cancelAjax();
       this.$refs.comment.refreshCommentList(val);
+    }
+  },
+  computed: {
+    gutter() {
+      return window.innerWidth <= 800 ? 5 : 30;
     }
   },
   components: { RightSideComponent, CommentComponent, ToTopComponent, LikeComponent, DirectoryComponent, SideBarComponent }
