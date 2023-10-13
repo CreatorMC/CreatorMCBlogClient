@@ -48,7 +48,6 @@
 import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 import { getSearchArticle } from '@/api/article';
 import router from '@/router';
-import DOMPurify from 'dompurify';
 import { ElMessage } from 'element-plus';
 
 export default {
