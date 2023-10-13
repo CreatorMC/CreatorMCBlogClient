@@ -22,7 +22,7 @@
               </template>
               <div>
                 <div v-if="item.highlightFields.summary" class="summary" v-html="item.highlightFields.summary ? item.highlightFields.summary[0] : ''"></div>
-                <div class="text" v-html="item.highlightFields.content ? clearHTML(item.highlightFields.content[0]) : ''"></div>
+                <div class="text" v-html="item.highlightFields.content ? item.highlightFields.content[0] : ''"></div>
               </div>
             </el-card>
           </router-link>
@@ -99,12 +99,6 @@ export default {
     changeToPage(value) {
       this.pageNum = value - 1;
       this.getSearchArticle();
-    },
-    /**
-     * 清除文本里的HTML标记，不清除em标签
-     */
-    clearHTML(text) {
-      return DOMPurify.sanitize(this.$markdown.parse(text), {ALLOWED_TAGS: ['em']});
     }
   },
   mounted() {
