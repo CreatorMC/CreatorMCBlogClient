@@ -60,6 +60,11 @@ const router = createRouter({
           component: () => import('../views/search/index.vue'),
           props: true
         },
+        {
+          path: "protocol",
+          name: "protocol",
+          component: () => import('../views/protocol/index.vue')
+        },
       ]
     },
     // 捕获所有未匹配到的路由

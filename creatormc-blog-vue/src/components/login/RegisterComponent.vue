@@ -23,6 +23,7 @@
     </div>
     <el-form-item>
       <el-button class="login-button" type="primary" :loading="isRegister" @click="register">注册</el-button>
+      <div class="login-button-protocol">注册即表示同意<router-link to="/index/protocol">用户协议</router-link></div>
     </el-form-item>
   </el-form>
 </template>
@@ -166,6 +167,15 @@ export default {
 <style lang="scss" scoped>
 .login-button {
   width: 100%;
+}
+.login-button-protocol {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--el-color-info-dark-2);
+  a {
+    text-decoration: none;
+  }
 }
 .text-container{
   display: flex;
