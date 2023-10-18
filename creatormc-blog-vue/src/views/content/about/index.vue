@@ -18,8 +18,13 @@
                 &emsp;&emsp;高中时，在学习上我表现出了对理科的天赋，在没有老师单独指导的情况下，能够理解的比别人快，还成为了班里的“理科状元”。但与之相反的是，文科比较差，尤其是英语，差的一塌糊涂......。高中时有一段时间让我感到很迷茫，在学校里混日子过，想着能过一天是一天。我是住校生，学校要求每两个星期才能回家一次，不能带手机等电子设备来学校，这也意味着我不能把时间用在我喜欢做的事上，每天只能在教室里学习那些课程，只因为了分数......。那段时间感觉是我活到现在最难熬的一段时光，每天看学校都跟监狱一样，天天数着还有几天就能回家，不过好在我并没有出心理问题......。对于我喜欢的事物，我会主动去钻研学习。高中我自学了Ps、Ae、Pr、Au（学这些是为了做Minecraft的作品），还学了HTML、C语言。<br><br>
                 &emsp;&emsp;到了大学，我对编程这件事豁然开朗，做Minecraft模组的技术也有了飞跃般的提升，忽然就对以前一些没有理解的东西理解了，这时我感觉自己被解放了，仿佛获得了新生一样。但是大一的课程还是很让我失望的，没有用的非专业课一堆，乱七八糟的活动对我来说也没有吸引力，我只想坐在电脑前敲代码。后来我逐渐发现，大学里教的技术太浅，或者太旧，无法满足我的要求，学了一年了，连个网站怎么搭建起来都不教，而且理论大于实践。我终于发现，想要满足自己，还是得靠自学。<br><br>
                 <strong>我的爱好？</strong><br>
-                &emsp;&emsp;我的爱好并不多，除了编程之外，我还喜欢看番、听电子音乐、玩MC、红警、音游等。最近不怎么看番了，很少有喜欢的，最近（2023年9月21日）一次看的应该是《孤独摇滚》。电子音乐的话，我涉猎的风格还是比较多的。常听的有Techno、HardStyle、HardCore、Trance、Bigroom、Progressive House、Electro House、Future Bounce、Future Rave。我喜欢在写代码的时候听这些音乐。我还没有去过电音节，希望在有生之年能去一次，感受下现场气氛。作为一个土生土长的北方人，我是希望到南方去生活的，感觉南方无论是经济上还是思想上都比北方要开放，各种电音节、漫展之类的活动也多在南方举办，人们对文化的包容度更高。
+                &emsp;&emsp;我的爱好并不多，除了编程之外，我还喜欢看番、听电子音乐、玩MC、红警、音游等。最近不怎么看番了，很少有喜欢的，最近（2023年9月21日）一次看的应该是《孤独摇滚》。电子音乐的话，我涉猎的风格还是比较多的。常听的有Techno、HardStyle、HardCore、Trance、Bigroom、Progressive
+                House、Electro House、Future Bounce、Future
+                Rave。我喜欢在写代码的时候听这些音乐。我还没有去过电音节，希望在有生之年能去一次，感受下现场气氛。作为一个土生土长的北方人，我是希望到南方去生活的，感觉南方无论是经济上还是思想上都比北方要开放，各种电音节、漫展之类的活动也多在南方举办，人们对文化的包容度更高。
               </p>
+              <viewer :images="photo">
+                <img v-for="(src, index) in photo" :src="src" :key="index" />
+              </viewer>
             </div>
           </el-card>
         </el-col>
@@ -35,7 +40,13 @@ import RightSideComponent from '@/components/content/index/RightSideComponent.vu
 import ToTopComponent from '@/components/utils/ToTopComponent.vue';
 export default {
   data() {
-    return {};
+    return {
+      photo: [
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/300/200",
+        "https://picsum.photos/250/200"
+      ]
+    };
   },
   computed: {
     gutter() {
@@ -50,6 +61,7 @@ export default {
 .body {
   position: relative;
   margin-bottom: 30px;
+
   h1 {
     margin-top: 10px;
     margin-bottom: 10px;

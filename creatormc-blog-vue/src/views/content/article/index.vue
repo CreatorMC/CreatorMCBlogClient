@@ -20,7 +20,7 @@
                 </h2>
               </div>
             </template>
-            <div class="content" v-html="article.content"></div>
+            <div v-viewer="{movable: false}" class="content" v-html="article.content"></div>
             <LikeComponent ref="like" :id="id" :article="article" @updateLikeCount="updateLikeCount" @updateIsLiked="updateIsLiked" />
           </el-card>
           <CommentComponent ref="comment"

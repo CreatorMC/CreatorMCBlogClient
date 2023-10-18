@@ -15,6 +15,10 @@ import { Marked } from 'marked'                                 //引入 Marked 
 import { markedHighlight } from "marked-highlight"              //引入 markedHighlight 用于代码高亮
 import hljs from 'highlight.js'                                 //引入 highlight.js 用于代码高亮
 import 'highlight.js/styles/atom-one-dark.css'                  //引入 highlight.js 的样式
+// 引入图片放大缩小插件
+import 'viewerjs/dist/viewer.css'
+import VueViewer from 'v-viewer'
+
 
 import App from './App.vue'
 
@@ -33,6 +37,7 @@ app.use(ElementPlus)
 app.use(router)
 app.use(pinia)
 app.use(mavonEditor)
+app.use(VueViewer)
 
 //定义全局属性
 app.config.globalProperties.$nprogress = NProgress  //页面顶部加载进度条
@@ -44,6 +49,9 @@ app.config.globalProperties.$markdown = new Marked(markedHighlight({
     return hljs.highlight(code, { language }).value;
   }
 }))
+// Viewer.setDefaults({
+//   Options: { 'inline': true, 'button': true, 'navbar': true, 'title': true, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': true, 'scalable': true, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source' }
+// })
 
 //自定义marked的标题渲染，添加一个特殊的类名，便于获取元素
 const renderer = {
