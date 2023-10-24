@@ -15,6 +15,8 @@ import { Marked } from 'marked'                                 //引入 Marked 
 import { markedHighlight } from "marked-highlight"              //引入 markedHighlight 用于代码高亮
 import hljs from 'highlight.js'                                 //引入 highlight.js 用于代码高亮
 import 'highlight.js/styles/atom-one-dark.css'                  //引入 highlight.js 的样式
+import 'viewerjs/dist/viewer.css'                               //引入 v-viewer 的样式
+import VueViewer from 'v-viewer'                                //引入 v-viewer
 
 import App from './App.vue'
 
@@ -33,6 +35,7 @@ app.use(ElementPlus)
 app.use(router)
 app.use(pinia)
 app.use(mavonEditor)
+app.use(VueViewer)
 
 //定义全局属性
 app.config.globalProperties.$nprogress = NProgress  //页面顶部加载进度条

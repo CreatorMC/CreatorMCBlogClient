@@ -48,7 +48,7 @@ export default {
       this.isLoading = true;
       articleList(this.pageNum, this.pageSize, this.categoryId).then((response) => {
         if(response != null) {
-          this.articles = response.data.rows;
+          this.articles.push(...response.data.rows)
           this.isLoading = false;
           let maxPage = Math.ceil(parseFloat(response.data.total) / this.pageSize)
           if(this.pageNum >= maxPage) {
