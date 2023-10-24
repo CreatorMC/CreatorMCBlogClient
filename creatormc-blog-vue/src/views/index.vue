@@ -13,7 +13,7 @@
             <router-link to="/index/about">关于我</router-link>
           </p>
           <div>
-            <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2023035301号-1</a>
+            <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2023035301号</a>
           </div>
         </div>
       </el-footer>
