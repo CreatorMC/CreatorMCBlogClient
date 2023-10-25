@@ -172,7 +172,7 @@ export default {
   width: 100%;
   text-align: center;
   font-size: 0.9em;
-  color: var(--el-color-info-dark-2);
+  color: black;
   a {
     text-decoration: none;
   }

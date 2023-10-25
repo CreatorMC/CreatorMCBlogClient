@@ -66,6 +66,11 @@ export default {
   },
   watch: {
     categoryId(val, oldVal) {
+      //重置相关属性
+      this.pageNum = 1;
+      this.pageSize = 10;
+      this.articles = [];
+      //重新请求
       this.articleList();
     }
   },
