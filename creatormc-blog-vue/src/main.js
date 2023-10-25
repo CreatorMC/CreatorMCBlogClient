@@ -13,6 +13,7 @@ import '@/styles/empty.scss'                                    //引入一个�
 import IconSVG from '@/components/utils/IconSVGComponent.vue'   //引入自定义的图标组件
 import { Marked } from 'marked'                                 //引入 Marked 用于渲染 Markdown
 import { markedHighlight } from "marked-highlight"              //引入 markedHighlight 用于代码高亮
+import markedKatex from "marked-katex-extension"                //引入 markedKatex 用于支持数学公式
 import hljs from 'highlight.js'                                 //引入 highlight.js 用于代码高亮
 import 'highlight.js/styles/atom-one-dark.css'                  //引入 highlight.js 的样式
 import 'viewerjs/dist/viewer.css'                               //引入 v-viewer 的样式
@@ -58,6 +59,7 @@ const renderer = {
   }
 };
 app.config.globalProperties.$markdown.use({ renderer })
+app.config.globalProperties.$markdown.use(markedKatex({ throwOnError: false }))
 
 app.mount('#app')
 
