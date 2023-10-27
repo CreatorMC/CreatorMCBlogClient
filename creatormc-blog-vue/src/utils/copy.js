@@ -7,7 +7,7 @@
 export function copyText(t, success, fail) {
   // 如果当前浏览器版本不兼容navigator.clipboard
   if (!navigator.clipboard) {
-    var ele = document.createElement("input");
+    var ele = document.createElement("textarea");
     ele.value = t;
     document.body.appendChild(ele);
     ele.select();
