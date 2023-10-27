@@ -30,8 +30,8 @@ export default {
 <!-- 全局样式 -->
 <style lang="scss">
 body {
-  margin: 0 calc((100vw - 100%) * -1) 0 0;
-  padding-right: calc(100vw - 100%);
+  min-width: 100vw !important;
+  margin: 0;
   overflow-x: hidden;
   background-color: #efefef;
 }
