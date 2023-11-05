@@ -32,7 +32,7 @@ export default defineConfig(({ command, mode }) => {
     server: {
       proxy: {
         [baseURL]: {
-          target: command == 'serve' ? 'http://127.0.0.1:8989' : 'http://39.98.73.138:8989',
+          target: command == 'serve' ? 'http://127.0.0.1:8989' : 'http://121.196.216.156:8989',
           changeOrigin: true,
           rewrite: (path) => path.replace(new RegExp(`^${baseURL}`), '')
         }
