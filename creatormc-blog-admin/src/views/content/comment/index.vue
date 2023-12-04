@@ -18,7 +18,7 @@
       </el-form-item>
     </el-form>
     <div>
-      <el-button type="danger" plain :disabled="isDisableDelete" @click="deleteSelectedCategory">
+      <el-button type="danger" plain :disabled="isDisableDelete" @click="deleteSelectedComment">
         <el-icon><Delete /></el-icon>
         <span>删除</span>
       </el-button>
@@ -33,7 +33,7 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <div class="operation-cell">
-            <el-button type="danger" link @click="deleteCategory([scope.row.id])">
+            <el-button type="danger" link @click="deleteComment([scope.row.id])">
               <el-icon><Delete /></el-icon>
               <span>删除</span>
             </el-button>
@@ -48,17 +48,13 @@
       :total="total"
       @get-table-data="getTableData"
     />
-    <!-- 编辑评论组件 -->
-    <EditCategoryComponent ref="editDialog" @get-table-data="getTableData" />
   </div>
 </template>
 
 <script>
 import { ElMessage, ElMessageBox } from 'element-plus';
 import PaginationComponent from '@/components/utils/PaginationComponent.vue';
-import { deleteCategory, changeCategoryStatus } from '@/api/category';
-import EditCategoryComponent from '@/components/content/category/EditCategoryComponent.vue';
-import { getPageCommentList } from '@/api/comment';
+import { getPageCommentList, deleteComment } from '@/api/comment';
 
 export default {
   data() {
@@ -102,7 +98,7 @@ export default {
     /**
      * 删除评论
      */
-    deleteCategory(ids) {
+    deleteComment(ids) {
       ElMessageBox.confirm(
         `确定要删除选中的评论吗？`,
         '警告',
@@ -113,7 +109,7 @@ export default {
         }
       ).then(() => {
         //确认
-        deleteCategory(ids).then((response) => {
+        deleteComment(ids).then((response) => {
           if (response != null) {
             ElMessage.success("删除成功");
             //刷新数据
@@ -127,13 +123,13 @@ export default {
     /**
      * 删除选中的评论
      */
-    deleteSelectedCategory() {
+    deleteSelectedComment() {
       let selectedList = this.$refs['table'].getSelectionRows();
       let ids = [];
-      selectedList.forEach(article => {
-        ids.push(article.id);
+      selectedList.forEach(comment => {
+        ids.push(comment.id);
       });
-      this.deleteCategory(ids);
+      this.deleteComment(ids);
     },
     /**
      * 表格的选择项发生改变时触发
@@ -150,7 +146,7 @@ export default {
   mounted() {
     this.getTableData();
   },
-  components: { PaginationComponent, EditCategoryComponent }
+  components: { PaginationComponent }
 }
 </script>
 
