@@ -28,7 +28,7 @@ export default defineConfig(({ command, mode }) => {
       proxy: {
         [baseURL]: {
           secure: false,
-          target: command == 'serve' ? 'https://127.0.0.1:8082' : 'https://121.196.216.156:8082',
+          target: command == 'serve' ? 'http://127.0.0.1:8082' : 'http://121.196.216.156:8082',
           changeOrigin: true,
           rewrite: (path) => path.replace(new RegExp(`^${baseURL}`), '')
         }
