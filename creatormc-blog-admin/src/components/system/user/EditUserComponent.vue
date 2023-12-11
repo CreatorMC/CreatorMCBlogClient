@@ -45,6 +45,8 @@ export default {
           // type;
           // //账号状态（0正常 1停用）
           // status: "0"
+          // //封禁结束时间
+          // banEndTime;
         }
       },
       //是否显示编辑用户信息对话框

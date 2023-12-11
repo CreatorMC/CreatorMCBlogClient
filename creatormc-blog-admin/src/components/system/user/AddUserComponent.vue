@@ -49,7 +49,9 @@ export default {
           //账号状态（0正常 1停用）
           status: "0",
           //用户所关联的角色id列表（请求用）
-          roleIds: []
+          roleIds: [],
+          //封禁结束时间
+          banEndTime: null
         }
       },
       //对话框是否在加载

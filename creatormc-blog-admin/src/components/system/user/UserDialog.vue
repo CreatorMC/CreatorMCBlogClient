@@ -54,6 +54,14 @@
           <el-option v-for="item in dialogData.roles" :label="item.roleName" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="封禁时间">
+        <el-date-picker
+          class="auto-width"
+          v-model="dialogData.user.banEndTime"
+          type="datetime"
+          placeholder="不填则不封禁"
+        />
+      </el-form-item>
       <el-form-item prop="type" label="用户类型">
         <el-radio-group v-model="dialogData.user.type">
           <el-radio label="0">普通用户</el-radio>
