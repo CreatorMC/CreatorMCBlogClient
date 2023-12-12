@@ -20,7 +20,7 @@
                 </h2>
               </div>
             </template>
-            <div v-viewer class="content" v-html="article.content"></div>
+            <div v-viewer class="custom-markdown-style" v-html="article.content"></div>
             <LikeComponent ref="like" :id="id" :article="article" @updateLikeCount="updateLikeCount" @updateIsLiked="updateIsLiked" />
           </el-card>
           <CommentComponent ref="comment"
@@ -233,17 +233,6 @@ export default {
     h2 {
       font-size: 12px;
     }
-  }
-}
-</style>
-
-<style lang="scss">
-.content {
-  img {
-    width: 100%;
-  }
-  code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   }
 }
 </style>
