@@ -103,7 +103,7 @@ service.interceptors.response.use(function (response) {
   if(error.code != "ERR_CANCELED") {
     ElMessage.error(error);
   }
-  return error;
+  return null;
 });
 
 export default service
